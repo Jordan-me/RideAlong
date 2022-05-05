@@ -6,8 +6,8 @@ const GET_INSTANCE_ENDPOINT =
     const data = await fetch(GET_USER_ENDPOINT, {
       method: "GET",
       mode: "cors",
-      headers: {
-        // "Access-Control-Allow-Origin": "*",
+      headers: { 
+        
         "Accept": "application/json",
       },
       
