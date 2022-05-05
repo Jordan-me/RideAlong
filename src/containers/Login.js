@@ -38,7 +38,7 @@ function Login() {
                 </Form.Group>
               </Form>
             </div>
-            <Button className="rounded-5" variant="outline-dark" >LOGIN</Button>
+            <Button className="rounded-5" variant="outline-dark" style={{borderRadius: "500px"}} >LOGIN</Button>
             <br/><br/>
             <hr style={{width:"70%", display:"inline-block"}}></hr>
             <h5><strong>Don't have an account?</strong></h5>

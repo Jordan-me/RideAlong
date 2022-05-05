@@ -4,13 +4,24 @@ import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import Logo from "../assets/images/logo2.png";
 import { postUser } from "../data/data";
+import useGeoLocation from "../components/useGeoLocation";
+
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const location = useGeoLocation();
+
+  const [validated, setValidated] = useState(false);
   const handleSignUp = (e) => {
-    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+
     const user = {
       username: firstName + "_" + lastName,
       firstName: firstName,
@@ -18,10 +29,24 @@ const SignUp = () => {
       email: email,
       role: "player",
       avatar: "asd.jpg",
+      lat: location.coordinates.lat,
+      lng: location.coordinates.lng,
     };
     postUser(user);
     console.log("user: " + firstName, lastName, password, email);
   };
+
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   const myStyle = {
     backgroundColor: "#DAAD86",
     position: "relative",
@@ -83,6 +108,37 @@ const SignUp = () => {
                     />
                   </Form.Group>
                 </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Control 
+                    type="date" 
+                    name='date_of_birth' 
+                    
+                     />
+                </Col>
+                <Col xs={12} md={8}>
+                  <Form.Select aria-label="Default select example" style={{marginTop: "10px"}} >
+                    <option>Select gender</option>
+                    <option value="1">Female</option>
+                    <option value="2">Man</option>
+                    <option value="3">Unknown</option>
+                  </Form.Select>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Check
+                      required
+                      name="terms"
+                      label="Agree to terms and conditions"
+                      feedbackType="invalid"
+                      style={{ marginTop: "10px" }}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col></Col>
               </Row>
               <Button
                 type="submit"
