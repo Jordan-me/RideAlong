@@ -39,3 +39,16 @@ export const postUser = async (user) => {
     body: JSON.stringify(user),
   });
 };
+
+export const getUser = async (userEmail) => {
+  console.log(JSON.stringify(userEmail));
+  const data = await fetch(GET_USER_ENDPOINT, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  return data;
+};

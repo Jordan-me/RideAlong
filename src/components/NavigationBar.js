@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, NavLink } from "react-bootstrap";
 import Logo from "../assets/images/logo2.png"; //  src/images
 export const NavigationBar = () => (
   <>
@@ -19,7 +19,9 @@ export const NavigationBar = () => (
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link

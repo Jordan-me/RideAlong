@@ -82,7 +82,6 @@ function About() {
               </div>
             </div>
           </div>
-
           <div className="col-md-6 col-lg-3">
             <div className="card bg-light rounded-3">
               <div className="card-body text-center">
