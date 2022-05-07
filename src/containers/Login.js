@@ -1,18 +1,33 @@
-import React from "react";
-import { Row, Col, Container, Form, Button } from "react-bootstrap";
+import React, { Component, useState } from "react";
+import { Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
-import Logo from "../assets/images/logo2.png";
-import { Navigate, useNavigate } from "react-router-dom";
-function Login() {
+import { fetchUser, fetchInstanceByName } from "../data/data";
+import { useNavigate, Navigate, Route } from "react-router-dom";
+const Login = () => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
-  const handleLogin = (e) => {
-    navigate("/", {
-      state: {
-        userId: "12AA",
-        userInfo: "Mark, 23",
-      },
-    });
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      let user = fetchUser(email).then((data) => {
+        console.error(data);
+      });
+      let extra = fetchInstanceByName(email).then((data) => {
+        console.error(data);
+      });
+      if (user != null) {
+        navigate("/myProfile");
+      }
+    }
+
+    setValidated(true);
   };
   const myStyle = {
     backgroundColor: "#DAAD86",
@@ -21,7 +36,8 @@ function Login() {
     paddingTop: "150px",
     margin: "0",
     textAlign: "center",
-    height: "100vh",
+    height: "100%",
+    paddingBottom: "10px",
   };
   const imgStyle = {
     height: "100%",
@@ -33,29 +49,50 @@ function Login() {
           <h1>RideAlong</h1>
           <hr></hr>
           <div className="color-overlay d-flex justify-content-center">
-            <Form className="rounded p-4 p-md-3 ">
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form
+              noValidate
+              validated={validated}
+              onSubmit={handleSubmit}
+              className="rounded p-4 p-md-3 "
+            >
+              <Form.Group className="mb-2" md="4" controlId="formBasicEmail">
                 <Form.Label>Email Address</Form.Label>
-                <Form.Control type="email" placeholder="Enter Email" />
+                <Form.Control
+                  required
+                  type="email"
+                  placeholder="Enter Email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-2" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="password" />
+
+                <Form.Control
+                  required
+                  type="password"
+                  placeholder="password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
               </Form.Group>
+
+              <Button
+                type="submit"
+                className="rounded-5"
+                variant="outline-dark"
+                style={{ borderRadius: "500px" }}
+              >
+                LOGIN
+              </Button>
             </Form>
           </div>
-          <Button
-            className="rounded-5"
-            variant="outline-dark"
-            style={{ borderRadius: "500px" }}
-            onClick={handleLogin}
-          >
-            LOGIN
-          </Button>
           <br />
           <br />
           <hr style={{ width: "70%", display: "inline-block" }}></hr>
@@ -83,5 +120,5 @@ function Login() {
       <Footer />
     </>
   );
-}
+};
 export { Login };

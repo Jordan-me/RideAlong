@@ -9,12 +9,8 @@ import { MyProfile } from "./containers/MyProfile";
 import { Chat } from "./containers/Chat";
 import { NoMatch } from "./containers/NoMatch";
 import { NavigationBar } from "./components/NavigationBar";
-import { fetchData, fetchUser, fetchInstance } from "./data/data";
 const App = () => {
-  useEffect(() => {
-    fetchUser().then((data) => console.log(data));
-    fetchInstance().then((data) => console.log(data));
-  }, []);
+
   return (
     //set
     <BrowserRouter>
