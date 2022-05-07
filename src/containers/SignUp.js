@@ -4,13 +4,24 @@ import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import Logo from "../assets/images/logo2.png";
 import { postUser } from "../data/data";
+import useGeoLocation from "../components/useGeoLocation";
+
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const location = useGeoLocation();
+
+  const [validated, setValidated] = useState(false);
   const handleSignUp = (e) => {
-    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+
     const user = {
       username: firstName + "_" + lastName,
       firstName: firstName,
@@ -18,10 +29,23 @@ const SignUp = () => {
       email: email,
       role: "player",
       avatar: "asd.jpg",
+      lat: location.coordinates.lat,
+      lng: location.coordinates.lng,
     };
     postUser(user);
     console.log("user: " + firstName, lastName, password, email);
   };
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   const myStyle = {
     backgroundColor: "#DAAD86",
     position: "relative",
@@ -41,7 +65,98 @@ const SignUp = () => {
           <h1>RideAlong</h1>
           <hr></hr>
           <div className="color-overlay d-flex justify-content-center">
-            <Form onSubmit={handleSignUp} className="rounded p-4 p-md-3 ">
+            <Form
+              noValidate
+              validated={validated}
+              onSubmit={handleSubmit}
+              className="rounded p-4 p-md-3 "
+            >
+              <Row className="mb-3" style={{ paddingBottom: "10px" }}>
+                <Form.Group as={Col} md="4" controlId="validationCustom01">
+                  <Form.Control required type="text" placeholder="First name" />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustom02">
+                  <Form.Control required type="text" placeholder="Last name" />
+                </Form.Group>
+              </Row>
+              <Row className="mb-3">
+                <Form.Group as={Col} md="4" controlId="validationCustom02">
+                  <Form.Select
+                    className="form-select"
+                    id="validationCustom04"
+                    required
+                  >
+                    <option selected disabled value="">
+                      Select gender
+                    </option>
+                    <option value="1">Female</option>
+                    <option value="2">Man</option>
+                    <option value="3">Unknown</option>
+                  </Form.Select>
+                  <div className="invalid-feedback">Please select gender.</div>
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustom02">
+                  <Form.Control required type="date" name="date_of_birth" />
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group
+                  className="mb-2"
+                  as={Row}
+                  md="4"
+                  controlId="formBasicEmail"
+                >
+                  <Form.Control
+                    required
+                    type="email"
+                    placeholder="Enter Email"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+              <Form.Group className="mb-2" as={Row} controlId="formBasicPassword">
+                    <Form.Control
+                      required type="password"
+                      placeholder="password"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+              </Row>
+              <Row>
+                <Col>
+              <Form.Group className="mb-3" >
+                    <Form.Check
+                      required
+                      name="terms"
+                      label="Agree to terms and conditions"
+                      feedbackType="invalid"
+                      style={{ marginTop: "10px" }}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Button
+                type="submit"
+                className="rounded-5"
+                variant="outline-dark"
+                style={{ borderRadius: "500px", marginTop: "20px" }}
+              >
+                REGISTER
+              </Button>
+            </Form>
+{/* 
+            <Form
+              noValidate
+              validated={validated}
+              onSubmit={handleSignUp}
+              className="rounded p-4 p-md-3 "
+            >
               <Row style={{ paddingBottom: "10px" }}>
                 <Col>
                   <Form.Control
@@ -84,7 +199,37 @@ const SignUp = () => {
                   </Form.Group>
                 </Col>
               </Row>
-              <Button
+              <Row>
+                <Col>
+                  <Form.Control type="date" name="date_of_birth" />
+                </Col>
+                <Col xs={12} md={8}>
+                  <Form.Select
+                    aria-label="Default select example"
+                    style={{ marginTop: "10px" }}
+                  >
+                    <option>Select gender</option>
+                    <option value="1">Female</option>
+                    <option value="2">Man</option>
+                    <option value="3">Unknown</option>
+                  </Form.Select>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Check
+                      required
+                      name="terms"
+                      label="Agree to terms and conditions"
+                      feedbackType="invalid"
+                      style={{ marginTop: "10px" }}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col></Col>
+              </Row> */}
+              {/* <Button
                 type="submit"
                 className="rounded-5"
                 variant="outline-dark"
@@ -92,7 +237,7 @@ const SignUp = () => {
               >
                 REGISTER
               </Button>
-            </Form>
+            </Form> */}
           </div>
 
           <br />

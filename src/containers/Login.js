@@ -1,17 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import Logo from "../assets/images/logo2.png";
-import { getUser } from "../data/data";
 function Login() {
-  const [email, setEmail] = useState("");
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const fetchedEmail = await getUser(email);
-    console.log(fetchedEmail);
-  };
   const myStyle = {
     backgroundColor: "#DAAD86",
     position: "relative",
@@ -31,14 +23,10 @@ function Login() {
           <h1>RideAlong</h1>
           <hr></hr>
           <div className="color-overlay d-flex justify-content-center">
-            <Form onSubmit={handleLogin} className="rounded p-4 p-md-3 ">
+            <Form className="rounded p-4 p-md-3 ">
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email Address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <Form.Control type="email" placeholder="Enter Email" />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
@@ -48,17 +36,15 @@ function Login() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="password" />
               </Form.Group>
-              <Button
-                type="submit"
-                style={{ marginTop: "20px" }}
-                className="rounded-5"
-                variant="outline-dark"
-              >
-                LOGIN
-              </Button>
             </Form>
           </div>
-
+          <Button
+            className="rounded-5"
+            variant="outline-dark"
+            style={{ borderRadius: "500px" }}
+          >
+            LOGIN
+          </Button>
           <br />
           <br />
           <hr style={{ width: "70%", display: "inline-block" }}></hr>
