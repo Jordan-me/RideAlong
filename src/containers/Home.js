@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HeroSection } from "../components/HeroSection";
 import { FAQ } from "../components/FAQ";
 import { About } from "../components/About";
 import { Footer } from "../components/Footer";
-export const Home = () => (
-  <div>
-    <HeroSection />
+import { useLocation } from "react-router-dom";
+const Home = (props) => {
+  const location = useLocation();
+  useEffect(() => {
+    console.log(location);
+  }, []);
 
-    <FAQ />
+  return (
+    <div>
+      <HeroSection />
 
-    <About />
+      <FAQ />
 
-    <Footer/>
-  </div>
-);
+      <About />
+
+      <Footer />
+    </div>
+  );
+};
+export default Home;

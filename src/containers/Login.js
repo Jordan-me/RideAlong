@@ -3,7 +3,17 @@ import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import Logo from "../assets/images/logo2.png";
+import { Navigate, useNavigate } from "react-router-dom";
 function Login() {
+  const navigate = useNavigate();
+  const handleLogin = (e) => {
+    navigate("/", {
+      state: {
+        userId: "12AA",
+        userInfo: "Mark, 23",
+      },
+    });
+  };
   const myStyle = {
     backgroundColor: "#DAAD86",
     position: "relative",
@@ -42,6 +52,7 @@ function Login() {
             className="rounded-5"
             variant="outline-dark"
             style={{ borderRadius: "500px" }}
+            onClick={handleLogin}
           >
             LOGIN
           </Button>

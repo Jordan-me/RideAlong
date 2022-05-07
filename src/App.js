@@ -1,6 +1,6 @@
 import { useEffect, Component, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./containers/Home";
+import Home from "./containers/Home";
 import { Login } from "./containers/Login";
 import { SignUp } from "./containers/SignUp";
 import { TeamUp } from "./containers/TeamUp";
