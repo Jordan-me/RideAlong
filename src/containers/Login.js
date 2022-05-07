@@ -4,12 +4,26 @@ import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import { fetchUser, fetchInstanceByName } from "../data/data";
 import { useNavigate, Navigate, Route } from "react-router-dom";
+
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
-
+  useEffect(() => {
+ 
+    if(user && extra && extra.status != 404){
+      console.log(user);
+      console.log(extra);
+      navigate("/myProfile", {
+        state: {
+          userState: user,
+          extraState: extra,
+        },
+      });
+    }
+    
+  }, [user, extra])
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {}, [user, extra]);
@@ -22,35 +36,26 @@ const Login = () => {
     } else {
       await fetchUser(email)
         .then((jsonData) => {
-          console.log(jsonData);
+          // console.log(jsonData);
           setUser(jsonData);
         })
         .then(() => {
           fetchInstanceByName(email).then((jsonData) => {
-            console.log(jsonData);
+            // console.log(jsonData);
             setExtra(jsonData);
           });
-        })
-        .then(() => {
-          navigate("/myProfile", {
-            state: {
-              userState: user,
-              extraState: extra,
-            },
-          });
-          // if (extra.name == email) {
-          // } else alert("err user");
         });
-      // await fetchInstanceByName(email).then((jsonData) => {
-      //   console.log(jsonData);
-      //   setExtra(jsonData);
-      //   if (email != null) {
-      //     navigate("/myProfile", {
-      //       userState: user,
-      //       extraState: extra,
-      //     });
-      //   }
-      // });
+        // .then(() => {
+        //   navigate("/myProfile", {
+        //     state: {
+        //       userState: user,
+        //       extraState: extra,
+        //     },
+        //   });
+        // });
+          
+          
+  
     }
 
     setValidated(true);
