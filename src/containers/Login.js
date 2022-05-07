@@ -4,33 +4,6 @@ import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import { fetchUser, fetchInstanceByName } from "../data/data";
 import { useNavigate, Navigate, Route } from "react-router-dom";
-import { setUser, setExtendedUser } from "./MyProfile";
-// class loginClass extends Component() {
-//   constructor(props) {
-//     super(props);
-//     this.state = { user: "", extra: "" };
-//   }
-//   login = (email) => {
-//     fetchUser(email).then((res) => {
-//       if(res.success ===true){
-//         var user =  res.json();
-//         AsyncStorage.setItem('user',user);
-//         fetchInstanceByName(email).then((res2) => {
-//           var extendedUser =  res2.json();
-//           AsyncStorage.setItem('extra',extendedUser);
-        
-//         });
-
-//         this.props.navigator.push({
-//           id:'myProfile'
-//         });
-        
-//       }else{
-//         alert.apply(res.message);
-//       }
-//     });
-//   };
-// }
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -43,16 +16,11 @@ const Login = () => {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      // let loginComp = new loginClass();
-      // loginComp.login(email);
+
       let user = fetchUser(email).then((data) => {
-        // setUser(data);
-        // setUser(data);
         console.error(data);
       });
       let extra = fetchInstanceByName(email).then((data) => {
-        // setExtendedUser(data);
-        // setExtendedUser(data);
         console.error(data);
       });
       if (user != null) {
