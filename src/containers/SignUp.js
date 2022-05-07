@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Row, Col, Container, Form, Button } from "react-bootstrap";
+import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import Logo from "../assets/images/logo2.png";
-import { postUser } from "../data/data";
+import { postUser,postInstance } from "../data/data";
 import useGeoLocation from "../components/useGeoLocation";
 
 const SignUp = () => {
@@ -11,38 +11,34 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [avatar,setProfilePic] = useState("");
   const location = useGeoLocation();
 
   const [validated, setValidated] = useState(false);
-  const handleSignUp = (e) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setValidated(true);
-
-    const user = {
-      username: firstName + "_" + lastName,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      role: "player",
-      avatar: "asd.jpg",
-      lat: location.coordinates.lat,
-      lng: location.coordinates.lng,
-    };
-    postUser(user);
-    console.log("user: " + firstName, lastName, password, email);
-  };
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      const user = {
+        username: firstName + "_" + lastName,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        dob: dob,
+        gender: gender,
+        role: "player",
+        avatar: avatar,
+        lat: location.coordinates.lat,
+        lng: location.coordinates.lng,
+      };
+      postUser(user);
+      postInstance(user, "User");
     }
-
     setValidated(true);
   };
 
@@ -53,7 +49,8 @@ const SignUp = () => {
     paddingTop: "150px",
     margin: "0",
     textAlign: "center",
-    height: "100vh",
+    height: "100%",
+    paddingBottom: "10px",
   };
   const imgStyle = {
     height: "100%",
@@ -61,7 +58,7 @@ const SignUp = () => {
   return (
     <>
       <div style={myStyle}>
-        <Container>
+        <Container fluid="md">
           <h1>RideAlong</h1>
           <hr></hr>
           <div className="color-overlay d-flex justify-content-center">
@@ -72,41 +69,65 @@ const SignUp = () => {
               className="rounded p-4 p-md-3 "
             >
               <Row className="mb-3" style={{ paddingBottom: "10px" }}>
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
-                  <Form.Control required type="text" placeholder="First name" />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustom02">
-                  <Form.Control required type="text" placeholder="Last name" />
-                </Form.Group>
+                <Col>
+                  <Form.Group md="4" controlId="validationCustom01">
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="First name"
+                      onChange={(e) => {
+                        setFirstName(e.target.value);
+                      }}
+                    />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group md="4" controlId="validationCustom02">
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Last name"
+                      onChange={(e) => {
+                        setLastName(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-4">
+                <Col>
+                  <Form.Group md="4" controlId="validationCustom03">
+                    <Form.Select
+                      className="form-select"
+                      id="validationCustom04"
+                      onChange={(e) => {
+                        setGender(e.target.value);
+                      }}
+                      required
+                    >
+                      <option defaultValue="">Select gender</option>
+                      <option value="Female">Female</option>
+                      <option value="Man">Man</option>
+                      <option value="Unknown">Unknown</option>
+                    </Form.Select>
+                    <div className="invalid-feedback">
+                      Please select gender.
+                    </div>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group md="4" controlId="validationCustom05"> 
+                    <Form.Control required type="date"
+                    onChange={(e) => {
+                      setDob(e.target.value);
+                    }}
+                    name="date_of_birth" />
+                  </Form.Group>
+                </Col>
               </Row>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustom02">
-                  <Form.Select
-                    className="form-select"
-                    id="validationCustom04"
-                    required
-                  >
-                    <option selected disabled value="">
-                      Select gender
-                    </option>
-                    <option value="1">Female</option>
-                    <option value="2">Man</option>
-                    <option value="3">Unknown</option>
-                  </Form.Select>
-                  <div className="invalid-feedback">Please select gender.</div>
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustom02">
-                  <Form.Control required type="date" name="date_of_birth" />
-                </Form.Group>
-              </Row>
-              <Row className="mb-2">
-                <Form.Group
-                  className="mb-2"
-                  as={Row}
-                  md="4"
-                  controlId="formBasicEmail"
-                >
+                <Form.Group className="mb-2" md="4" controlId="formBasicEmail">
                   <Form.Control
                     required
                     type="email"
@@ -117,29 +138,43 @@ const SignUp = () => {
                   />
                 </Form.Group>
               </Row>
+              <Row className="mb-3">
+                <Form.Group className="mb-2" controlId="formBasicPassword">
+                  <Form.Control
+                    required
+                    type="password"
+                    placeholder="password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Row>
               <Row className="mb-2">
-              <Form.Group className="mb-2" as={Row} controlId="formBasicPassword">
-                    <Form.Control
-                      required type="password"
-                      placeholder="password"
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                    />
-                  </Form.Group>
+                <div className="input-group mb-3">
+                  <input
+                    required type="file"
+                    className="form-control"
+                    id="inputGroupFile01"
+                    onChange={(e) => {
+                      setProfilePic(e.target.value);
+                    }}
+                  />
+                </div>
               </Row>
               <Row>
                 <Col>
-              <Form.Group className="mb-3" >
+                  <Form.Group className="mb-3">
                     <Form.Check
                       required
                       name="terms"
-                      label="Agree to terms and conditions"
+                      label="Agree to terms & conditions"
                       feedbackType="invalid"
                       style={{ marginTop: "10px" }}
                     />
                   </Form.Group>
                 </Col>
+                <Col></Col>
               </Row>
               <Button
                 type="submit"
@@ -150,102 +185,11 @@ const SignUp = () => {
                 REGISTER
               </Button>
             </Form>
-{/* 
-            <Form
-              noValidate
-              validated={validated}
-              onSubmit={handleSignUp}
-              className="rounded p-4 p-md-3 "
-            >
-              <Row style={{ paddingBottom: "10px" }}>
-                <Col>
-                  <Form.Control
-                    placeholder="First name"
-                    onChange={(e) => {
-                      setFirstName(e.target.value);
-                    }}
-                  />
-                </Col>
-                <Col>
-                  <Form.Control
-                    placeholder="Last name"
-                    onChange={(e) => {
-                      setLastName(e.target.value);
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Group className="mb-2" controlId="formBasicEmail">
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter Email"
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control
-                      type="password"
-                      placeholder="password"
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Control type="date" name="date_of_birth" />
-                </Col>
-                <Col xs={12} md={8}>
-                  <Form.Select
-                    aria-label="Default select example"
-                    style={{ marginTop: "10px" }}
-                  >
-                    <option>Select gender</option>
-                    <option value="1">Female</option>
-                    <option value="2">Man</option>
-                    <option value="3">Unknown</option>
-                  </Form.Select>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Group className="mb-3">
-                    <Form.Check
-                      required
-                      name="terms"
-                      label="Agree to terms and conditions"
-                      feedbackType="invalid"
-                      style={{ marginTop: "10px" }}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col></Col>
-              </Row> */}
-              {/* <Button
-                type="submit"
-                className="rounded-5"
-                variant="outline-dark"
-                style={{ borderRadius: "500px", marginTop: "20px" }}
-              >
-                REGISTER
-              </Button>
-            </Form> */}
           </div>
-
-          <br />
-          <br />
           <hr style={{ width: "70%", display: "inline-block" }}></hr>
-          <h5>
+          <h6>
             <strong>Already have an account?</strong>
-          </h5>
+          </h6>
           <Button
             className="rounded-5"
             variant="outline-dark"
@@ -264,7 +208,9 @@ const SignUp = () => {
           />
         </Container>
       </div>
-      <Footer />
+      <div style={{ bottom: "0", width: "100%", position: "relative" }}>
+        <Footer />
+      </div>
     </>
   );
 };
