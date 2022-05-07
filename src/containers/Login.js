@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
@@ -7,24 +7,50 @@ import { useNavigate, Navigate, Route } from "react-router-dom";
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [user, setUser] = useState(null);
+  const [extra, setExtra] = useState(null);
 
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
+  useEffect(() => {}, [user, extra]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); //test mail: yardda2@gmail.com
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     } else {
-      let user = fetchUser(email).then((data) => {
-        console.error(data);
-      });
-      let extra = fetchInstanceByName(email).then((data) => {
-        console.error(data);
-      });
-      if (user != null) {
-        navigate("/myProfile");
-      }
+      await fetchUser(email)
+        .then((jsonData) => {
+          console.log(jsonData);
+          setUser(jsonData);
+        })
+        .then(() => {
+          fetchInstanceByName(email).then((jsonData) => {
+            console.log(jsonData);
+            setExtra(jsonData);
+          });
+        })
+        .then(() => {
+          navigate("/myProfile", {
+            state: {
+              userState: user,
+              extraState: extra,
+            },
+          });
+          // if (extra.name == email) {
+          // } else alert("err user");
+        });
+      // await fetchInstanceByName(email).then((jsonData) => {
+      //   console.log(jsonData);
+      //   setExtra(jsonData);
+      //   if (email != null) {
+      //     navigate("/myProfile", {
+      //       userState: user,
+      //       extraState: extra,
+      //     });
+      //   }
+      // });
     }
 
     setValidated(true);
