@@ -134,15 +134,15 @@ const MyProfile = (props) => {
                     </svg>
                   </div>
                   <div>
-                    <p className="mb-0"> "2877? reviews"</p>
+                    <p className="mb-0"> "2877? events"</p>
                   </div>
                 </div>
                 <hr />
-                {user ? <h6>{user.username.split("_")[0]}? Hobbies </h6> : null}
+                {user ? <h6>{user.username.split("_")[0]} Hobbies </h6> : null}
                 <ul className="text-muted card-text">
                   <li>Tennis?</li>
                   <li>Chess?</li>
-                  <li>Hiking?</li>
+                  <li>Dance?</li>
                 </ul>
               </Card.Body>
             </Card>
@@ -182,7 +182,7 @@ const MyProfile = (props) => {
               className="text-block"
               style={{ paddingTop: "32px", paddingBottom: "16px" }}
             >
-              <h4 className="mb-5">NAME?'s' top events</h4>
+              <h4 className="mb-5">{user.username.split("_")[0]}'s top events</h4>
               <Row>
                 <Col className="mb-30px hover-animate me-lg-4 me-sm-6">
                   <Card className="h-100 border-0 shadow">
