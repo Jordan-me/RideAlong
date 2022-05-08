@@ -95,14 +95,16 @@ const MyProfile = (props) => {
                   </div>
                 </div>
                 <h5>{user ? (user.username ? user.username : null) : null}</h5>
-                <p>
-                  {extra.instanceAttributes["dob"].split("-").length === 3
-                    ? Math.abs(
-                        new Date().getFullYear() -
-                          extra.instanceAttributes["dob"].split("-")[0]
-                      )
-                    : null}
-                </p>
+                {extra ? (
+                  <p>
+                    {extra.instanceAttributes["dob"].split("-").length === 3
+                      ? Math.abs(
+                          new Date().getFullYear() -
+                            extra.instanceAttributes["dob"].split("-")[0]
+                        )
+                      : null}
+                  </p>
+                ) : null}
                 {/* <p>{JSON.stringify(extra.instanceAttributes)}</p> */}
               </CardHeader>
               <Card.Body style={{ display: "block", padding: "24px" }}>
@@ -147,16 +149,20 @@ const MyProfile = (props) => {
           </Col>
           <Col className="ps-lg-5 me-lg-9">
             <h1 className="hero-heading mb-0">
-              {user ? <strong>Hello, I'm {user.username.replace("_"," ")}</strong> : null}
+              {user ? (
+                <strong>Hello, I'm {user.username.replace("_", " ")}</strong>
+              ) : null}
             </h1>
             <div className="text-block">
               <p>
-                <span
-                  className="badge text-secondary bg-secondary-light"
-                  style={{ color: "#e83e8c", backgroundColor: "#fce2ee" }}
-                >
-                  Joined in {extra.createdTimestamp.split("-")[0]}?
-                </span>
+                {extra ? (
+                  <span
+                    className="badge text-secondary bg-secondary-light"
+                    style={{ color: "#e83e8c", backgroundColor: "#fce2ee" }}
+                  >
+                    Joined in {extra.createdTimestamp.split("-")[0]}
+                  </span>
+                ) : null}
               </p>
               <div>
                 <p className="text-muted">
