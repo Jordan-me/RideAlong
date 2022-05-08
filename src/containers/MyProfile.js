@@ -136,7 +136,7 @@ const MyProfile = (props) => {
                   </div>
                 </div>
                 <hr />
-                {user ? <h6>{user.username}? Hobbies </h6> : null}
+                {user ? <h6>{user.username.split("_")[0]}? Hobbies </h6> : null}
                 <ul className="text-muted card-text">
                   <li>Tennis?</li>
                   <li>Chess?</li>
@@ -147,7 +147,7 @@ const MyProfile = (props) => {
           </Col>
           <Col className="ps-lg-5 me-lg-9">
             <h1 className="hero-heading mb-0">
-              {user ? <strong>Hello, I'm {user.username}</strong> : null}
+              {user ? <strong>Hello, I'm {user.username.replace("_"," ")}</strong> : null}
             </h1>
             <div className="text-block">
               <p>
@@ -155,7 +155,7 @@ const MyProfile = (props) => {
                   className="badge text-secondary bg-secondary-light"
                   style={{ color: "#e83e8c", backgroundColor: "#fce2ee" }}
                 >
-                  Joined in 2022?
+                  Joined in {extra.createdTimestamp.split("-")[0]}?
                 </span>
               </p>
               <div>
