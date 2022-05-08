@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
-import profile_image from "../assets/images/profile_image.jpg";
+import profile_image from "../assets/images/no-profile-pic.jpg";
+import "../cssFiles/MyProfile.css";
 const MyProfile = (props) => {
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
 
   useEffect(() => {
-    if(user && extra){
-      setUser(location.state.userState);
-      setExtra(location.state.extraState[0]);
+    setUser(location.state.userState);
+    setExtra(location.state.extraState[0]);
 
-    }
     console.log(user);
     console.log(extra);
   }, [user, extra]);
@@ -29,12 +28,11 @@ const MyProfile = (props) => {
         }}
       >
         <Row>
-          <Col className="lg-3 ms-lg-auto">
+          <Col className="lg-3 ms-lg-auto" style={{ width: "25%" }}>
             <Card className="border-0 shadow mb-6 mb-lg-0">
               <CardHeader
                 className="p-4 border-0 text-center"
                 style={{
-                  
                   background: "#F8F9FBa",
                   paddingTop: "24px",
                   paddingBottom: "24px",
@@ -42,31 +40,324 @@ const MyProfile = (props) => {
                   paddingRight: "19.2px",
                 }}
               >
-                <div className="avatar avatar-xxl p-2 mb-2">
+                <div
+                  className="avatar avatar-xxl p-2 mb-2"
+                  style={{
+                    border: "#dee2e6",
+                    position: "relative",
+                    display: "inline-block",
+                    borderRadius: "50%",
+                    boxShadow: "0 0 1rem rgb(0 0 0 / 15%)",
+                  }}
+                >
                   <div className="position-relative h-100 overflow-hidden rounded-circle">
-                    <span style ={{boxSizing: "border-box",
-                     display: "inline-block", overflow: "hidden", width: "144px", height: "144px", background: "none", opacity: "1",
-                      border: "0px", margin: "0px", padding: "0px", position: "relative"}}>
-
+                    <span
+                      style={{
+                        boxSizing: "border-box",
+                        display: "inline-block",
+                        overflow: "hidden",
+                        width: "144px",
+                        height: "144px",
+                        background: "none",
+                        opacity: "1",
+                        border: "0px",
+                        margin: "0px",
+                        padding: "0px",
+                        position: "relative",
+                      }}
+                    >
                       <img
                         src={profile_image}
-                        className="rounded-circle mb-3"
+                        className="rounded-circle me-3"
                         alt=""
                         // height="150px"
                         // width="150px"
-                        style={{margin:"0px",position: "absolute", inset: "0px", boxSizing: "border-box",
-                         padding: "0px", border: "none", display: "block", width: "0px", height: "0px", 
-                         minWidth: "100%", maxWidth: "100%", minHeight: "100%",maxHeight: "100%"}}
+                        style={{
+                          margin: "0px",
+                          position: "absolute",
+                          inset: "0px",
+                          boxSizing: "border-box",
+                          padding: "0px",
+                          border: "none",
+                          display: "block",
+                          width: "0px",
+                          height: "0px",
+                          minWidth: "100%",
+                          maxWidth: "100%",
+                          minHeight: "100%",
+                          maxHeight: "100%",
+                        }}
                       />
-                      </span>
+                    </span>
                   </div>
                 </div>
-                <p>MyProfile</p>
-                <h5>{user.username.replace("_", " ")}</h5>
+                <h5>USERNAME</h5>
+                <p>AGE?</p>
+                {/* <p>{JSON.stringify(extra.instanceAttributes)}</p> */}
               </CardHeader>
+              <Card.Body style={{ display: "block", padding: "24px" }}>
+                <div className="d-flex align-items-center me-3">
+                  <div
+                    className="icon-rounded icon-rounded-sm bg-primary-light me-2"
+                    style={{
+                      width: "3rem",
+                      height: "3rem",
+                      lineHeight: "3rem",
+                      backgroundColor: "#e4e8fe",
+                      display: "inline-block",
+                      borderRadius: "50%",
+                      textAlign: "center",
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      fill="currentColor"
+                      className="bi bi-award"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
+                      <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="mb-0"> "2877? reviews"</p>
+                  </div>
+                </div>
+                <hr />
+                <h6>USERNAME? Hobbies </h6>
+                <ul className="text-muted card-text">
+                  <li>Tennis?</li>
+                  <li>Chess?</li>
+                  <li>Hiking?</li>
+                </ul>
+              </Card.Body>
             </Card>
           </Col>
-          <Col>bla bka</Col>
+          <Col className="ps-lg-5 me-lg-9">
+            <h1 className="hero-heading mb-0">
+              <strong>Hello, I'm USERNAME?!</strong>
+            </h1>
+            <div className="text-block">
+              <p>
+                <span
+                  className="badge text-secondary bg-secondary-light"
+                  style={{ color: "#e83e8c", backgroundColor: "#fce2ee" }}
+                >
+                  Joined in 2022?
+                </span>
+              </p>
+              <div>
+                <p className="text-muted">
+                  DESCRIPTION? Samsa was a travelling salesman - and above it
+                  there hung a picture that he had recently cut out of an
+                  illustrated magazine and housed in a nice, gilded frame.
+                </p>
+                <p className="text-muted">
+                  He must have tried it a hundred times, shut his eyes so that
+                  he wouldn't have to look at the floundering legs, and only
+                  stopped when he began to feel a mild, dull pain there that he
+                  had never felt before.{" "}
+                </p>
+              </div>
+            </div>
+            <div
+              className="text-block"
+              style={{ paddingTop: "32px", paddingBottom: "16px" }}
+            >
+              <h4 className="mb-5">NAME?'s' top events</h4>
+              <Row>
+                <Col className="mb-30px hover-animate me-lg-4 me-sm-6">
+               
+                  <Card className="h-100 border-0 shadow">
+                    <div className="card-img-top overflow-hidden gradient-overlay">
+                      <span className="event-card">
+                        <span
+                          style={{
+                            boxSizing: "border-box",
+                            display: "block",
+                            width: "initial",
+                            height: "initial",
+                            background: "none",
+                            opacity: "1",
+                            border: "0px",
+                            margin: "0px",
+                            padding: "66.6667% 0px 0px",
+                          }}
+                        >
+                          <img
+                            src={profile_image}
+                            className="img-fluid"
+                            sizes="(max-width:576px) 100vw, (max-width:991px) 50vw, (max-width:1149px) 30vw, 280px"
+                            alt=""
+                            // height="150px"
+                            // width="150px"
+                            style={{
+                              position: "absolute",
+                              inset: "0px",
+                              boxSizing: "border-box",
+                              padding: "0px",
+                              border: "none",
+                              margin: "auto",
+                              display: "block",
+                              width: "0px",
+                              height: "0px",
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              minHeight: "100%",
+                              maxHeight: "100%",
+                            }}
+                          />
+                        </span>
+                      </span>
+                    </div>
+                    <Card.Body>
+                      <div className="d-flex align-items-center card-body">
+                        <div className="w-100">
+                          <h6 className="card-title">
+                            Event title
+                          </h6>
+                          <div className="d-flex mb-3 card-subtitle">
+                            <p className="flex-grow-1 mb-0 text-muted text-sm">
+                              Event
+                            </p>
+                          </div>
+                          <p className="text-muted card-text">
+                            <span className="h4 text-primary">amount?</span>reviews 
+                          </p>
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col  className="mb-30px hover-animate me-lg-4 me-sm-6">
+                  <Card className="h-100 border-0 shadow">
+                    <div className="card-img-top overflow-hidden gradient-overlay">
+                      <span className="event-card">
+                        <span
+                          style={{
+                            boxSizing: "border-box",
+                            display: "block",
+                            width: "initial",
+                            height: "initial",
+                            background: "none",
+                            opacity: "1",
+                            border: "0px",
+                            margin: "0px",
+                            padding: "66.6667% 0px 0px",
+                          }}
+                        >
+                          <img
+                            src={profile_image}
+                            className="img-fluid"
+                            sizes="(max-width:576px) 100vw, (max-width:991px) 50vw, (max-width:1149px) 30vw, 280px"
+                            alt=""
+                            // height="150px"
+                            // width="150px"
+                            style={{
+                              position: "absolute",
+                              inset: "0px",
+                              boxSizing: "border-box",
+                              padding: "0px",
+                              border: "none",
+                              margin: "auto",
+                              display: "block",
+                              width: "0px",
+                              height: "0px",
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              minHeight: "100%",
+                              maxHeight: "100%",
+                            }}
+                          />
+                        </span>
+                      </span>
+                    </div>
+                    <Card.Body>
+                      <div className="d-flex align-items-center card-body">
+                        <div className="w-100">
+                          <h6 className="card-title">
+                            Event title
+                          </h6>
+                          <div className="d-flex mb-3 card-subtitle">
+                            <p className="flex-grow-1 mb-0 text-muted text-sm">
+                              Event
+                            </p>
+                          </div>
+                          <p className="text-muted card-text">
+                            <span className="h4 text-primary">amount?</span>reviews 
+                          </p>
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col className="mb-30px hover-animate me-lg-4 me-sm-6">
+                  <Card className="h-100 border-0 shadow">
+                    <div className="card-img-top overflow-hidden gradient-overlay">
+                      <span className="event-card">
+                        <span
+                          style={{
+                            boxSizing: "border-box",
+                            display: "block",
+                            width: "initial",
+                            height: "initial",
+                            background: "none",
+                            opacity: "1",
+                            border: "0px",
+                            margin: "0px",
+                            padding: "66.6667% 0px 0px",
+                          }}
+                        >
+                          <img
+                            src={profile_image}
+                            className="img-fluid"
+                            sizes="(max-width:576px) 100vw, (max-width:991px) 50vw, (max-width:1149px) 30vw, 280px"
+                            alt=""
+                            // height="150px"
+                            // width="150px"
+                            style={{
+                              position: "absolute",
+                              inset: "0px",
+                              boxSizing: "border-box",
+                              padding: "0px",
+                              border: "none",
+                              margin: "auto",
+                              display: "block",
+                              width: "0px",
+                              height: "0px",
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              minHeight: "100%",
+                              maxHeight: "100%",
+                            }}
+                          />
+                        </span>
+                      </span>
+                    </div>
+                    <Card.Body>
+                      <div className="d-flex align-items-center card-body">
+                        <div className="w-100">
+                          <h6 className="card-title">
+                            Event title
+                          </h6>
+                          <div className="d-flex mb-3 card-subtitle">
+                            <p className="flex-grow-1 mb-0 text-muted text-sm">
+                              Event
+                            </p>
+                          </div>
+                          <p className="text-muted card-text">
+                            <span className="h4 text-primary">amount?</span>reviews 
+                          </p>
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </div>
+          </Col>
         </Row>
       </Container>
       {/* <h1 style={{ paddingTop: "150px" }}>Hello my profile page</h1>
