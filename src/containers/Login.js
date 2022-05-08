@@ -11,8 +11,7 @@ const Login = () => {
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
   useEffect(() => {
- 
-    if(user && extra && extra.status != 404){
+    if (user && extra && extra.status != 404) {
       console.log(user);
       console.log(extra);
       navigate("/myProfile", {
@@ -22,11 +21,10 @@ const Login = () => {
         },
       });
     }
-    
-  }, [user, extra])
+  }, [user, extra]);
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {}, [user, extra]);
+  // useEffect(() => {}, [user, extra]);
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //test mail: yardda2@gmail.com
@@ -45,17 +43,14 @@ const Login = () => {
             setExtra(jsonData);
           });
         });
-        // .then(() => {
-        //   navigate("/myProfile", {
-        //     state: {
-        //       userState: user,
-        //       extraState: extra,
-        //     },
-        //   });
-        // });
-          
-          
-  
+      // .then(() => {
+      //   navigate("/myProfile", {
+      //     state: {
+      //       userState: user,
+      //       extraState: extra,
+      //     },
+      //   });
+      // });
     }
 
     setValidated(true);

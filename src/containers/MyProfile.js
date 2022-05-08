@@ -67,7 +67,10 @@ const MyProfile = (props) => {
                       }}
                     >
                       <img
-                        src={profile_image}
+                        src={
+                          // user.avatar ? user.avatar :
+                          profile_image
+                        }
                         className="rounded-circle me-3"
                         alt=""
                         // height="150px"
@@ -91,8 +94,15 @@ const MyProfile = (props) => {
                     </span>
                   </div>
                 </div>
-                <h5>USERNAME</h5>
-                <p>AGE?</p>
+                <h5>{user ? (user.username ? user.username : null) : null}</h5>
+                <p>
+                  {extra.instanceAttributes["dob"].split("-").length === 3
+                    ? Math.abs(
+                        new Date().getFullYear() -
+                          extra.instanceAttributes["dob"].split("-")[0]
+                      )
+                    : null}
+                </p>
                 {/* <p>{JSON.stringify(extra.instanceAttributes)}</p> */}
               </CardHeader>
               <Card.Body style={{ display: "block", padding: "24px" }}>
@@ -126,7 +136,7 @@ const MyProfile = (props) => {
                   </div>
                 </div>
                 <hr />
-                <h6>USERNAME? Hobbies </h6>
+                {user ? <h6>{user.username}? Hobbies </h6> : null}
                 <ul className="text-muted card-text">
                   <li>Tennis?</li>
                   <li>Chess?</li>
@@ -137,7 +147,7 @@ const MyProfile = (props) => {
           </Col>
           <Col className="ps-lg-5 me-lg-9">
             <h1 className="hero-heading mb-0">
-              <strong>Hello, I'm USERNAME?!</strong>
+              {user ? <strong>Hello, I'm {user.username}</strong> : null}
             </h1>
             <div className="text-block">
               <p>
@@ -169,7 +179,6 @@ const MyProfile = (props) => {
               <h4 className="mb-5">NAME?'s' top events</h4>
               <Row>
                 <Col className="mb-30px hover-animate me-lg-4 me-sm-6">
-               
                   <Card className="h-100 border-0 shadow">
                     <div className="card-img-top overflow-hidden gradient-overlay">
                       <span className="event-card">
@@ -215,78 +224,15 @@ const MyProfile = (props) => {
                     <Card.Body>
                       <div className="d-flex align-items-center card-body">
                         <div className="w-100">
-                          <h6 className="card-title">
-                            Event title
-                          </h6>
+                          <h6 className="card-title">Event title</h6>
                           <div className="d-flex mb-3 card-subtitle">
                             <p className="flex-grow-1 mb-0 text-muted text-sm">
                               Event
                             </p>
                           </div>
                           <p className="text-muted card-text">
-                            <span className="h4 text-primary">amount?</span>reviews 
-                          </p>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col  className="mb-30px hover-animate me-lg-4 me-sm-6">
-                  <Card className="h-100 border-0 shadow">
-                    <div className="card-img-top overflow-hidden gradient-overlay">
-                      <span className="event-card">
-                        <span
-                          style={{
-                            boxSizing: "border-box",
-                            display: "block",
-                            width: "initial",
-                            height: "initial",
-                            background: "none",
-                            opacity: "1",
-                            border: "0px",
-                            margin: "0px",
-                            padding: "66.6667% 0px 0px",
-                          }}
-                        >
-                          <img
-                            src={profile_image}
-                            className="img-fluid"
-                            sizes="(max-width:576px) 100vw, (max-width:991px) 50vw, (max-width:1149px) 30vw, 280px"
-                            alt=""
-                            // height="150px"
-                            // width="150px"
-                            style={{
-                              position: "absolute",
-                              inset: "0px",
-                              boxSizing: "border-box",
-                              padding: "0px",
-                              border: "none",
-                              margin: "auto",
-                              display: "block",
-                              width: "0px",
-                              height: "0px",
-                              minWidth: "100%",
-                              maxWidth: "100%",
-                              minHeight: "100%",
-                              maxHeight: "100%",
-                            }}
-                          />
-                        </span>
-                      </span>
-                    </div>
-                    <Card.Body>
-                      <div className="d-flex align-items-center card-body">
-                        <div className="w-100">
-                          <h6 className="card-title">
-                            Event title
-                          </h6>
-                          <div className="d-flex mb-3 card-subtitle">
-                            <p className="flex-grow-1 mb-0 text-muted text-sm">
-                              Event
-                            </p>
-                          </div>
-                          <p className="text-muted card-text">
-                            <span className="h4 text-primary">amount?</span>reviews 
+                            <span className="h4 text-primary">amount?</span>
+                            reviews
                           </p>
                         </div>
                       </div>
@@ -339,16 +285,76 @@ const MyProfile = (props) => {
                     <Card.Body>
                       <div className="d-flex align-items-center card-body">
                         <div className="w-100">
-                          <h6 className="card-title">
-                            Event title
-                          </h6>
+                          <h6 className="card-title">Event title</h6>
                           <div className="d-flex mb-3 card-subtitle">
                             <p className="flex-grow-1 mb-0 text-muted text-sm">
                               Event
                             </p>
                           </div>
                           <p className="text-muted card-text">
-                            <span className="h4 text-primary">amount?</span>reviews 
+                            <span className="h4 text-primary">amount?</span>
+                            reviews
+                          </p>
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col className="mb-30px hover-animate me-lg-4 me-sm-6">
+                  <Card className="h-100 border-0 shadow">
+                    <div className="card-img-top overflow-hidden gradient-overlay">
+                      <span className="event-card">
+                        <span
+                          style={{
+                            boxSizing: "border-box",
+                            display: "block",
+                            width: "initial",
+                            height: "initial",
+                            background: "none",
+                            opacity: "1",
+                            border: "0px",
+                            margin: "0px",
+                            padding: "66.6667% 0px 0px",
+                          }}
+                        >
+                          <img
+                            src={profile_image}
+                            className="img-fluid"
+                            sizes="(max-width:576px) 100vw, (max-width:991px) 50vw, (max-width:1149px) 30vw, 280px"
+                            alt=""
+                            // height="150px"
+                            // width="150px"
+                            style={{
+                              position: "absolute",
+                              inset: "0px",
+                              boxSizing: "border-box",
+                              padding: "0px",
+                              border: "none",
+                              margin: "auto",
+                              display: "block",
+                              width: "0px",
+                              height: "0px",
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              minHeight: "100%",
+                              maxHeight: "100%",
+                            }}
+                          />
+                        </span>
+                      </span>
+                    </div>
+                    <Card.Body>
+                      <div className="d-flex align-items-center card-body">
+                        <div className="w-100">
+                          <h6 className="card-title">Event title</h6>
+                          <div className="d-flex mb-3 card-subtitle">
+                            <p className="flex-grow-1 mb-0 text-muted text-sm">
+                              Event
+                            </p>
+                          </div>
+                          <p className="text-muted card-text">
+                            <span className="h4 text-primary">amount?</span>
+                            reviews
                           </p>
                         </div>
                       </div>
