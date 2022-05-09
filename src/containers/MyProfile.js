@@ -182,7 +182,11 @@ const MyProfile = (props) => {
               className="text-block"
               style={{ paddingTop: "32px", paddingBottom: "16px" }}
             >
-              <h4 className="mb-5">{user.username.split("_")[0]}'s top events</h4>
+              {user ? (
+                <h4 className="mb-5">
+                  {user.username.split("_")[0]}'s top events
+                </h4>
+              ) : null}
               <Row>
                 <Col className="mb-30px hover-animate me-lg-4 me-sm-6">
                   <Card className="h-100 border-0 shadow">

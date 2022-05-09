@@ -1,0 +1,77 @@
+// Client flow
+User object will contain the following parameters:
+(user):
+        firstName (String) ,
+        lastName (String): username consists of firsname and lastname
+        email (String) ,
+        role (String),
+        avatar (String of picture),
+        -- must for user
+
+        -- user needs to contain property extra ( see extra for more info)
+
+(event):
+        location ( consists of long and lat)
+        eventName (String),
+        eventDate (String),
+        participatingUsers (list of users),
+        participatingUsersCounter (number),
+        --must for event participation
+
+        --extra
+        eventDescription (String),
+        picture (String of picture)
+
+extra per use( contains extra properties ) : (extra)
+        fname,
+        lname,
+        createdTimeStamp(String - when user was created),
+        dob (String),
+        gender (String),
+        lat (double),
+        lng (double)
+        -- basic for extra creation
+
+        --extra for extra
+        description(about him self)
+        hobbies( list of hobbies)
+        eventCounter ( how many events did user participate in)
+        events ( list of events )
+// Backend (what's allowed and what's not)
+    role of activity - to do actions between instances ( like a "Function")
+    role of instance - to describe an object (like a class) activity invokes instance
+    role of user/other object - to describe basic user( see above) - must be divided into
+    player / manager / admin - each has different authorization
+
+// Database
+        Users with "player" role can't see instances of other users that have "inactive"
+        profile.
+        Users with "manager"/"admin" role can edit instances of other users that have "inactive"
+        profile.       
+
+        user:
+            id(domain +"_"+ user_email)role (String), username (String), avatar (jpg file path) 
+        instances:
+            NAME ("Yossi")      
+            TYPE ("traveller")
+            id(domain + generated random val)
+            CREATED_TIME_STAMP (date)
+            CREATED_BY (domain +"_"+user_email)
+
+            --can modify via client
+            ACTIVE (true)  
+            INSTANCE_ATTRIBUTES (collection (key: val))
+            LOCATION_lat (double)
+            LOCATION_lng (double)
+        activities:
+            id(domain + generated random val)
+            INSTANCE_ID ( instance_id of user that initiated the activity)
+            CREATED_TIME_STAMP ( date)
+            CREATED_BY ( username(consists of domain+_+email) of the user that created the activity)
+            
+
+            --can modify via client
+            TYPE ("FindPartner")
+
+--IOB related to save actions by user and such
+            ACTIVITY_ATTRIBUTES (collection (key: val))
