@@ -1,9 +1,12 @@
-import React from 'react';
+import React from "react";
 const EventsCalendar = () => {
-    return <div> <h3>calendar page</h3>
-
+  return (
+    <div>
+      <h1>calendar page</h1>
+      <p>asdasdasd</p>
+      asdklasjdklajsdlkajsdlkajsldkjaslkdjalksjdklajsdlkjalksjdlkajsdlkjas
     </div>
+  );
+};
 
-}
-
-export default EventsCalendar
+export default EventsCalendar;
