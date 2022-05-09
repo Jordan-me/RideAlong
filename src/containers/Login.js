@@ -4,12 +4,16 @@ import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import { fetchUser, fetchInstanceByName } from "../data/data";
 import { useNavigate, Navigate, Route } from "react-router-dom";
+// import { set } from "husky";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
+  const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
+  // const [errState, setErrState] = useState(false);
   useEffect(() => {
     if (user && extra && extra.status != 404) {
       console.log(user);
@@ -22,8 +26,7 @@ const Login = () => {
       });
     }
   }, [user, extra]);
-  const [validated, setValidated] = useState(false);
-  const navigate = useNavigate();
+
   // useEffect(() => {}, [user, extra]);
 
   const handleSubmit = async (event) => {
@@ -43,6 +46,7 @@ const Login = () => {
             setExtra(jsonData);
           });
         });
+      // .catch((e) => setErrState(true));
       // .then(() => {
       //   navigate("/myProfile", {
       //     state: {
