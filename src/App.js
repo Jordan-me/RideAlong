@@ -9,6 +9,7 @@ import { MyProfile } from "./containers/MyProfile";
 import { Chat } from "./containers/Chat";
 import { NoMatch } from "./containers/NoMatch";
 import { NavigationBar } from "./components/NavigationBar";
+import EventsCalendar from "./containers/EventsCalendar";
 //test NOA
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
         <Route exact path="/findEvent" element={<Events />} />
         <Route exact path="/myProfile" element={<MyProfile />} />
         <Route exact path="/chat" element={<Chat />} />
+        <Route exact path="/calendar" element={<EventsCalendar />} />
         <Route element={<NoMatch />} />
       </Routes>
     </BrowserRouter>
