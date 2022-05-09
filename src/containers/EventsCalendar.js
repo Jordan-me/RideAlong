@@ -1,9 +1,10 @@
 import React from 'react';
-const EventsCalendar = () => {
-    return <div> <h3>calendar page</h3>
+import "../cssFiles/EventsCalendar.css";
 
+const EventsCalendar = () => {
+    return <div> <p className='EventsCalendar'>calendar page</p>
+    <input/>
     </div>
 
 }
-
 export default EventsCalendar
