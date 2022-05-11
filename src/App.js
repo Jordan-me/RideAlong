@@ -12,7 +12,6 @@ import { NavigationBar } from "./components/NavigationBar";
 import EventsCalendar from "./containers/EventsCalendar";
 //test NOA
 const App = () => {
-
   return (
     //set
     <BrowserRouter>

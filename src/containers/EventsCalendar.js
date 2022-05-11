@@ -1,10 +1,13 @@
-import React from 'react';
-import "../cssFiles/EventsCalendar.css";
-
+import React from "react";
 const EventsCalendar = () => {
-    return <div> <p className='EventsCalendar'>calendar page</p>
-    <input/>
-    </div>
+  return (
+    <div>
+      <h1>calendar page</h1>
+      <p>asdasdasd</p><p>47897284</p>
 
-}
-export default EventsCalendar
+      asdklasjdklajsdlkajsdlkajsldkjaslkdjalksjdklajsdlkjalksjdlkajsdlkjas
+    </div>
+  );
+};
+
+export default EventsCalendar;
