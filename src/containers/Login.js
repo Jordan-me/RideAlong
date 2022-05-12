@@ -15,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   // const [errState, setErrState] = useState(false);
   useEffect(() => {
-    if (user && extra && extra.status != 404) {
+    if (user && extra && extra.status !== 404) {
       console.log(user);
       console.log(extra);
       navigate("/myProfile", {
