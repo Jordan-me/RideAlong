@@ -12,15 +12,15 @@ function MyCalendar(props) {
     var events = [
         {
             date: "2022-05-02",
-            color: "white",
+            color: "#fcf3d3",
         },
         {
             date: new Date('2022-05-23'),
-            color: "white",
+            color: "#fcf3d3",
         },
         {
             date: "2022-05-02",
-            color: "white",
+            color: "#fcf3d3",
         },
     ];
 

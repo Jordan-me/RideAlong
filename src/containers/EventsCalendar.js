@@ -47,7 +47,7 @@ const myStyle = {
 
 const calStyle = {
   backgroundColor: "#DAAD86",
-  display: "abssolute",
+  display: "absolute",
   margin: "0",
   height: "100%",
   paddingBottom: "10px",
