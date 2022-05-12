@@ -3,7 +3,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import { fetchUser, fetchInstanceByName } from "../data/data";
-import { useNavigate, Navigate, Route } from "react-router-dom";
+import { useNavigate, Navigate, Route, NavLink } from "react-router-dom";
 // import { set } from "husky";
 
 const Login = () => {
@@ -13,8 +13,14 @@ const Login = () => {
   const [extra, setExtra] = useState(null);
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("asdbfbf".replaceAll("asd", ""));
+  }, []);
+
   // const [errState, setErrState] = useState(false);
   useEffect(() => {
+    console.log(user, extra);
+
     if (user && extra && extra.status != 404) {
       console.log(user);
       console.log(extra);
@@ -37,10 +43,12 @@ const Login = () => {
     } else {
       await fetchUser(email)
         .then((jsonData) => {
-          // console.log(jsonData);
+          console.log(jsonData);
           setUser(jsonData);
+          return jsonData;
         })
-        .then(() => {
+        .then((userJsonData) => {
+          console.log(userJsonData);
           fetchInstanceByName(email).then((jsonData) => {
             // console.log(jsonData);
             setExtra(jsonData);
@@ -129,14 +137,17 @@ const Login = () => {
           <h5>
             <strong>Don't have an account?</strong>
           </h5>
-          <Button
-            href="/signup"
-            className="rounded-5"
-            variant="outline-dark"
-            style={{ borderRadius: "500px" }}
-          >
-            SIGN UP FOR RIDEALONG
-          </Button>
+          <NavLink to="/signup">
+            <Button
+              // href="/signup"
+              onClick={(e) => <NavLink to="/signup" />}
+              className="rounded-5"
+              variant="outline-dark"
+              style={{ borderRadius: "500px" }}
+            >
+              SIGN UP FOR RIDEALONG
+            </Button>
+          </NavLink>
         </Container>
         <Container className="d-none d-xl-block">
           <img
