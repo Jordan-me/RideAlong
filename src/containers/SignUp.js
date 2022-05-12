@@ -3,7 +3,8 @@ import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import Logo from "../assets/images/logo2.png";
-import { postUser,postInstance } from "../data/data";
+import { postUser, postInstance } from "../data/data";
+import { NavLink } from "react-router-dom";
 import useGeoLocation from "../components/useGeoLocation";
 
 const SignUp = () => {
@@ -13,16 +14,17 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
-  const [avatar,setProfilePic] = useState("");
+  const [avatar, setProfilePic] = useState("");
   const location = useGeoLocation();
 
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      // event.preventDefault();
     } else {
       const user = {
         username: firstName + "_" + lastName,
@@ -117,12 +119,15 @@ const SignUp = () => {
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group md="4" controlId="validationCustom05"> 
-                    <Form.Control required type="date"
-                    onChange={(e) => {
-                      setDob(e.target.value);
-                    }}
-                    name="date_of_birth" />
+                  <Form.Group md="4" controlId="validationCustom05">
+                    <Form.Control
+                      required
+                      type="date"
+                      onChange={(e) => {
+                        setDob(e.target.value);
+                      }}
+                      name="date_of_birth"
+                    />
                   </Form.Group>
                 </Col>
               </Row>
@@ -153,7 +158,8 @@ const SignUp = () => {
               <Row className="mb-2">
                 <div className="input-group mb-3">
                   <input
-                    required type="file"
+                    required
+                    type="file"
                     className="form-control"
                     id="inputGroupFile01"
                     onChange={(e) => {
@@ -190,14 +196,15 @@ const SignUp = () => {
           <h6>
             <strong>Already have an account?</strong>
           </h6>
-          <Button
-            className="rounded-5"
-            variant="outline-dark"
-            style={{ borderRadius: "500px" }}
-            href="/login"
-          >
-            LOGIN
-          </Button>
+          <NavLink to="/login">
+            <Button
+              className="rounded-5"
+              variant="outline-dark"
+              style={{ borderRadius: "500px" }}
+            >
+              LOGIN
+            </Button>
+          </NavLink>
         </Container>
         <Container className="d-none d-xl-block">
           <img

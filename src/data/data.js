@@ -5,7 +5,7 @@ const GET_USER_LOGIN__ENDPOINT =
 const GET_INSTANCE_BY_NAME_ENDPOINT =
   "http://localhost:8085/iob/instances/search/byName/";
 const INSTANCE_PERMISSION =
-  "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
+  "userDomain=2022b.yarden.dahan&userEmail=player@google.com";
 const GET_INSTANCE_ENDPOINT =
   "http://localhost:8085/iob/instances/search/byName/Yossi?userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
 
@@ -24,6 +24,7 @@ export const fetchInstance = async () => {
 };
 export const fetchInstanceByName = async (name) => {
   let url = GET_INSTANCE_BY_NAME_ENDPOINT + name + "?" + INSTANCE_PERMISSION;
+  console.log(url);
   const response = await fetch(url, {
     method: "GET",
     mode: "cors",
@@ -61,7 +62,25 @@ export const postUser = async (user) => {
   });
 };
 export const postInstance = async (user, type) => {
-  fetch(POST_INSTANCE_USER_ENDPOINT, {
+  console.log(
+    JSON.stringify({
+      type: type,
+      name: user.email,
+      active: true,
+      createdTimestamp: null,
+      createdBy: {
+        userId: { domain: "2022b.yarden.dahan", email: "manager@google.com" },
+      },
+      location: { lat: user.lat, lng: user.lng },
+      instanceAttributes: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        dob: user.dob,
+        gender: user.gender,
+      },
+    })
+  );
+  const d = await fetch(POST_INSTANCE_USER_ENDPOINT, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -85,4 +104,5 @@ export const postInstance = async (user, type) => {
       },
     }),
   });
+  console.log(d);
 };
