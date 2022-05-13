@@ -3,18 +3,29 @@ import { Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import { fetchUser, fetchInstanceByName } from "../data/data";
-import { useNavigate, Navigate, Route, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import {
+  useNavigate,
+  Navigate,
+  Route,
+  NavLink,
+  useLocation,
+} from "react-router-dom";
+import handleStyle from "../components/NavigationBar";
 // import { set } from "husky";
 
-const Login = () => {
+const Login = (props) => {
+  const loginContext = useContext(Context);
+  const location = useLocation();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
   const [validated, setValidated] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("asdbfbf".replaceAll("asd", ""));
+    console.log(location.state);
   }, []);
 
   // const [errState, setErrState] = useState(false);
@@ -24,6 +35,9 @@ const Login = () => {
     if (user && extra && extra.status != 404) {
       console.log(user);
       console.log(extra);
+      localStorage.setItem("loginState", true);
+      // props.handleLogin(true);
+      //location.state ? location.state.handleLoggedInStyle(true) : null;
       navigate("/myProfile", {
         state: {
           userState: user,
