@@ -33,7 +33,7 @@ const NavigationBar = (props) => {
               {loggedInState ? (
                 <>
                   <Nav.Item>
-                    <Nav.Link as={Link} to="/calendar">
+                    <Nav.Link as={Link} to="/findEvent">
                       Events
                     </Nav.Link>
                   </Nav.Item>

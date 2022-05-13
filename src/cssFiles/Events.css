@@ -1,0 +1,47 @@
+.leftStyle {
+    background-color: #DAAD86;
+    position: "relative";
+    display: "flex";
+    padding-top: 150px;
+    /* padding-left: 150px; */
+    margin-top: 0px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: "center";
+    height: "100vh";
+    padding-bottom: "10px";
+}
+.rightStyle {
+    background-color: #fff7dcdf;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+.rounded {
+    border-radius: 0.4rem !important;
+}
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.border-3 {
+    border-width: 3px !important;
+}
+.border-white {
+    border-color: #fff !important;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.h-50px {
+    height: 50px !important;
+}
+
+.card.overflow-hidden {
+    will-change: transform;
+}
+.overflow-hidden {
+    overflow: hidden !important;
+}
+ 
