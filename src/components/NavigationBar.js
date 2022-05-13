@@ -1,32 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
+import { LoginContext } from "../App";
 import Logo from "../assets/images/logo2.png"; //  src/images
 const NavigationBar = (props) => {
   const navigate = useNavigate();
-
-  const [loggedInStyle, setLoggedInStyle] = useState({ visibility: "visible" });
-  // const handleLoggedInStyle = (isLogged) => {
-  //   //   console.log("handlestyle is invoked");
-  //   //   isLogged ? setLoggedInStyle(false) : setLoggedInStyle(true);
-  //   setLoggedInStyle(false);
-  // };
-  useEffect(() => {
-    localStorage.getItem("loginState") === false
-      ? setLoggedInStyle({ visibility: "visible" })
-      : setLoggedInStyle({ visibility: "hidden" });
-  }, [localStorage.getItem("loginState")]);
-
-  // localStorage.getItem("loginState")
-  //   ? setLoggedInStyle({ visibility: "hidden" })
-  //   : setLoggedInStyle({ visibility: "visible" });
-  // useEffect(() => {
-  //   console.log("hi1" + props.loggedInState);
-  //   if (props.loggedInState) setLoggedInStyle(false);
-  //   else setLoggedInStyle(true);
-  //   // const loginState = localStorage.getItem("loginState");
-  //   // loginState ? handleStyle(true) : handleStyle(false);
-  // }, [props.loggedInState]);
+  const [loggedInState, setLoggedInState] = useContext(LoginContext);
 
   return (
     <>
@@ -40,7 +19,6 @@ const NavigationBar = (props) => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ms-auto">
               <Nav.Item>
-                {/* <Nav.Link as={Link} to="/"> */}
                 <Nav.Link
                   as={Link}
                   to="/"
@@ -51,36 +29,46 @@ const NavigationBar = (props) => {
                 >
                   Home
                 </Nav.Link>
-                {/* </Nav.Link> */}
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link as={Link} to="/calendar">
-                  Calendar
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  // style={loggedInStyle}
-                  // state={{
-                  //   handleLoggedInStyle: handleLoggedInStyle,
-                  // }}
-                  as={NavLink}
-                  to="/login"
-                >
-                  Login
-                </Nav.Link>
-              </Nav.Item>
-              {/* <Nav.Item>
-                <Nav.Link
-                  style={loggedInStyle}
-                  onClick={() => {
-                    localStorage.setItem("loginState", false);
-                    navigate("/");
-                  }}
-                >
-                  Log Out
-                </Nav.Link>
-              </Nav.Item> */}
+              {loggedInState ? (
+                <>
+                  <Nav.Item>
+                    <Nav.Link as={Link} to="/calendar">
+                      Events
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link as={Link} to="/calendar">
+                      Chat
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link as={Link} to="/calendar">
+                      Profile
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      onClick={() => {
+                        localStorage.setItem("loginState", false);
+                        setLoggedInState(false);
+                        navigate("/");
+                      }}
+                    >
+                      Log out
+                    </Nav.Link>
+                  </Nav.Item>
+                </>
+              ) : (
+                <>
+                  <Nav.Item>
+                    <Nav.Link as={NavLink} to="/login">
+                      Login
+                    </Nav.Link>
+                  </Nav.Item>
+                </>
+              )}
+
               <Nav.Item>
                 <Nav.Link
                   href="/#question"

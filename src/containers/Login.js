@@ -1,9 +1,9 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import { fetchUser, fetchInstanceByName } from "../data/data";
-import { useContext } from "react";
+import { LoginContext } from "../App";
 import {
   useNavigate,
   Navigate,
@@ -15,7 +15,7 @@ import handleStyle from "../components/NavigationBar";
 // import { set } from "husky";
 
 const Login = (props) => {
-  const loginContext = useContext(Context);
+  const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const location = useLocation();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ const Login = (props) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(location.state);
+    console.log(loggedInState);
   }, []);
 
   // const [errState, setErrState] = useState(false);
@@ -35,6 +35,7 @@ const Login = (props) => {
     if (user && extra && extra.status !== 404) {
       console.log(user);
       console.log(extra);
+      setLoggedInState(true);
       localStorage.setItem("loginState", true);
       // props.handleLogin(true);
       //location.state ? location.state.handleLoggedInStyle(true) : null;

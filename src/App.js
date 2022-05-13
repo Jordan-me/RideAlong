@@ -17,16 +17,17 @@ import { NoMatch } from "./containers/NoMatch";
 import NavigationBar from "./components/NavigationBar";
 import EventsCalendar from "./containers/EventsCalendar";
 //test NOA
+export const LoginContext = createContext();
 const App = () => {
-  const Context = createContext("default val");
-  // const [loggedInState, setLoggedInState] = useState(false);
+  // const loginContext = createContext({ loginState: null });
+  const [loggedInState, setLoggedInState] = useState(false);
   // const handleLogin = (loginState) => {
   //   setLoggedInState(loginState);
   // };
   return (
     //set
     <BrowserRouter>
-      <loginContext.Provider Context={{ loginState: false }}>
+      <LoginContext.Provider value={[loggedInState, setLoggedInState]}>
         <NavigationBar />
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -39,7 +40,7 @@ const App = () => {
           <Route exact path="/calendar" element={<EventsCalendar />} />
           <Route element={<NoMatch />} />
         </Routes>
-      </loginContext.Provider>
+      </LoginContext.Provider>
     </BrowserRouter>
   );
 };
