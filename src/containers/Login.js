@@ -89,14 +89,14 @@ const Login = (props) => {
     paddingTop: "150px",
     margin: "0",
     textAlign: "center",
-    height: "100%",
+    height: "100vh",
     paddingBottom: "10px",
   };
   const imgStyle = {
     height: "100%",
   };
   return (
-    <>
+    <div>
       <div style={myStyle}>
         <Container>
           <h1>RideAlong</h1>
@@ -174,7 +174,7 @@ const Login = (props) => {
         </Container>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 export { Login };
