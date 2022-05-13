@@ -32,7 +32,7 @@ const Login = (props) => {
   useEffect(() => {
     console.log(user, extra);
 
-    if (user && extra && extra.status != 404) {
+    if (user && extra && extra.status !== 404) {
       console.log(user);
       console.log(extra);
       localStorage.setItem("loginState", true);
