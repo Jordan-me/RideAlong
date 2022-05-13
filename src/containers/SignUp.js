@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
-import Logo from "../assets/images/logo2.png";
 import { postUser, postInstance } from "../data/data";
 import { NavLink } from "react-router-dom";
 import useGeoLocation from "../components/useGeoLocation";
@@ -51,14 +50,14 @@ const SignUp = () => {
     paddingTop: "150px",
     margin: "0",
     textAlign: "center",
-    height: "100%",
+    height: "100vh",
     paddingBottom: "10px",
   };
   const imgStyle = {
     height: "100%",
   };
   return (
-    <>
+    <div>
       <div style={myStyle}>
         <Container fluid="md">
           <h1>RideAlong</h1>
@@ -218,7 +217,7 @@ const SignUp = () => {
       <div style={{ bottom: "0", width: "100%", position: "relative" }}>
         <Footer />
       </div>
-    </>
+    </div>
   );
 };
 export { SignUp };

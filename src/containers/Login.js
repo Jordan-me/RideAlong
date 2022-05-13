@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
@@ -74,14 +74,14 @@ const Login = () => {
     paddingTop: "150px",
     margin: "0",
     textAlign: "center",
-    height: "100%",
+    height: "100vh",
     paddingBottom: "10px",
   };
   const imgStyle = {
     height: "100%",
   };
   return (
-    <>
+    <div>
       <div style={myStyle}>
         <Container>
           <h1>RideAlong</h1>
@@ -159,7 +159,8 @@ const Login = () => {
         </Container>
       </div>
       <Footer />
-    </>
+      </div>
+ 
   );
 };
 export { Login };

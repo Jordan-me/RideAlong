@@ -8,7 +8,7 @@ import Img from "../assets/images/background-events-calendar.jpg";
 
 const EventsCalendar = () => {
   return (
-    <>
+    <div>
       <div style={myStyle}>
         <Container>
           <h1>Events</h1>
@@ -26,7 +26,7 @@ const EventsCalendar = () => {
         </Container>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
@@ -37,7 +37,7 @@ const myStyle = {
   paddingTop: "150px",
   margin: "0",
   textAlign: "center",
-  height: "100%",
+  height: "100vh",
   paddingBottom: "10px",
 };
 
