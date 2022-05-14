@@ -3,10 +3,12 @@ import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
 import { postUser, postInstance } from "../data/data";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +16,7 @@ const SignUp = () => {
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [avatar, setProfilePic] = useState("");
+  const [spinnerState, setSpinnerState] = useState(false);
   const location = useGeoLocation();
 
   const [validated, setValidated] = useState(false);
@@ -21,8 +24,10 @@ const SignUp = () => {
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
+    setSpinnerState(true);
     event.stopPropagation();
     if (form.checkValidity() === false) {
+      setSpinnerState(false);
       // event.preventDefault();
     } else {
       const user = {
@@ -37,8 +42,9 @@ const SignUp = () => {
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
       };
-      postUser(user);
-      postInstance(user, "User");
+      postUser(user).then(() =>
+        postInstance(user, "User").then(() => setSpinnerState("SUCCESS"))
+      );
     }
     setValidated(true);
   };
@@ -181,14 +187,54 @@ const SignUp = () => {
                 </Col>
                 <Col></Col>
               </Row>
-              <Button
-                type="submit"
-                className="rounded-5"
-                variant="outline-dark"
-                style={{ borderRadius: "500px", marginTop: "20px" }}
-              >
-                REGISTER
-              </Button>
+
+              {spinnerState === true ? (
+                <Button
+                  style={{ borderRadius: "500px", marginLeft: "30px" }}
+                  className="rounded-5"
+                  // variant="primary"
+                  variant="outline-dark"
+                  disabled
+                >
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    style={{ marginRight: "10px" }}
+                  />
+                  Loading...
+                </Button>
+              ) : spinnerState === false ? (
+                <Button
+                  type="submit"
+                  className="rounded-5"
+                  variant="outline-dark"
+                  style={{
+                    width: "130px",
+                    borderRadius: "500px",
+                    marginTop: "20px",
+                    marginRight: "20px",
+                  }}
+                >
+                  REGISTER
+                </Button>
+              ) : spinnerState === "SUCCESS" ? (
+                <label
+                  type="label"
+                  className="rounded-5"
+                  variant="filled"
+                  style={{
+                    width: "280px",
+                    borderRadius: "500px",
+                    marginTop: "20px",
+                    marginRight: "20px",
+                  }}
+                >
+                  Success{navigate("/")}
+                </label>
+              ) : null}
             </Form>
           </div>
           <hr style={{ width: "70%", display: "inline-block" }}></hr>
