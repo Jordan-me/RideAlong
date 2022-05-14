@@ -9,6 +9,7 @@
     margin-right: 50px;
     text-align: "center";
     height: "100vh";
+    width: "100vh";
     padding-bottom: "10px";
 }
 .rightStyle {
@@ -16,6 +17,7 @@
     margin-right: 20px;
     margin-bottom: 10px;
     height: "100vh";
+    width: "100vh";
 }
 .rounded {
     border-radius: 0.4rem !important;

@@ -26,6 +26,8 @@ function MyCalendar(props) {
 
     return (
         <Calendar
+        className="justify-content-md-center"
+        md="auto"
             eventType="Fill"
             date={'2022-05-9'}
             events={events}

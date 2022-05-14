@@ -6,9 +6,9 @@ import "../cssFiles/Events.css";
 const Events = () => {
 
   return (
-    <div>
-      <Container className='leftStyle' fluid="md">
-        <div className = 'row g-4'>
+    <div className='leftStyle'>
+      <Container  fluid="md">
+        <div className = 'row g-4 '>
           <div className='col-lg-3'>
               <SideCard/>
               <p class="small text-center mt-1">©2022 RideAlong</p>
