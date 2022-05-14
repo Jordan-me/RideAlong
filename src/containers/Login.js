@@ -12,6 +12,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import handleStyle from "../components/NavigationBar";
+import { NoMatch } from "./NoMatch";
 // import { set } from "husky";
 
 const Login = (props) => {
@@ -25,7 +26,7 @@ const Login = (props) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(loggedInState);
+    if (localStorage.getItem("loginState") === "false") navigate("/");
   }, []);
 
   // const [errState, setErrState] = useState(false);
@@ -35,7 +36,7 @@ const Login = (props) => {
     if (user && extra && extra.status !== 404) {
       console.log(user);
       console.log(extra);
-      setLoggedInState(true);
+      setLoggedInState(user);
       localStorage.setItem("loginState", true);
       // props.handleLogin(true);
       //location.state ? location.state.handleLoggedInStyle(true) : null;
@@ -52,6 +53,7 @@ const Login = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //test mail: yardda2@gmail.com
+    
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();

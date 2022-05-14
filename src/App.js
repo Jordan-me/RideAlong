@@ -20,7 +20,7 @@ import EventsCalendar from "./containers/EventsCalendar";
 export const LoginContext = createContext();
 const App = () => {
   // const loginContext = createContext({ loginState: null });
-  const [loggedInState, setLoggedInState] = useState(false);
+  const [loggedInState, setLoggedInState] = useState(null);
   // const handleLogin = (loginState) => {
   //   setLoggedInState(loginState);
   // };
