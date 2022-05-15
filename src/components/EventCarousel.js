@@ -45,6 +45,7 @@ function EventCarousel(props) {
         itemClass="carousel-item-padding-40-px"
       >
         <div>
+            
           <Card className="h-100 pr-20">
             <img
               className="img-fluid rounded-top position-relative"
@@ -156,7 +157,7 @@ function EventCarousel(props) {
           <Card className="h-100 pr-20">
             <img
               className="img-fluid rounded-top position-relative"
-              src="https://social.webestica.com/assets/images/events/01.jpg"
+              src="https://social.webestica.com/assets/images/events/02.jpg"
               alt=""
             />
             <Badge className="bg-danger text-white mt-2 me-2 position-absolute top-0 end-0">
