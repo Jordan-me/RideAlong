@@ -37,6 +37,7 @@ const App = () => {
           <Route exact path="/findEvent" element={<Events />} />
           <Route exact path="/myProfile" element={<MyProfile />} />
           <Route exact path="/chat" element={<Chat />} />
+          <Route exact path="/events" element={<Events />} />
           <Route exact path="/calendar" element={<EventsCalendar />} />
           <Route element={<NoMatch />} />
         </Routes>

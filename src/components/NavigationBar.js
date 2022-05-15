@@ -8,10 +8,12 @@ import { Label } from "@mobiscroll/react-lite";
 const NavigationBar = (props) => {
   const navigate = useNavigate();
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
-  useEffect(() => {
-    console.log(loggedInState);
-  }, []);
-
+  const [loginTokenState, setLoginTokenState] = useState(false);
+  // useEffect(() => {
+  //   localStorage.getItem("loginState") === true
+  //     ? setLoginTokenState(true)
+  //     : setLoginTokenState(false);
+  // }, [localStorage.getItem("loginState")]);
   return (
     <>
       <Navbar collapseOnSelect fixed="top" bg="dark" expand="lg" variant="dark">
@@ -23,19 +25,21 @@ const NavigationBar = (props) => {
           <br />
           <Navbar.Brand as={Label}>
             <h3>
-              {loggedInState !== null ? (
-                <>
-                  Welcome{" "}
-                  {loggedInState.username
-                    .split("_")[0]
-                    .replace(
-                      loggedInState.username.split("_")[0].charAt(0),
-                      loggedInState.username
-                        .split("_")[0]
-                        .charAt(0)
-                        .toUpperCase()
-                    )}
-                </>
+              {loggedInState ? (
+                loggedInState.user ? (
+                  <>
+                    Welcome{" "}
+                    {loggedInState.user.username
+                      .split("_")[0]
+                      .replace(
+                        loggedInState.user.username.split("_")[0].charAt(0),
+                        loggedInState.user.username
+                          .split("_")[0]
+                          .charAt(0)
+                          .toUpperCase()
+                      )}
+                  </>
+                ) : null
               ) : null}
             </h3>
           </Navbar.Brand>
@@ -54,20 +58,20 @@ const NavigationBar = (props) => {
                   Home
                 </Nav.Link>
               </Nav.Item>
-              {loggedInState ? (
+              {localStorage.getItem("loginState") === "true" ? (
                 <>
                   <Nav.Item>
-                    <Nav.Link as={Link} to="/findEvent">
+                    <Nav.Link as={Link} to="/events">
                       Events
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link as={Link} to="/calendar">
+                    <Nav.Link as={Link} to="/chat">
                       Chat
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link as={Link} to="/calendar">
+                    <Nav.Link as={Link} to="/myProfile">
                       Profile
                     </Nav.Link>
                   </Nav.Item>
@@ -100,6 +104,7 @@ const NavigationBar = (props) => {
                   duration="500"
                   offset="-70"
                   spy="true"
+                  disabled
                 >
                   FAQ
                 </Nav.Link>
@@ -111,6 +116,7 @@ const NavigationBar = (props) => {
                   duration="500"
                   offset="-70"
                   spy="true"
+                  disabled
                 >
                   About
                 </Nav.Link>

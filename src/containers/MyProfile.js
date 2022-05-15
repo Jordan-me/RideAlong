@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import profile_image from "../assets/images/no-profile-pic.jpg";
+import { LoginContext } from "../App";
 import "../cssFiles/MyProfile.css";
+
 const MyProfile = (props) => {
+  const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
 
   useEffect(() => {
-    setUser(location.state.userState);
-    setExtra(location.state.extraState[0]);
+    console.log(loggedInState);
+  }, []);
 
-    console.log(user);
-    console.log(extra);
+  useEffect(() => {
+    console.log(loggedInState);
+    if (loggedInState !== null && !typeof loggedInState === Boolean) {
+      setUser(loggedInState.user);
+      setExtra(loggedInState.extra[0]);
+    }
+  }, [loggedInState]);
+  useEffect(() => {
+    console.log(user, extra);
   }, [user, extra]);
-
   return (
     <div className="mb-5" style={{ paddingTop: "138px" }}>
       <Container
@@ -94,16 +103,28 @@ const MyProfile = (props) => {
                     </span>
                   </div>
                 </div>
-                <h5>{user ? (user.username ? user.username : null) : null}</h5>
-                {extra ? (
-                  <p>
-                    {extra.instanceAttributes["dob"].split("-").length === 3
-                      ? Math.abs(
-                          new Date().getFullYear() -
-                            extra.instanceAttributes["dob"].split("-")[0]
-                        )
-                      : null}
-                  </p>
+                <h5>
+                  {loggedInState
+                    ? loggedInState.user
+                      ? loggedInState.user.username
+                      : null
+                    : null}
+                </h5>
+                {loggedInState ? (
+                  loggedInState.extra[0] ? (
+                    <p>
+                      {loggedInState.extra[0].instanceAttributes["dob"].split(
+                        "-"
+                      ).length === 3
+                        ? Math.abs(
+                            new Date().getFullYear() -
+                              loggedInState.extra[0].instanceAttributes[
+                                "dob"
+                              ].split("-")[0]
+                          )
+                        : null}
+                    </p>
+                  ) : null
                 ) : null}
                 {/* <p>{JSON.stringify(extra.instanceAttributes)}</p> */}
               </CardHeader>
@@ -138,7 +159,13 @@ const MyProfile = (props) => {
                   </div>
                 </div>
                 <hr />
-                {user ? <h6>{user.username.split("_")[0]} Hobbies </h6> : null}
+                {loggedInState ? (
+                  loggedInState.user ? (
+                    <h6>
+                      {loggedInState.user.username.split("_")[0]} Hobbies{" "}
+                    </h6>
+                  ) : null
+                ) : null}
                 <ul className="text-muted card-text">
                   <li>Tennis?</li>
                   <li>Chess?</li>
@@ -149,19 +176,26 @@ const MyProfile = (props) => {
           </Col>
           <Col className="ps-lg-5 me-lg-9">
             <h1 className="hero-heading mb-0">
-              {user ? (
-                <strong>Hello, I'm {user.username.replace("_", " ")}</strong>
+              {loggedInState ? (
+                loggedInState.user ? (
+                  <strong>
+                    Hello, I'm {loggedInState.user.username.replace("_", " ")}
+                  </strong>
+                ) : null
               ) : null}
             </h1>
             <div className="text-block">
               <p>
-                {extra ? (
-                  <span
-                    className="badge text-secondary bg-secondary-light"
-                    style={{ color: "#e83e8c", backgroundColor: "#fce2ee" }}
-                  >
-                    Joined in {extra.createdTimestamp.split("-")[0]}
-                  </span>
+                {loggedInState ? (
+                  loggedInState.extra[0] ? (
+                    <span
+                      className="badge text-secondary bg-secondary-light"
+                      style={{ color: "#e83e8c", backgroundColor: "#fce2ee" }}
+                    >
+                      Joined in{" "}
+                      {loggedInState.extra[0].createdTimestamp.split("-")[0]}
+                    </span>
+                  ) : null
                 ) : null}
               </p>
               <div>
@@ -182,10 +216,12 @@ const MyProfile = (props) => {
               className="text-block"
               style={{ paddingTop: "32px", paddingBottom: "16px" }}
             >
-              {user ? (
-                <h4 className="mb-5">
-                  {user.username.split("_")[0]}'s top events
-                </h4>
+              {loggedInState ? (
+                loggedInState.user ? (
+                  <h4 className="mb-5">
+                    {loggedInState.user.username.split("_")[0]}'s top events
+                  </h4>
+                ) : null
               ) : null}
               <Row>
                 <Col className="mb-30px hover-animate me-lg-4 me-sm-6">
