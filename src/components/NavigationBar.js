@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink as RRNavLink } from 'react-router-dom';
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { LoginContext } from "../App";
 import Logo from "../assets/images/logo2.png"; //  src/images
@@ -61,11 +62,7 @@ const NavigationBar = (props) => {
                       Events
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link as={Link} to="/calendar">
-                      Chat
-                    </Nav.Link>
-                  </Nav.Item>
+
                   <Nav.Item>
                     <Nav.Link as={Link} to="/calendar">
                       Profile
@@ -78,6 +75,7 @@ const NavigationBar = (props) => {
                         setLoggedInState(false);
                         navigate("/");
                       }}
+                      
                     >
                       Log out
                     </Nav.Link>
@@ -86,7 +84,10 @@ const NavigationBar = (props) => {
               ) : (
                 <>
                   <Nav.Item>
-                    <Nav.Link as={NavLink} to="/login">
+                    <Nav.Link 
+                    to="/login"
+                    as={Link} 
+                    smooth="true">
                       Login
                     </Nav.Link>
                   </Nav.Item>
