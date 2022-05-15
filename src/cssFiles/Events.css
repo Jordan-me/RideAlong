@@ -9,12 +9,16 @@
     margin-right: 50px;
     text-align: "center";
     height: "100vh";
+    width: "100vh";
     padding-bottom: "10px";
 }
 .rightStyle {
     background-color: #fff7dcdf;
     margin-right: 20px;
+    margin-left: 20px;
     margin-bottom: 10px;
+    height: "100vh";
+    width: "100vh";
 }
 .rounded {
     border-radius: 0.4rem !important;
@@ -44,4 +48,45 @@ img {
 .overflow-hidden {
     overflow: hidden !important;
 }
- 
+.rounded-top {
+    border-top-left-radius: 0.4rem !important;
+    border-top-right-radius: 0.4rem !important;
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.position-relative {
+    position: relative !important;
+}
+
+@media (min-width: 1200px){
+    .col-xl-4 {
+        -webkit-box-flex: 0;
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+}
+
+@media (min-width: 576px){
+    .col-sm-6 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+.pr-20{
+    margin-right:20px;
+}
+.pe-1 {
+    padding-right: 0.25rem !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+small, .small {
+    font-size: 0.875em;
+}

@@ -11,8 +11,6 @@ import {
   NavLink,
   useLocation,
 } from "react-router-dom";
-import handleStyle from "../components/NavigationBar";
-import { NoMatch } from "./NoMatch";
 // import { set } from "husky";
 
 const Login = (props) => {

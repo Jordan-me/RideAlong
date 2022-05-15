@@ -49,7 +49,7 @@ const NavigationBar = (props) => {
               <Nav.Item>
                 <Nav.Link
                   as={Link}
-                  to="/"
+                  to={{ pathname: "/" }}
                   smooth="true"
                   duration="500"
                   offset="20"
@@ -90,7 +90,7 @@ const NavigationBar = (props) => {
               ) : (
                 <>
                   <Nav.Item>
-                    <Nav.Link as={NavLink} to="/login">
+                    <Nav.Link as={Link} to={{ pathname: "/login" }}>
                       Login
                     </Nav.Link>
                   </Nav.Item>
