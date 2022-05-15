@@ -90,3 +90,28 @@ img {
 small, .small {
     font-size: 0.875em;
 }
+.avatar-group .avatar-img {
+    border: 2px solid #fff;
+}
+ 
+.avatar-group .avatar-img {
+    border: 2px solid #fff;
+}
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.avatar-group .avatar-img {
+    border: 2px solid #fff;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+.w-100 {
+    width: 100% !important;
+}
+
+ 
