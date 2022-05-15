@@ -24,7 +24,7 @@ const Login = (props) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem("loginState") === "false") navigate("/");
+    if (localStorage.getItem("loginState") === "true") navigate("/");
   }, []);
 
   // const [errState, setErrState] = useState(false);
@@ -34,16 +34,11 @@ const Login = (props) => {
     if (user && extra && extra.status !== 404) {
       console.log(user);
       console.log(extra);
-      setLoggedInState(user);
+      setLoggedInState({ user: user, extra: extra });
       localStorage.setItem("loginState", true);
       // props.handleLogin(true);
       //location.state ? location.state.handleLoggedInStyle(true) : null;
-      navigate("/myProfile", {
-        state: {
-          userState: user,
-          extraState: extra,
-        },
-      });
+      navigate("/myProfile");
     }
   }, [user, extra]);
 
@@ -51,7 +46,7 @@ const Login = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //test mail: yardda2@gmail.com
-    
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
