@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { NavLink as RRNavLink } from 'react-router-dom';
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { LoginContext } from "../App";
 import Logo from "../assets/images/logo2.png"; //  src/images
@@ -46,13 +45,19 @@ const NavigationBar = (props) => {
               <Nav.Item>
                 <Nav.Link
                   as={Link}
-                  to="/"
+                  to={{ pathname: "/" }}
                   smooth="true"
                   duration="500"
                   offset="20"
                   spy="true"
                 >
                   Home
+                </Nav.Link>
+              </Nav.Item>
+
+              <Nav.Item>
+                <Nav.Link as={Link} to="/findEvent">
+                  Events
                 </Nav.Link>
               </Nav.Item>
               {loggedInState ? (
@@ -75,7 +80,6 @@ const NavigationBar = (props) => {
                         setLoggedInState(false);
                         navigate("/");
                       }}
-                      
                     >
                       Log out
                     </Nav.Link>
@@ -84,10 +88,7 @@ const NavigationBar = (props) => {
               ) : (
                 <>
                   <Nav.Item>
-                    <Nav.Link 
-                    to="/login"
-                    as={Link} 
-                    smooth="true">
+                    <Nav.Link as={Link} to={{ pathname: "/login" }}>
                       Login
                     </Nav.Link>
                   </Nav.Item>

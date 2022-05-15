@@ -1,10 +1,6 @@
 import React from "react";
 import { Calendar } from '@hammaadhrasheedh/react-event-calendar'
-
-//import { Calendar, momentLocalizer } from 'react-big-calendar'
-//import moment from 'moment'
-//const localizer = momentLocalizer(moment) // or globalizeLocalizer
-
+ 
 
 function MyCalendar(props) {
 
@@ -26,7 +22,7 @@ function MyCalendar(props) {
 
     return (
         <Calendar
-        className="justify-content-md-center"
+        className="justify-content-md-center " 
         md="auto"
             eventType="Fill"
             date={'2022-05-9'}
