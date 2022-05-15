@@ -1,9 +1,71 @@
 import React, { useState } from "react";
-import { Button, Modal, Tab, Tabs } from "react-bootstrap";
+import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import { CompanionCarousel } from "./CompanionCarousel";
 import { EventCarousel } from "./EventCarousel";
 import { MyCalendar } from "./MyCalendar";
+
+
+const EventForm = ({ onSubmit }) => {
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey:"AIzaSyDW05PKzB7iVXautIFjbDI9hTTHo9apH5c",
+
+  // });
+  const [genre, setGenre] = useState("");
+  const [title, setTitle] = useState("");
+  return (
+    <Form onSubmit={onSubmit}>
+      <Form.Group controlId="validationCustom001">
+        <Form.Label>Genre</Form.Label>
+        <Form.Select
+          size="md"
+          className="form-select"
+          id="validationCustom002"
+          value={genre}
+          onChange={(e) => {
+            if (e.target.value !== "None") {
+              console.log(e.target.value);
+              setGenre(e.target.value);
+            }
+          }}
+          required
+        >
+          <option value="None">Select Genre</option>
+          <option value="Flight">Flight</option>
+          <option value="Concert">Concert</option>
+          <option value="Trip">Road Trip</option>
+          <option value="Sports">Sports</option>
+          <option value="Arts">Arts & Theater</option>
+          <option value="Other">Other</option>
+        </Form.Select>
+        <br />
+      </Form.Group>
+      <Form.Group >
+        <Form.Control
+          required
+          type="text"
+          placeholder="Event name here"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+      </Form.Group>
+      {/* <Form.Group controlId="validationCustom05">
+      <div className="h-100 w-100 position-absolute">
+          map
+       </div>
+      </Form.Group> */}
+      <Button
+        variant="outline-success"
+        className="btn-success-soft"
+        type="submit"
+      >
+        Create now
+      </Button>
+    </Form>
+  );
+};
 
 function DiscoverEvents() {
   const [show, setShow] = useState(false);
@@ -11,7 +73,11 @@ function DiscoverEvents() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [key, setKey] = useState("top");
-
+  const onEventFormSubmit = (e) => {
+    console.log(e);
+    e.preventDefault();
+    handleClose();
+  };
   return (
     <div>
       <div className="card h-100">
@@ -32,7 +98,7 @@ function DiscoverEvents() {
               width="25"
               height="25"
               fill="currentColor"
-              class="bi bi-plus"
+              className="bi bi-plus"
               viewBox="0 0 16 16"
               style={{ paddingRight: "5px" }}
             >
@@ -68,12 +134,18 @@ function DiscoverEvents() {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Event Form</Modal.Title>
+          <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
-        <Modal.Body>bla bla and mor bla</Modal.Body>
+        <Modal.Body>
+          <EventForm onSubmit={onEventFormSubmit} />
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Modal
+          <Button
+            variant="outline-danger"
+            className="btn-danger-soft"
+            onClick={handleClose}
+          >
+            Close
           </Button>
         </Modal.Footer>
       </Modal>

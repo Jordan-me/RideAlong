@@ -113,7 +113,7 @@ const SignUp = () => {
                       }}
                       required
                     >
-                      <option defaultValue="">Select gender</option>
+                      <option defaultValue="" >Select gender</option>
                       <option value="Female">Female</option>
                       <option value="Man">Man</option>
                       <option value="Unknown">Unknown</option>

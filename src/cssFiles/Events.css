@@ -118,3 +118,14 @@ small, .small {
     color: #0f6fec;
     background-color: rgba(15, 111, 236, 0.1);
 }
+.btn-success-soft {
+    color: #0cbc87;
+    background-color: rgba(12, 188, 135, 0.1);
+}
+.btn-danger-soft {
+    color: #d6293e;
+    background-color: rgba(214, 41, 62, 0.1);
+}
+.pac-container {
+    z-index: 1100 !important;
+}
