@@ -3,14 +3,12 @@ import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import { CompanionCarousel } from "./CompanionCarousel";
 import { EventCarousel } from "./EventCarousel";
+import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
 
 
 const EventForm = ({ onSubmit }) => {
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey:"AIzaSyDW05PKzB7iVXautIFjbDI9hTTHo9apH5c",
 
-  // });
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
   return (
@@ -49,13 +47,17 @@ const EventForm = ({ onSubmit }) => {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          
         />
+        <br />
       </Form.Group>
-      {/* <Form.Group controlId="validationCustom05">
-      <div className="h-100 w-100 position-absolute">
+      <Form.Group controlId="validationCustom05">
+        <Places/>
+      {/* <div className="h-100 w-100 position-absolute">
           map
-       </div>
-      </Form.Group> */}
+       </div> */}
+      </Form.Group>
+      <br />
       <Button
         variant="outline-success"
         className="btn-success-soft"
