@@ -99,7 +99,7 @@ const NavigationBar = (props) => {
 
               <Nav.Item>
                 <Nav.Link
-                  href="/#question"
+                  to="/#question"
                   smooth="true"
                   duration="500"
                   offset="-70"
@@ -111,7 +111,7 @@ const NavigationBar = (props) => {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link
-                  href="/#about"
+                  to="/#about"
                   smooth="true"
                   duration="500"
                   offset="-70"
