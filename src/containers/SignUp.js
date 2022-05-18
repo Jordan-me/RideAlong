@@ -37,6 +37,8 @@ const SignUp = () => {
         email: email,
         dob: dob,
         gender: gender,
+        eventsCounter:0,
+        eventsList:[],
         role: "player",
         avatar: avatar,
         lat: location.coordinates.lat,
@@ -113,7 +115,7 @@ const SignUp = () => {
                       }}
                       required
                     >
-                      <option defaultValue="">Select gender</option>
+                      <option defaultValue="" >Select gender</option>
                       <option value="Female">Female</option>
                       <option value="Man">Man</option>
                       <option value="Unknown">Unknown</option>
