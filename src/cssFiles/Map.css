@@ -1,6 +1,6 @@
 .map-container {
     width: 100%;
-    height: 100vh;
+    height: 300px;
   }
 
 .combobox-input{
@@ -45,7 +45,7 @@ body {
 }
 
 .half-input {
-  max-width: 120px;
+  max-width: 200px;
 }
 
 .map {

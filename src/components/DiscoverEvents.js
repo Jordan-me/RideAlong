@@ -6,11 +6,12 @@ import { EventCarousel } from "./EventCarousel";
 import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
 
-
 const EventForm = ({ onSubmit }) => {
-
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
+  const [origin, setOrigin] = useState("");
+  const [dest, setDest] = useState("");
+  const [futureDate, setDate] = useState("");
   return (
     <Form onSubmit={onSubmit}>
       <Form.Group controlId="validationCustom001">
@@ -38,7 +39,7 @@ const EventForm = ({ onSubmit }) => {
         </Form.Select>
         <br />
       </Form.Group>
-      <Form.Group >
+      <Form.Group>
         <Form.Control
           required
           type="text"
@@ -47,15 +48,35 @@ const EventForm = ({ onSubmit }) => {
           onChange={(e) => {
             setTitle(e.target.value);
           }}
-          
         />
         <br />
       </Form.Group>
       <Form.Group controlId="validationCustom05">
-        <Places/>
-      {/* <div className="h-100 w-100 position-absolute">
+        <Places
+          origin={origin}
+          setOrigin={setOrigin}
+          Dest={dest}
+          setDest={setDest}
+        />
+        {origin ? console.log("origin: " + origin) : null}
+        {dest ? console.log(dest) : null}
+        {/* <div className="h-100 w-100 position-absolute">
           map
        </div> */}
+        <br />
+      </Form.Group>
+
+      <Form.Group md="4" controlId="validationCustom06">
+        <div className="half-input">
+          <Form.Control
+            required
+            type="date"
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+            name="futureDate"
+          />
+        </div>
       </Form.Group>
       <br />
       <Button
@@ -122,6 +143,7 @@ function DiscoverEvents() {
             </Tab>
             <Tab eventKey="My Events" title="My Events">
               <EventCarousel />
+              {/* <Places /> */}
               {/* <Sonnet /> */}
             </Tab>
             <Tab eventKey="My Calender" title="My Calender">
@@ -134,7 +156,7 @@ function DiscoverEvents() {
           </Tabs>
         </div>
       </div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} style={{ zIndex: "11000" }}>
         <Modal.Header closeButton>
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>

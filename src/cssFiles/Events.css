@@ -129,3 +129,11 @@ small, .small {
 .pac-container {
     z-index: 1100 !important;
 }
+.half-input-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+.half-input {
+max-width: 200px;
+}

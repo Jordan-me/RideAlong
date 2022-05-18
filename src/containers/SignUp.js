@@ -37,6 +37,8 @@ const SignUp = () => {
         email: email,
         dob: dob,
         gender: gender,
+        eventsCounter:0,
+        eventsList:[],
         role: "player",
         avatar: avatar,
         lat: location.coordinates.lat,
