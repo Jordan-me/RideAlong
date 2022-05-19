@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
+import { LoginContext } from "../App";
 import image from "../assets/images/no-profile-pic.jpg";
 import "../cssFiles/Events.css";
 
-function SideCard({...props}) {
+function SideCard() {
+  const [loggedInState, setLoggedInState] = useContext(LoginContext);
+  const [user, setUser] = useState(null);
+  const [extra, setExtra] = useState(null);
+
+  useEffect(() => {
+    console.log(loggedInState);
+  }, []);
+
+  useEffect(() => {
+    console.log(loggedInState);
+    if (loggedInState !== null ) {
+      setUser(loggedInState.user);
+      setExtra(loggedInState.extra[0]);
+    }
+  }, [loggedInState]);
+  useEffect(() => {
+    console.log(user, extra);
+  }, [user, extra]);
   return (
     <div>
       <div
@@ -27,8 +46,31 @@ function SideCard({...props}) {
                 />
               </div>
               {/* info */}
-              <h5 className="mb-0">MY-NAME?</h5>
-              <small> occupation/Age</small>
+              <h5 className="mb-0">
+              {loggedInState
+                    ? loggedInState.user
+                      ? loggedInState.user.username
+                      : null
+                    : null}
+                </h5>
+              <strong> 
+              {loggedInState ? (
+                  loggedInState.extra[0] ? (
+                    <p>
+                      {loggedInState.extra[0].instanceAttributes["dob"].split(
+                        "-"
+                      ).length === 3
+                        ? Math.abs(
+                            new Date().getFullYear() -
+                              loggedInState.extra[0].instanceAttributes[
+                                "dob"
+                              ].split("-")[0]
+                          )
+                        : null}
+                    </p>
+                  ) : null
+                ) : null}
+              </strong>
               <p className="mt-3">Description</p>
             </div>
           </div>

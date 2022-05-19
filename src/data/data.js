@@ -64,14 +64,14 @@ export const postUser = async (user) => {
   });
 };
 export const putUser = async (user,role) => {
-  await fetch(PUT_USER_ENDPOINT + user.email, {
+  await fetch(PUT_USER_ENDPOINT + user.userId.email, {
     method: "PUT",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      userId: { domain: "2022b.yarden.dahan", email: user.email },
+      userId: { domain: "2022b.yarden.dahan", email: user.userId.email },
       role:role,
       name: user.email,
       username:user.username,
@@ -121,11 +121,11 @@ export const postEventInstance = async(userEvent,user, type) =>{
     },
     body: JSON.stringify({
       type: type,
-      name: user.email,
+      name: user.userId.email,
       active: true,
       createdTimestamp: null,
       createdBy: {
-        userId: { domain: "2022b.yarden.dahan", email: user.email },
+        userId: { domain: "2022b.yarden.dahan", email: user.userId.email },
       },
       location: { lat: userEvent.dest.lat, lng: userEvent.dest.lng },
       instanceAttributes: {

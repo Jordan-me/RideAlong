@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import { CompanionCarousel } from "./CompanionCarousel";
@@ -8,30 +8,17 @@ import { MyCalendar } from "./MyCalendar";
 import { LoginContext } from "../App";
 import { fetchInstanceByName, fetchUser, postEventInstance, putUser } from "../data/data";
 
-const EventForm = ({ onSubmit }) => {
-  const [loggedInState, setLoggedInState] = useContext(LoginContext);
+const EventForm = ({ user }) => {
+  
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState("");
   const [dest, setDest] = useState("");
   const [futureDate, setDate] = useState("");
-  // const [user, setUser] = useState(null);
-  // const [extra, setExtra] = useState(null);
 
-  // useEffect(() => {
-  //   console.log(loggedInState);
-  //   if (loggedInState !== null && !typeof loggedInState === Boolean) {
-  //     setUser(loggedInState.user);
-  //     setExtra(loggedInState.extra[0]);
-  //   }
-  // }, [loggedInState]);
-  // useEffect(() => {
-  //   console.log(user, extra);
-  // }, [user, extra]);
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     const form = event.currentTarget;
     event.preventDefault();
-    // setSpinnerState(true);
     event.stopPropagation();
     const userEvent = {
       genre: genre,
@@ -42,19 +29,21 @@ const EventForm = ({ onSubmit }) => {
       attendedCounter:0,
       assignedUsers:[],
     };
-    let user  = fetchUser("yardda2@gmail.com");
-    // let instanceUser = fetchInstanceByName("yardda2@gmail.com");
+    let userDB  = await fetchUser(user.email);
+    console.log(user);
+    // let instanceUser = await fetchInstanceByName(user.email);
+    // instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents[instanceUser["INSTANCE_ATTRIBUTES"].counterEvents] = 
     // instanceUser["INSTANCE_ATTRIBUTES"].counterEvents+=1;
     //TODO: add to instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents+= eventID;
     putUser(user,"Manager")
-    .then(() =>postEventInstance(userEvent,user, "eventUser")
+    .then(() =>postEventInstance(userEvent,userDB, "eventUser")
       .then(()=>
         putUser(user,"Player")
   ));
 
   };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Form.Group controlId="validationCustom001">
         <Form.Label>Genre</Form.Label>
         <Form.Select
@@ -129,7 +118,7 @@ const EventForm = ({ onSubmit }) => {
   );
 };
 
-function DiscoverEvents() {
+function DiscoverEvents({user}) {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
@@ -201,7 +190,7 @@ function DiscoverEvents() {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EventForm onSubmit={onEventFormSubmit} />
+          <EventForm user={user} />
         </Modal.Body>
         <Modal.Footer>
           <Button

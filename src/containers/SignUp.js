@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
-import { postUser, postUserInstance, putUser } from "../data/data";
+import { fetchUser, postUser, postUserInstance, putUser } from "../data/data";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
@@ -49,7 +49,7 @@ const SignUp = () => {
       .then(() =>
         postUserInstance(user, "User").then(() => setSpinnerState("SUCCESS"))
           .then(()=>
-            putUser(user,"Player")
+            putUser(fetchUser(user.email),"Player")
         ));
       
     }
