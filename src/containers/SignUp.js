@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
-import { postUser, postInstance } from "../data/data";
+import { postUser, postUserInstance, putUser } from "../data/data";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
@@ -39,14 +39,18 @@ const SignUp = () => {
         gender: gender,
         eventsCounter:0,
         eventsList:[],
-        role: "player",
+        role: "Manager",
         avatar: avatar,
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
       };
-      postUser(user).then(() =>
-        postInstance(user, "User").then(() => setSpinnerState("SUCCESS"))
-      );
+      postUser(user)
+      .then(() =>
+        postUserInstance(user, "User").then(() => setSpinnerState("SUCCESS"))
+          .then(()=>
+            putUser(user,"Player")
+        ));
+      
     }
     setValidated(true);
   };

@@ -155,14 +155,23 @@ const MyProfile = (props) => {
                     </svg>
                   </div>
                   <div>
-                    <p className="mb-0"> "2877? events"</p>
+                    <p className="mb-0">
+                    {loggedInState
+                    ? loggedInState.extra
+                      ? ""+loggedInState.extra[0].instanceAttributes["counterEvents"] +" "
+                      : null
+                    : null}
+                    <strong> events</strong>
+                    </p>
+   
+                    
                   </div>
                 </div>
                 <hr />
                 {loggedInState ? (
                   loggedInState.user ? (
                     <h6>
-                      {loggedInState.user.username.split("_")[0]} Hobbies{" "}
+                      {loggedInState.user.username.split("_")[0]}'s Hobbies{" "}
                     </h6>
                   ) : null
                 ) : null}
