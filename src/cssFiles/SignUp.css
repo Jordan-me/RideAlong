@@ -1,0 +1,27 @@
+.myStyle {
+    background-color: #DAAD86;
+    position: relative;
+    display: flex;
+    padding-top: 150px;
+    margin: 0;
+    text-align: center;
+    height: 100vh;
+    padding-bottom: 10px;
+}
+.imgStyle {
+    height: 100%;
+}
+.avatar{
+    
+    vertical-align: middle;
+    padding-left: 2px;
+    width: 30px;
+    height: 30px;
+    border-width: 2px;
+    border-color: gray;
+    display: "inline-block";
+    border-radius: 50%;
+    /* border-top-left-radius: 1; */
+    /* border-bottom-left-radius: 1; */
+    /* border-style: outset; */
+}

@@ -1,19 +1,60 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import { CompanionCarousel } from "./CompanionCarousel";
 import { EventCarousel } from "./EventCarousel";
 import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
+import { LoginContext } from "../App";
+import { fetchInstanceByName, fetchUser, postEventInstance, putUser } from "../data/data";
 
 const EventForm = ({ onSubmit }) => {
+  const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState("");
   const [dest, setDest] = useState("");
   const [futureDate, setDate] = useState("");
+  // const [user, setUser] = useState(null);
+  // const [extra, setExtra] = useState(null);
+
+  // useEffect(() => {
+  //   console.log(loggedInState);
+  //   if (loggedInState !== null && !typeof loggedInState === Boolean) {
+  //     setUser(loggedInState.user);
+  //     setExtra(loggedInState.extra[0]);
+  //   }
+  // }, [loggedInState]);
+  // useEffect(() => {
+  //   console.log(user, extra);
+  // }, [user, extra]);
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    event.preventDefault();
+    // setSpinnerState(true);
+    event.stopPropagation();
+    const userEvent = {
+      genre: genre,
+      title: title,
+      origin: origin,
+      dest: dest,
+      futureDate: futureDate,
+      attendedCounter:0,
+      assignedUsers:[],
+    };
+    let user  = fetchUser("yardda2@gmail.com");
+    // let instanceUser = fetchInstanceByName("yardda2@gmail.com");
+    // instanceUser["INSTANCE_ATTRIBUTES"].counterEvents+=1;
+    //TODO: add to instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents+= eventID;
+    putUser(user,"Manager")
+    .then(() =>postEventInstance(userEvent,user, "eventUser")
+      .then(()=>
+        putUser(user,"Player")
+  ));
+
+  };
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="validationCustom001">
         <Form.Label>Genre</Form.Label>
         <Form.Select
@@ -60,9 +101,7 @@ const EventForm = ({ onSubmit }) => {
         />
         {origin ? console.log("origin: " + origin) : null}
         {dest ? console.log(dest) : null}
-        {/* <div className="h-100 w-100 position-absolute">
-          map
-       </div> */}
+
         <br />
       </Form.Group>
 
@@ -97,7 +136,8 @@ function DiscoverEvents() {
   const handleClose = () => setShow(false);
   const [key, setKey] = useState("top");
   const onEventFormSubmit = (e) => {
-    console.log(e);
+    const form = e.currentTarget;
+    console.error(e);
     e.preventDefault();
     handleClose();
   };

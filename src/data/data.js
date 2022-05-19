@@ -1,5 +1,5 @@
 const POST_USER_ENDPOINT = "http://localhost:8085/iob/users?";
-const POST_INSTANCE_USER_ENDPOINT = "http://localhost:8085/iob/instances";
+const POST_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const PUT_USER_ENDPOINT = "http://localhost:8085/iob/users/2022b.yarden.dahan/";
 const GET_USER_LOGIN__ENDPOINT =
   "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
@@ -80,7 +80,7 @@ export const putUser = async (user,role) => {
   });
 };
 export const postUserInstance = async (user, type) => {
-  const d = await fetch(POST_INSTANCE_USER_ENDPOINT, {
+  const d = await fetch(POST_INSTANCE_ENDPOINT, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -108,5 +108,36 @@ export const postUserInstance = async (user, type) => {
     }),
   });
  
+  console.log(d);
+};
+
+export const postEventInstance = async(userEvent,user, type) =>{
+  const d = await fetch(POST_INSTANCE_ENDPOINT, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      type: type,
+      name: user.email,
+      active: true,
+      createdTimestamp: null,
+      createdBy: {
+        userId: { domain: "2022b.yarden.dahan", email: user.email },
+      },
+      location: { lat: userEvent.dest.lat, lng: userEvent.dest.lng },
+      instanceAttributes: {
+        title: userEvent.title,
+        genre: userEvent.genre,
+        origin: userEvent.origin,
+        dest: userEvent.dest,
+        futureDate: userEvent.futureDate,
+        attendedCounter:userEvent.attendedCounter,
+        assignedUsers:userEvent.assignedUsers,
+      },
+    }),
+  });
   console.log(d);
 };
