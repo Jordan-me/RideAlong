@@ -1,0 +1,50 @@
+/* .onClickActive {
+  cursor: pointer;
+   z-index: 2; 
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+.onClickNonActive {
+  cursor: pointer;
+   z-index: 2; 
+  color: rgb(0, 0, 0);
+  background-color: #ffffff;
+  border-color: #fdfdfd;
+} */
+.chip {
+  display: inline-block;
+  padding: 5 15px;
+  height: 40px;
+  font-size: 16px;
+  line-height: 40px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+}
+.closebtn {
+  padding-left: 10px;
+  color: #888;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #000;
+}
+
+/* .style:hover {
+  background-color: red;
+}
+
+.style:active {
+  background-color: yellow;
+}
+.style:visited {
+  background-color: rgb(119, 119, 80);
+} */
+
+/* .style:checked {
+  background-color: yellow;
+} */

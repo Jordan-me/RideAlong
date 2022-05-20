@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
@@ -6,9 +6,11 @@ import { fetchUser, postUser, postUserInstance, putUser } from "../data/data";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
+import Hobbies from "../components/Hobbies";
 import "../cssFiles/SignUp.css";
 
 const SignUp = () => {
+  const [myHobbies, setMyHobbies] = useState(null);
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,11 +18,16 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
-  const [avatar, setProfilePic] = useState("https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0=");
+  const [avatar, setProfilePic] = useState(
+    "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
+  );
   const [spinnerState, setSpinnerState] = useState(false);
   const location = useGeoLocation();
 
   const [validated, setValidated] = useState(false);
+  // useEffect(() => {
+  //   setMyHobbies()
+  // }, [])
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -38,20 +45,18 @@ const SignUp = () => {
         email: email,
         dob: dob,
         gender: gender,
-        eventsCounter:0,
-        eventsList:[],
+        eventsCounter: 0,
+        eventsList: [],
         role: "Manager",
         avatar: avatar,
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
       };
-      postUser(user)
-      .then(() =>
-        postUserInstance(user, "User").then(() => setSpinnerState("SUCCESS"))
-          .then(()=>
-            putUser(fetchUser(user.email),"Player")
-        ));
-      
+      postUser(user).then(() =>
+        postUserInstance(user, "User")
+          .then(() => setSpinnerState("SUCCESS"))
+          .then(() => putUser(fetchUser(user.email), "Player"))
+      );
     }
     setValidated(true);
   };
@@ -107,7 +112,7 @@ const SignUp = () => {
                       }}
                       required
                     >
-                      <option defaultValue="" >Select gender</option>
+                      <option defaultValue="">Select gender</option>
                       <option value="Female">Female</option>
                       <option value="Man">Man</option>
                       <option value="Unknown">Unknown</option>
@@ -164,13 +169,17 @@ const SignUp = () => {
                     onChange={(e) => {
                       setProfilePic(e.target.value);
                     }}
-                    style={{paddingTop:"5px"}}
+                    style={{ paddingTop: "5px" }}
                   />
-                  <img src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
-                   alt="Avatar" className="avatar"/>
+                  <img
+                    src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
+                    alt="Avatar"
+                    className="avatar"
+                  />
                 </div>
               </Row>
               <Row>
+                {/* <Hobbies /> */}
                 <Col>
                   <Form.Group className="mb-3">
                     <Form.Check
@@ -232,6 +241,67 @@ const SignUp = () => {
                   Success{navigate("/")}
                 </label>
               ) : null}
+            </Form>
+            <Form style={{ display: "flex", flexDirection: "column" }}>
+              <Form.Label>Choose your hobbies</Form.Label>
+
+              {/* <div style={{ display: "flex", margin: "2px" }}>
+                {DEFAULT_HOBBIES.slice(
+                  0,
+                  Number.parseInt(DEFAULT_HOBBIES.length / 3)
+                ).map((type, idx) => {
+                  return (
+                    <div key={idx} className="mb-3">
+                      <Form.Check
+                        inline
+                        label={type}
+                        name="group1"
+                        type="checkbox"
+                        value={type}
+                        id={idx}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ display: "flex", margin: "2px" }}>
+                {DEFAULT_HOBBIES.slice(
+                  Number.parseInt(DEFAULT_HOBBIES.length / 3),
+                  Number.parseInt((DEFAULT_HOBBIES.length * 2) / 3) - 1
+                ).map((type, idx) => {
+                  return (
+                    <div key={idx} className="mb-3">
+                      <Form.Check
+                        inline
+                        label={type}
+                        name="group1"
+                        type="checkbox"
+                        value={type}
+                        id={idx}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ display: "flex", margin: "2px" }}>
+                {DEFAULT_HOBBIES.slice(
+                  Number.parseInt((DEFAULT_HOBBIES.length * 2) / 3) - 1,
+                  Number.parseInt(DEFAULT_HOBBIES.length) - 1
+                ).map((type, idx) => {
+                  return (
+                    <div key={idx} className="mb-3">
+                      <Form.Check
+                        inline
+                        label={type}
+                        name="group1"
+                        type="checkbox"
+                        value={type}
+                        id={idx}
+                      />
+                    </div>
+                  );
+                })}
+              </div> */}
             </Form>
           </div>
           <hr style={{ width: "70%", display: "inline-block" }}></hr>

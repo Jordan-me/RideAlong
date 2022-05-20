@@ -14,6 +14,10 @@ const MyProfile = (props) => {
 
   useEffect(() => {
     console.log(loggedInState);
+    if (loggedInState !== null && !typeof loggedInState === Boolean) {
+      setUser(loggedInState.user);
+      setExtra(loggedInState.extra[0]);
+    }
   }, []);
 
   useEffect(() => {
@@ -156,15 +160,17 @@ const MyProfile = (props) => {
                   </div>
                   <div>
                     <p className="mb-0">
-                    {loggedInState
-                    ? loggedInState.extra
-                      ? ""+loggedInState.extra[0].instanceAttributes["counterEvents"] +" "
-                      : null
-                    : null}
-                    <strong> events</strong>
+                      {loggedInState
+                        ? loggedInState.extra
+                          ? "" +
+                            loggedInState.extra[0].instanceAttributes[
+                              "counterEvents"
+                            ] +
+                            " "
+                          : null
+                        : null}
+                      <strong> events</strong>
                     </p>
-   
-                    
                   </div>
                 </div>
                 <hr />

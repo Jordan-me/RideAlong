@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../App";
 import image from "../assets/images/no-profile-pic.jpg";
 import "../cssFiles/Events.css";
 
 function SideCard() {
+  const navigate = useNavigate();
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
@@ -80,9 +82,9 @@ function SideCard() {
                 marginLeft: "20%",
                 marginRight: "20%",
               }}
-              href="/myProfile"
+              onClick={() => navigate("/myProfile")}
             >
-              View Profile{" "}
+              View Profile
             </Button>
           </div>
         </div>
