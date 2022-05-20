@@ -6,19 +6,7 @@ import { fetchUser, postUser, postUserInstance, putUser } from "../data/data";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
-const DEFAULT_HOBBIES = [
-  "Sports",
-  "Gaming",
-  "Traveling",
-  "Reading",
-  "Fishing",
-  "Bird Watching",
-  "Collecting",
-  "Gardening",
-  "Hiking",
-  "Arts and Crafts",
-  "Cooking",
-];
+import Hobbies from "../components/Hobbies";
 import "../cssFiles/SignUp.css";
 
 const SignUp = () => {
@@ -191,6 +179,7 @@ const SignUp = () => {
                 </div>
               </Row>
               <Row>
+                {/* <Hobbies /> */}
                 <Col>
                   <Form.Group className="mb-3">
                     <Form.Check
@@ -255,7 +244,8 @@ const SignUp = () => {
             </Form>
             <Form style={{ display: "flex", flexDirection: "column" }}>
               <Form.Label>Choose your hobbies</Form.Label>
-              <div style={{ display: "flex", margin: "2px" }}>
+
+              {/* <div style={{ display: "flex", margin: "2px" }}>
                 {DEFAULT_HOBBIES.slice(
                   0,
                   Number.parseInt(DEFAULT_HOBBIES.length / 3)
@@ -296,7 +286,7 @@ const SignUp = () => {
               <div style={{ display: "flex", margin: "2px" }}>
                 {DEFAULT_HOBBIES.slice(
                   Number.parseInt((DEFAULT_HOBBIES.length * 2) / 3) - 1,
-                  Number.parseInt(DEFAULT_HOBBIES.length)
+                  Number.parseInt(DEFAULT_HOBBIES.length) - 1
                 ).map((type, idx) => {
                   return (
                     <div key={idx} className="mb-3">
@@ -311,7 +301,7 @@ const SignUp = () => {
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
             </Form>
           </div>
           <hr style={{ width: "70%", display: "inline-block" }}></hr>
