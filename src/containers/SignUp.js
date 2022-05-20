@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
@@ -6,8 +6,21 @@ import { postUser, postInstance } from "../data/data";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
-
+const DEFAULT_HOBBIES = [
+  "Sports",
+  "Gaming",
+  "Traveling",
+  "Reading",
+  "Fishing",
+  "Bird Watching",
+  "Collecting",
+  "Gardening",
+  "Hiking",
+  "Arts and Crafts",
+  "Cooking",
+];
 const SignUp = () => {
+  const [myHobbies, setMyHobbies] = useState(null);
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -20,6 +33,9 @@ const SignUp = () => {
   const location = useGeoLocation();
 
   const [validated, setValidated] = useState(false);
+  // useEffect(() => {
+  //   setMyHobbies()
+  // }, [])
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -37,8 +53,8 @@ const SignUp = () => {
         email: email,
         dob: dob,
         gender: gender,
-        eventsCounter:0,
-        eventsList:[],
+        eventsCounter: 0,
+        eventsList: [],
         role: "player",
         avatar: avatar,
         lat: location.coordinates.lat,
@@ -115,7 +131,7 @@ const SignUp = () => {
                       }}
                       required
                     >
-                      <option defaultValue="" >Select gender</option>
+                      <option defaultValue="">Select gender</option>
                       <option value="Female">Female</option>
                       <option value="Man">Man</option>
                       <option value="Unknown">Unknown</option>
@@ -237,6 +253,66 @@ const SignUp = () => {
                   Success{navigate("/")}
                 </label>
               ) : null}
+            </Form>
+            <Form style={{ display: "flex", flexDirection: "column" }}>
+              <Form.Label>Choose your hobbies</Form.Label>
+              <div style={{ display: "flex", margin: "2px" }}>
+                {DEFAULT_HOBBIES.slice(
+                  0,
+                  Number.parseInt(DEFAULT_HOBBIES.length / 3)
+                ).map((type, idx) => {
+                  return (
+                    <div key={idx} className="mb-3">
+                      <Form.Check
+                        inline
+                        label={type}
+                        name="group1"
+                        type="checkbox"
+                        value={type}
+                        id={idx}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ display: "flex", margin: "2px" }}>
+                {DEFAULT_HOBBIES.slice(
+                  Number.parseInt(DEFAULT_HOBBIES.length / 3),
+                  Number.parseInt((DEFAULT_HOBBIES.length * 2) / 3) - 1
+                ).map((type, idx) => {
+                  return (
+                    <div key={idx} className="mb-3">
+                      <Form.Check
+                        inline
+                        label={type}
+                        name="group1"
+                        type="checkbox"
+                        value={type}
+                        id={idx}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ display: "flex", margin: "2px" }}>
+                {DEFAULT_HOBBIES.slice(
+                  Number.parseInt((DEFAULT_HOBBIES.length * 2) / 3) - 1,
+                  Number.parseInt(DEFAULT_HOBBIES.length)
+                ).map((type, idx) => {
+                  return (
+                    <div key={idx} className="mb-3">
+                      <Form.Check
+                        inline
+                        label={type}
+                        name="group1"
+                        type="checkbox"
+                        value={type}
+                        id={idx}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </Form>
           </div>
           <hr style={{ width: "70%", display: "inline-block" }}></hr>
