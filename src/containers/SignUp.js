@@ -6,7 +6,6 @@ import { fetchUser, postUser, postUserInstance, putUser } from "../data/data";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
-import Hobbies from "../components/Hobbies";
 import "../cssFiles/SignUp.css";
 
 const SignUp = () => {

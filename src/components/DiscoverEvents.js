@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import { CompanionCarousel } from "./CompanionCarousel";
@@ -8,7 +8,25 @@ import { MyCalendar } from "./MyCalendar";
 import { LoginContext } from "../App";
 import { fetchInstanceByName, fetchUser, postEventInstance, putUser } from "../data/data";
 
-const EventForm = ({ user }) => {
+const EventForm = () => {
+  const [loggedInState, setLoggedInState] = useContext(LoginContext);
+  const [user, setUser] = useState(null);
+  const [extra, setExtra] = useState(null);
+
+  useEffect(() => {
+    console.log(loggedInState);
+  }, []);
+
+  useEffect(() => {
+    console.log(loggedInState);
+    if (loggedInState !== null) {
+      setUser(loggedInState.user);
+      setExtra(loggedInState.extra[0]);
+    }
+  }, [loggedInState]);
+  useEffect(() => {
+    console.log(user, extra);
+  }, [user, extra]);
   
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
@@ -29,12 +47,9 @@ const EventForm = ({ user }) => {
       attendedCounter:0,
       assignedUsers:[],
     };
-    let userDB  = await fetchUser(user.email);
+    console.error(user);
+    let userDB  = await fetchUser(user.userId.email);
     console.log(user);
-    // let instanceUser = await fetchInstanceByName(user.email);
-    // instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents[instanceUser["INSTANCE_ATTRIBUTES"].counterEvents] = 
-    // instanceUser["INSTANCE_ATTRIBUTES"].counterEvents+=1;
-    //TODO: add to instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents+= eventID;
     putUser(user,"Manager")
     .then(() =>postEventInstance(userEvent,userDB, "eventUser")
       .then(()=>
@@ -43,7 +58,7 @@ const EventForm = ({ user }) => {
 
   };
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="validationCustom001">
         <Form.Label>Genre</Form.Label>
         <Form.Select

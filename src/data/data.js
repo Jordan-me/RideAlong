@@ -112,6 +112,7 @@ export const postUserInstance = async (user, type) => {
 };
 
 export const postEventInstance = async(userEvent,user, type) =>{
+
   const d = await fetch(POST_INSTANCE_ENDPOINT, {
     method: "POST",
     mode: "cors",
