@@ -94,33 +94,31 @@ const NavigationBar = (props) => {
                       Login
                     </Nav.Link>
                   </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      href="/#question"
+                      smooth="true"
+                      duration="500"
+                      offset="-70"
+                      spy="true"
+                    >
+                      FAQ
+                    </Nav.Link>
+                  </Nav.Item>
+
+                  <Nav.Item>
+                    <Nav.Link
+                      href="/#about"
+                      smooth="true"
+                      duration="500"
+                      offset="-70"
+                      spy="true"
+                    >
+                      About
+                    </Nav.Link>
+                  </Nav.Item>
                 </>
               )}
-
-              <Nav.Item>
-                <Nav.Link
-                  to="/#question"
-                  smooth="true"
-                  duration="500"
-                  offset="-70"
-                  spy="true"
-                  disabled
-                >
-                  FAQ
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link
-                  to="/#about"
-                  smooth="true"
-                  duration="500"
-                  offset="-70"
-                  spy="true"
-                  disabled
-                >
-                  About
-                </Nav.Link>
-              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>

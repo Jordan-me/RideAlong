@@ -1,19 +1,49 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import { CompanionCarousel } from "./CompanionCarousel";
 import { EventCarousel } from "./EventCarousel";
 import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
+import { LoginContext } from "../App";
+import { fetchInstanceByName, fetchUser, postEventInstance, putUser } from "../data/data";
 
-const EventForm = ({ onSubmit }) => {
+const EventForm = ({ user }) => {
+  
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState("");
   const [dest, setDest] = useState("");
   const [futureDate, setDate] = useState("");
+
+  const handleSubmit = async(event) => {
+    const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
+    const userEvent = {
+      genre: genre,
+      title: title,
+      origin: origin,
+      dest: dest,
+      futureDate: futureDate,
+      attendedCounter:0,
+      assignedUsers:[],
+    };
+    let userDB  = await fetchUser(user.email);
+    console.log(user);
+    // let instanceUser = await fetchInstanceByName(user.email);
+    // instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents[instanceUser["INSTANCE_ATTRIBUTES"].counterEvents] = 
+    // instanceUser["INSTANCE_ATTRIBUTES"].counterEvents+=1;
+    //TODO: add to instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents+= eventID;
+    putUser(user,"Manager")
+    .then(() =>postEventInstance(userEvent,userDB, "eventUser")
+      .then(()=>
+        putUser(user,"Player")
+  ));
+
+  };
   return (
-    <Form onSubmit={onSubmit}>
+    <Form>
       <Form.Group controlId="validationCustom001">
         <Form.Label>Genre</Form.Label>
         <Form.Select
@@ -60,9 +90,7 @@ const EventForm = ({ onSubmit }) => {
         />
         {origin ? console.log("origin: " + origin) : null}
         {dest ? console.log(dest) : null}
-        {/* <div className="h-100 w-100 position-absolute">
-          map
-       </div> */}
+
         <br />
       </Form.Group>
 
@@ -90,14 +118,15 @@ const EventForm = ({ onSubmit }) => {
   );
 };
 
-function DiscoverEvents() {
+function DiscoverEvents({user}) {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   const [key, setKey] = useState("top");
   const onEventFormSubmit = (e) => {
-    console.log(e);
+    const form = e.currentTarget;
+    console.error(e);
     e.preventDefault();
     handleClose();
   };
@@ -161,7 +190,7 @@ function DiscoverEvents() {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EventForm onSubmit={onEventFormSubmit} />
+          <EventForm user={user} />
         </Modal.Body>
         <Modal.Footer>
           <Button

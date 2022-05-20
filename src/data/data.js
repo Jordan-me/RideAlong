@@ -1,9 +1,11 @@
 const POST_USER_ENDPOINT = "http://localhost:8085/iob/users?";
-const POST_INSTANCE_USER_ENDPOINT = "http://localhost:8085/iob/instances";
+const POST_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
+const PUT_USER_ENDPOINT = "http://localhost:8085/iob/users/2022b.yarden.dahan/";
 const GET_USER_LOGIN__ENDPOINT =
   "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
 const GET_INSTANCE_BY_NAME_ENDPOINT =
   "http://localhost:8085/iob/instances/search/byName/";
+
 const INSTANCE_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=player@google.com";
 const GET_INSTANCE_ENDPOINT =
@@ -61,26 +63,24 @@ export const postUser = async (user) => {
     body: JSON.stringify(user),
   });
 };
-export const postInstance = async (user, type) => {
-  console.log(
-    JSON.stringify({
-      type: type,
+export const putUser = async (user,role) => {
+  await fetch(PUT_USER_ENDPOINT + user.userId.email, {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: { domain: "2022b.yarden.dahan", email: user.userId.email },
+      role:role,
       name: user.email,
-      active: true,
-      createdTimestamp: null,
-      createdBy: {
-        userId: { domain: "2022b.yarden.dahan", email: "manager@google.com" },
-      },
-      location: { lat: user.lat, lng: user.lng },
-      instanceAttributes: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        dob: user.dob,
-        gender: user.gender,
-      },
-    })
-  );
-  const d = await fetch(POST_INSTANCE_USER_ENDPOINT, {
+      username:user.username,
+	    avatar:user.avatar
+    }),
+  });
+};
+export const postUserInstance = async (user, type) => {
+  const d = await fetch(POST_INSTANCE_ENDPOINT, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -93,7 +93,7 @@ export const postInstance = async (user, type) => {
       active: true,
       createdTimestamp: null,
       createdBy: {
-        userId: { domain: "2022b.yarden.dahan", email: "manager@google.com" },
+        userId: { domain: "2022b.yarden.dahan", email: user.email },
       },
       location: { lat: user.lat, lng: user.lng },
       instanceAttributes: {
@@ -101,6 +101,41 @@ export const postInstance = async (user, type) => {
         lastName: user.lastName,
         dob: user.dob,
         gender: user.gender,
+        counterEvents: 0,
+        suggestedEvents: [],
+        attendedEvents: [],
+      },
+    }),
+  });
+ 
+  console.log(d);
+};
+
+export const postEventInstance = async(userEvent,user, type) =>{
+  const d = await fetch(POST_INSTANCE_ENDPOINT, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      type: type,
+      name: user.userId.email,
+      active: true,
+      createdTimestamp: null,
+      createdBy: {
+        userId: { domain: "2022b.yarden.dahan", email: user.userId.email },
+      },
+      location: { lat: userEvent.dest.lat, lng: userEvent.dest.lng },
+      instanceAttributes: {
+        title: userEvent.title,
+        genre: userEvent.genre,
+        origin: userEvent.origin,
+        dest: userEvent.dest,
+        futureDate: userEvent.futureDate,
+        attendedCounter:userEvent.attendedCounter,
+        assignedUsers:userEvent.assignedUsers,
       },
     }),
   });

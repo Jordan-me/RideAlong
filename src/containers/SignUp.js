@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form, Button, InputGroup } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import Img from "../assets/images/background-promo-event.jpg";
-import { postUser, postInstance } from "../data/data";
+import { fetchUser, postUser, postUserInstance, putUser } from "../data/data";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useGeoLocation from "../components/useGeoLocation";
@@ -19,6 +19,8 @@ const DEFAULT_HOBBIES = [
   "Arts and Crafts",
   "Cooking",
 ];
+import "../cssFiles/SignUp.css";
+
 const SignUp = () => {
   const [myHobbies, setMyHobbies] = useState(null);
   const navigate = useNavigate();
@@ -28,7 +30,9 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
-  const [avatar, setProfilePic] = useState("");
+  const [avatar, setProfilePic] = useState(
+    "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
+  );
   const [spinnerState, setSpinnerState] = useState(false);
   const location = useGeoLocation();
 
@@ -55,34 +59,23 @@ const SignUp = () => {
         gender: gender,
         eventsCounter: 0,
         eventsList: [],
-        role: "player",
+        role: "Manager",
         avatar: avatar,
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
       };
       postUser(user).then(() =>
-        postInstance(user, "User").then(() => setSpinnerState("SUCCESS"))
+        postUserInstance(user, "User")
+          .then(() => setSpinnerState("SUCCESS"))
+          .then(() => putUser(fetchUser(user.email), "Player"))
       );
     }
     setValidated(true);
   };
 
-  const myStyle = {
-    backgroundColor: "#DAAD86",
-    position: "relative",
-    display: "flex",
-    paddingTop: "150px",
-    margin: "0",
-    textAlign: "center",
-    height: "100vh",
-    paddingBottom: "10px",
-  };
-  const imgStyle = {
-    height: "100%",
-  };
   return (
     <div>
-      <div style={myStyle}>
+      <div className="myStyle">
         <Container fluid="md">
           <h1>RideAlong</h1>
           <hr></hr>
@@ -188,6 +181,12 @@ const SignUp = () => {
                     onChange={(e) => {
                       setProfilePic(e.target.value);
                     }}
+                    style={{ paddingTop: "5px" }}
+                  />
+                  <img
+                    src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0="
+                    alt="Avatar"
+                    className="avatar"
                   />
                 </div>
               </Row>
@@ -331,9 +330,8 @@ const SignUp = () => {
         </Container>
         <Container className="d-none d-xl-block">
           <img
-            className="d-block w-100 opacity-75"
+            className="d-block w-100 opacity-75 imgStyle"
             src={Img}
-            style={imgStyle}
             alt="team promo"
           />
         </Container>
