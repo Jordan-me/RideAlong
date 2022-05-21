@@ -8,6 +8,17 @@ import { MyCalendar } from "./MyCalendar";
 import { LoginContext } from "../App";
 import { fetchInstanceByName, fetchUser, postEventInstance, putUser } from "../data/data";
 
+const [show, setShow] = useState(false);
+
+const handleShow = () => setShow(true);
+const handleClose = () => setShow(false);
+const [key, setKey] = useState("top");
+const onEventFormSubmit = (e) => {
+  const form = e.currentTarget;
+  console.error(e);
+  e.preventDefault();
+  handleClose();
+};
 const EventForm = () => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [user, setUser] = useState(null);
@@ -51,7 +62,7 @@ const EventForm = () => {
     let userDB  = await fetchUser(user.userId.email);
     console.log(user);
     putUser(user,"Manager")
-    .then(() =>postEventInstance(userEvent,userDB, "eventUser")
+    .then(async () => await postEventInstance(userEvent,userDB, "eventUser")
       .then(()=>
         putUser(user,"Player")
   ));
@@ -126,6 +137,7 @@ const EventForm = () => {
         variant="outline-success"
         className="btn-success-soft"
         type="submit"
+        
       >
         Create now
       </Button>
@@ -134,17 +146,7 @@ const EventForm = () => {
 };
 
 function DiscoverEvents({user}) {
-  const [show, setShow] = useState(false);
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-  const [key, setKey] = useState("top");
-  const onEventFormSubmit = (e) => {
-    const form = e.currentTarget;
-    console.error(e);
-    e.preventDefault();
-    handleClose();
-  };
   return (
     <div>
       <div className="card h-100">
