@@ -6,17 +6,21 @@ import { EventCarousel } from "./EventCarousel";
 import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
 import { LoginContext } from "../App";
-import { fetchInstanceByName, fetchUser, postEventInstance, putUser } from "../data/data";
+import {
+  fetchInstanceByName,
+  fetchUser,
+  postEventInstance,
+  putUser,
+} from "../data/data";
 
 const EventForm = ({ user }) => {
-  
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState("");
   const [dest, setDest] = useState("");
   const [futureDate, setDate] = useState("");
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
@@ -26,21 +30,21 @@ const EventForm = ({ user }) => {
       origin: origin,
       dest: dest,
       futureDate: futureDate,
-      attendedCounter:0,
-      assignedUsers:[],
+      attendedCounter: 0,
+      assignedUsers: [],
     };
-    let userDB  = await fetchUser(user.email);
+    let userDB = await fetchUser(user.email);
     console.log(user);
     // let instanceUser = await fetchInstanceByName(user.email);
-    // instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents[instanceUser["INSTANCE_ATTRIBUTES"].counterEvents] = 
+    // instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents[instanceUser["INSTANCE_ATTRIBUTES"].counterEvents] =
     // instanceUser["INSTANCE_ATTRIBUTES"].counterEvents+=1;
     //TODO: add to instanceUser["INSTANCE_ATTRIBUTES"].attendedEvents+= eventID;
-    putUser(user,"Manager")
-    .then(() =>postEventInstance(userEvent,userDB, "eventUser")
-      .then(()=>
-        putUser(user,"Player")
-  ));
-
+    putUser(user, "Manager").then(
+      async () =>
+        await postEventInstance(userEvent, userDB, "eventUser").then(() =>
+          putUser(user, "Player")
+        )
+    );
   };
   return (
     <Form>
@@ -118,7 +122,7 @@ const EventForm = ({ user }) => {
   );
 };
 
-function DiscoverEvents({user}) {
+function DiscoverEvents({ user }) {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);

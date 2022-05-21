@@ -55,7 +55,7 @@ const SignUp = () => {
       postUser(user).then(() =>
         postUserInstance(user, "User")
           .then(() => setSpinnerState("SUCCESS"))
-          .then(() => putUser(fetchUser(user.email), "Player"))
+          .then(async () => putUser(await fetchUser(user.email), "Player"))
       );
     }
     setValidated(true);
