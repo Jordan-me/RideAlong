@@ -9,7 +9,7 @@ import { LoginContext } from "../App";
 import { fetchUser, postEventInstance, putUser } from "../data/data";
 import { TopEventTab } from "./TopEventTab";
 
-const EventForm = ({handleFunc}) => {
+const EventForm = ({ handleFunc }) => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
@@ -35,7 +35,7 @@ const EventForm = ({handleFunc}) => {
   const [dest, setDest] = useState("");
   const [futureDate, setDate] = useState("");
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
     const userEvent = {
@@ -134,7 +134,7 @@ const EventForm = ({handleFunc}) => {
   );
 };
 
-function DiscoverEvents({user}) {
+function DiscoverEvents({ user }) {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
