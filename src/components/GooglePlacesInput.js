@@ -15,16 +15,18 @@ import {
 import "@reach/combobox/styles.css";
 import "../cssFiles/Map.css";
 
-function Places({ origin,setOrigin,Dest,setDest}) {
+function Places({ origin, setOrigin, Dest, setDest }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyASPbyAFjJ3tLOQcLvjsQOFGMZek1SJj2I",
     libraries: ["places"],
   });
   if (!isLoaded) return <div>Loading...</div>;
-  return <Map origin={origin} setOrigin = {setOrigin} Dest={Dest} setDest={setDest}/>;
+  return (
+    <Map origin={origin} setOrigin={setOrigin} Dest={Dest} setDest={setDest} />
+  );
 }
 
-function Map({ origin,setOrigin,Dest,setDest}) {
+function Map({ origin, setOrigin, Dest, setDest }) {
   const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
   // const [selected, setSelected] = useState(null);
 
@@ -33,13 +35,14 @@ function Map({ origin,setOrigin,Dest,setDest}) {
       <div className="half-input-container">
         <div className="half-input ">
           <PlacesAutocomplete setSelected={setOrigin} stringToShow={"Origin"} />
-
         </div>
         <div className="half-input ">
-          <PlacesAutocomplete setSelected={setDest} stringToShow={"Destination"} />
-
+          <PlacesAutocomplete
+            setSelected={setDest}
+            stringToShow={"Destination"}
+          />
         </div>
-      {/* {selected? console.log(selected):null} 
+        {/* {selected? console.log(selected):null} 
        <GoogleMap
         zoom={10}
         center={center}
@@ -54,7 +57,7 @@ function Map({ origin,setOrigin,Dest,setDest}) {
     </>
   );
 }
-const PlacesAutocomplete = ({ setSelected,stringToShow }) => {
+const PlacesAutocomplete = ({ setSelected, stringToShow }) => {
   const {
     ready,
     value,
@@ -70,7 +73,7 @@ const PlacesAutocomplete = ({ setSelected,stringToShow }) => {
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     console.log(lat, lng);
-    setSelected({ lat, lng,address });
+    setSelected({ lat, lng, address });
   };
 
   return (

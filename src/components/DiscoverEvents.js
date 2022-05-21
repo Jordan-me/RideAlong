@@ -28,7 +28,7 @@ const EventForm = ({handleFunc}) => {
   useEffect(() => {
     console.log(user, extra);
   }, [user, extra]);
-  
+
   const [genre, setGenre] = useState("");
   const [title, setTitle] = useState("");
   const [origin, setOrigin] = useState("");
@@ -44,18 +44,18 @@ const EventForm = ({handleFunc}) => {
       origin: origin,
       dest: dest,
       futureDate: futureDate,
-      attendedCounter:0,
-      assignedUsers:[],
+      attendedCounter: 0,
+      assignedUsers: [],
     };
     console.error(user);
-    let userDB  = await fetchUser(user.userId.email);
+    let userDB = await fetchUser(user.userId.email);
     console.log(user);
-    putUser(user,"Manager")
-    .then(async () => await postEventInstance(userEvent,userDB, "eventUser")
-      .then(()=>
-        putUser(user,"Player")
-  ));
-
+    putUser(user, "Manager").then(
+      async () =>
+        await postEventInstance(userEvent, userDB, "eventUser").then(() =>
+          putUser(user, "Player")
+        )
+    );
   };
   return (
     <Form onSubmit={handleSubmit}>
