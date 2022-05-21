@@ -6,20 +6,10 @@ import { EventCarousel } from "./EventCarousel";
 import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
 import { LoginContext } from "../App";
-import { fetchInstanceByName, fetchUser, postEventInstance, putUser } from "../data/data";
+import { fetchUser, postEventInstance, putUser } from "../data/data";
+import { TopEventTab } from "./TopEventTab";
 
-const [show, setShow] = useState(false);
-
-const handleShow = () => setShow(true);
-const handleClose = () => setShow(false);
-const [key, setKey] = useState("top");
-const onEventFormSubmit = (e) => {
-  const form = e.currentTarget;
-  console.error(e);
-  e.preventDefault();
-  handleClose();
-};
-const EventForm = () => {
+const EventForm = ({handleFunc}) => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
@@ -46,7 +36,6 @@ const EventForm = () => {
   const [futureDate, setDate] = useState("");
 
   const handleSubmit = async(event) => {
-    const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
     const userEvent = {
@@ -137,7 +126,7 @@ const EventForm = () => {
         variant="outline-success"
         className="btn-success-soft"
         type="submit"
-        
+        onClick={handleFunc}
       >
         Create now
       </Button>
@@ -146,7 +135,17 @@ const EventForm = () => {
 };
 
 function DiscoverEvents({user}) {
+  const [show, setShow] = useState(false);
 
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const [key, setKey] = useState("top");
+  const onEventFormSubmit = (e) => {
+    const form = e.currentTarget;
+    console.error(e);
+    e.preventDefault();
+    handleClose();
+  };
   return (
     <div>
       <div className="card h-100">
@@ -184,7 +183,7 @@ function DiscoverEvents({user}) {
             className="mb-3"
           >
             <Tab eventKey="top" title="top">
-              <EventCarousel />
+              <TopEventTab />
               {/* <Sonnet /> */}
             </Tab>
             <Tab eventKey="My Events" title="My Events">
@@ -207,7 +206,7 @@ function DiscoverEvents({user}) {
           <Modal.Title>Create Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EventForm user={user} />
+          <EventForm handleFunc={handleClose} />
         </Modal.Body>
         <Modal.Footer>
           <Button

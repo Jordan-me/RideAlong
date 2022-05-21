@@ -1,11 +1,16 @@
+// USER URLS
 const POST_USER_ENDPOINT = "http://localhost:8085/iob/users?";
-const POST_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const PUT_USER_ENDPOINT = "http://localhost:8085/iob/users/2022b.yarden.dahan/";
-const GET_USER_LOGIN__ENDPOINT =
-  "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
-const GET_INSTANCE_BY_NAME_ENDPOINT =
-  "http://localhost:8085/iob/instances/search/byName/";
+const GET_USER_LOGIN__ENDPOINT = "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
 
+
+//INSTANCES URLS
+const POST_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
+const GET_INSTANCE_BY_NAME_ENDPOINT = "http://localhost:8085/iob/instances/search/byName/";
+
+  
+const INSTANCE_MANAGER_PERMISSION =
+  "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
 const INSTANCE_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=player@google.com";
 const GET_INSTANCE_ENDPOINT =
@@ -52,6 +57,7 @@ export const fetchUser = async (email) => {
     .catch((error) => console.log("Login failed: " + error.message));
   return data;
 };
+
 export const postUser = async (user) => {
   fetch(POST_USER_ENDPOINT, {
     method: "POST",
@@ -63,6 +69,7 @@ export const postUser = async (user) => {
     body: JSON.stringify(user),
   });
 };
+
 export const putUser = async (user,role) => {
   await fetch(PUT_USER_ENDPOINT + user.userId.email, {
     method: "PUT",
@@ -79,6 +86,19 @@ export const putUser = async (user,role) => {
     }),
   });
 };
+export const putInstance = async (instance) => {
+  await fetch(PUT_USER_ENDPOINT , {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      
+    }),
+  });
+};
+
 export const postUserInstance = async (user, type) => {
   const d = await fetch(POST_INSTANCE_ENDPOINT, {
     method: "POST",
@@ -107,14 +127,14 @@ export const postUserInstance = async (user, type) => {
       },
     }),
   });
- 
   console.log(d);
 };
 
 export const postEventInstance = async(userEvent,user, type) =>{
   console.log(user.userId.email);
   let userInstance = await fetchInstanceByName(user.userId.email);
-  console.log(userInstance);
+  console.log(userInstance[0]["instanceAttributes"]["counterEvents"]);
+  // await putInstance(userInstance);
   const d = await fetch(POST_INSTANCE_ENDPOINT, {
     method: "POST",
     mode: "cors",
