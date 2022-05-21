@@ -7,7 +7,7 @@ import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
 import { LoginContext } from "../App";
 import { fetchUser, postEventInstance, putUser } from "../data/data";
-// import { TopEventTab } from "./TopEventTab";
+import { TopEventTab } from "./TopEventTab";
 
 const EventForm = ({ handleFunc }) => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
@@ -183,7 +183,7 @@ function DiscoverEvents({ user }) {
             className="mb-3"
           >
             <Tab eventKey="top" title="top">
-              {/* <TopEventTab /> */}
+              <TopEventTab />
               {/* <Sonnet /> */}
             </Tab>
             <Tab eventKey="My Events" title="My Events">
