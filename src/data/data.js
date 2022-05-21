@@ -112,6 +112,9 @@ export const postUserInstance = async (user, type) => {
 };
 
 export const postEventInstance = async(userEvent,user, type) =>{
+  console.log(user.userId.email);
+  let userInstance = await fetchInstanceByName(user.userId.email);
+  console.log(userInstance);
   const d = await fetch(POST_INSTANCE_ENDPOINT, {
     method: "POST",
     mode: "cors",
@@ -121,7 +124,7 @@ export const postEventInstance = async(userEvent,user, type) =>{
     },
     body: JSON.stringify({
       type: type,
-      name: user.userId.email,
+      name: userEvent.title,
       active: true,
       createdTimestamp: null,
       createdBy: {

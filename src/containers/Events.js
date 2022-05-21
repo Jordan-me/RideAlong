@@ -6,20 +6,7 @@ import { SideCard } from '../components/SideCard';
 import "../cssFiles/Events.css";
 
 const Events = (props) => {
-  const [loggedInState, setLoggedInState] = useContext(LoginContext);
-  const [user, setUser] = useState(null);
-  const [extra, setExtra] = useState(null);
 
-  useEffect(() => {
-    console.log(loggedInState);
-    if (loggedInState !== null && !typeof loggedInState === Boolean) {
-      setUser(loggedInState.user);
-      setExtra(loggedInState.extra[0]);
-    }
-  }, [loggedInState]);
-  useEffect(() => {
-    console.log(user, extra);
-  }, [user, extra]);
 
   return (
     <div className='leftStyle'>
@@ -31,7 +18,7 @@ const Events = (props) => {
           </div>
           <div className='col-md-8 col-lg-6 vstack gap-4 rightStyle'>
             {/* CARD START */}
-            <DiscoverEvents user={user}/>
+            <DiscoverEvents />
               
 
           </div>
