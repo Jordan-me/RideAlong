@@ -75,3 +75,8 @@ extra per use( contains extra properties ) : (extra)
 
 --IOB related to save actions by user and such
             ACTIVITY_ATTRIBUTES (collection (key: val))
+
+Activities:
+    type: = "fetchSuggestedEvents"
+        parameters: = (String) instanceType- must, 
+                      (double) distance, (int) size, (int) page - not required
