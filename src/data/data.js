@@ -9,7 +9,9 @@ const GET_USER_LOGIN__ENDPOINT =
 const INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const GET_INSTANCE_BY_NAME_ENDPOINT =
   "http://localhost:8085/iob/instances/search/byName/";
-// const PUT_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances/";
+
+//Activity URL
+const ACTIVITY_ENDPOINT = "http://localhost:8085/iob/activities";
 
 const INSTANCE_MANAGER_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
@@ -193,6 +195,6 @@ export const postEventInstance = async (userEvent, user, type) => {
   await putUserInstance(userInstance, user.userId.email);
   console.log(d);
 };
-// export const postFetchSuggestedEventsActivity = async (user) => {
+export const postFetchSuggestedEventsActivity = async (user) => {
 
-// };
+};

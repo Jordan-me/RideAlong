@@ -184,12 +184,9 @@ function DiscoverEvents({ user }) {
           >
             <Tab eventKey="top" title="top">
               <TopEventTab />
-              {/* <Sonnet /> */}
             </Tab>
             <Tab eventKey="My Events" title="My Events">
               <EventCarousel />
-              {/* <Places /> */}
-              {/* <Sonnet /> */}
             </Tab>
             <Tab eventKey="My Calender" title="My Calender">
               <MyCalendar />
