@@ -1,14 +1,16 @@
 // USER URLS
 const POST_USER_ENDPOINT = "http://localhost:8085/iob/users?";
 const PUT_USER_ENDPOINT = "http://localhost:8085/iob/users/2022b.yarden.dahan/";
-const GET_USER_LOGIN__ENDPOINT = "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
-
+const GET_USER_LOGIN__ENDPOINT =
+  "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
 
 //INSTANCES URLS
 const POST_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
-const GET_INSTANCE_BY_NAME_ENDPOINT = "http://localhost:8085/iob/instances/search/byName/";
-
-  
+const GET_INSTANCE_BY_NAME_ENDPOINT =
+  "http://localhost:8085/iob/instances/search/byName/";
+const GET_INSATNCES_BY_TYPE =
+  "http://localhost:8085/iob/instances/search/byType/";
+const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
 const INSTANCE_MANAGER_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
 const INSTANCE_PERMISSION =
@@ -25,8 +27,34 @@ export const fetchInstance = async () => {
       Accept: "application/json",
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response.json());
+      return response.json();
+    })
     .catch((error) => console.log("Authorization failed: " + error.message));
+  return response;
+};
+export const fetchInstanceByType = async (email, type) => {
+  let url =
+    GET_INSATNCES_BY_TYPE +
+    type +
+    "?" +
+    INSTANCE_DOMAIN +
+    "&userEmail=" +
+    email;
+  const response = await fetch(url, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response)
+    // .then((d) => console.log(d))
+    .catch((error) => console.log("Authorization failed: " + error.message));
+  console.log(response);
   return response;
 };
 export const fetchInstanceByName = async (name) => {
@@ -70,7 +98,7 @@ export const postUser = async (user) => {
   });
 };
 
-export const putUser = async (user,role) => {
+export const putUser = async (user, role) => {
   await fetch(PUT_USER_ENDPOINT + user.userId.email, {
     method: "PUT",
     mode: "cors",
@@ -79,23 +107,21 @@ export const putUser = async (user,role) => {
     },
     body: JSON.stringify({
       userId: { domain: "2022b.yarden.dahan", email: user.userId.email },
-      role:role,
+      role: role,
       name: user.email,
-      username:user.username,
-	    avatar:user.avatar
+      username: user.username,
+      avatar: user.avatar,
     }),
   });
 };
 export const putInstance = async (instance) => {
-  await fetch(PUT_USER_ENDPOINT , {
+  await fetch(PUT_USER_ENDPOINT, {
     method: "PUT",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      
-    }),
+    body: JSON.stringify({}),
   });
 };
 
@@ -130,7 +156,7 @@ export const postUserInstance = async (user, type) => {
   console.log(d);
 };
 
-export const postEventInstance = async(userEvent,user, type) =>{
+export const postEventInstance = async (userEvent, user, type) => {
   console.log(user.userId.email);
   let userInstance = await fetchInstanceByName(user.userId.email);
   console.log(userInstance[0]["instanceAttributes"]["counterEvents"]);
@@ -157,8 +183,8 @@ export const postEventInstance = async(userEvent,user, type) =>{
         origin: userEvent.origin,
         dest: userEvent.dest,
         futureDate: userEvent.futureDate,
-        attendedCounter:userEvent.attendedCounter,
-        assignedUsers:userEvent.assignedUsers,
+        attendedCounter: userEvent.attendedCounter,
+        assignedUsers: userEvent.assignedUsers,
       },
     }),
   });
