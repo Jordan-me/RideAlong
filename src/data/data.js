@@ -1,3 +1,4 @@
+const DOMAIN = "2022b.yarden.dahan";
 // USER URLS
 const POST_USER_ENDPOINT = "http://localhost:8085/iob/users?";
 const PUT_USER_ENDPOINT = "http://localhost:8085/iob/users/2022b.yarden.dahan/";
@@ -114,19 +115,50 @@ export const putUser = async (user, role) => {
     }),
   });
 };
-export const putInstance = async (instance) => {
-  await fetch(PUT_USER_ENDPOINT, {
-    method: "PUT",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({}),
-  });
+export const putUserInstance = async (instance, email) => {
+  console.log("92." + instance[0]["instanceId"]["id"]);
+  let id = instance[0]["instanceId"]["id"];
+  await fetch(
+    INSTANCE_ENDPOINT +
+      "/" +
+      DOMAIN +
+      "/" +
+      id +
+      "?userDomain=" +
+      DOMAIN +
+      "&userEmail=" +
+      email,
+    {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        type: instance[0]["type"],
+        name: instance[0]["name"],
+        active: instance[0]["active"],
+        location: {
+          lat: instance[0]["location"]["lat"],
+          lng: instance[0]["location"]["lng"],
+        },
+        instanceAttributes: {
+          firstName: instance[0]["instanceAttributes"]["firstName"],
+          lastName: instance[0]["instanceAttributes"]["lastName"],
+          dob: instance[0]["instanceAttributes"]["dob"],
+          gender: instance[0]["instanceAttributes"]["gender"],
+          counterEvents: instance[0]["instanceAttributes"]["counterEvents"],
+          suggestedEvents: instance[0]["instanceAttributes"]["suggestedEvents"],
+          attendedEvents: instance[0]["instanceAttributes"]["attendedEvents"],
+        },
+      }),
+    }
+  );
 };
 
 export const postUserInstance = async (user, type) => {
-  const d = await fetch(POST_INSTANCE_ENDPOINT, {
+  const d = await fetch(INSTANCE_ENDPOINT, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -155,13 +187,8 @@ export const postUserInstance = async (user, type) => {
   });
   console.log(d);
 };
-
 export const postEventInstance = async (userEvent, user, type) => {
-  console.log(user.userId.email);
-  let userInstance = await fetchInstanceByName(user.userId.email);
-  console.log(userInstance[0]["instanceAttributes"]["counterEvents"]);
-  // await putInstance(userInstance);
-  const d = await fetch(POST_INSTANCE_ENDPOINT, {
+  const d = await fetch(INSTANCE_ENDPOINT, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -176,7 +203,7 @@ export const postEventInstance = async (userEvent, user, type) => {
       createdBy: {
         userId: { domain: "2022b.yarden.dahan", email: user.userId.email },
       },
-      location: { lat: userEvent.dest.lat, lng: userEvent.dest.lng },
+      location: { lat: userEvent.origin.lat, lng: userEvent.origin.lng },
       instanceAttributes: {
         title: userEvent.title,
         genre: userEvent.genre,
@@ -187,6 +214,17 @@ export const postEventInstance = async (userEvent, user, type) => {
         assignedUsers: userEvent.assignedUsers,
       },
     }),
+  }).then((response) => {
+    return response.json();
   });
+
+  let userInstance = await fetchInstanceByName(user.userId.email);
+  let id = d.instanceId["id"];
+  userInstance[0]["instanceAttributes"]["attendedEvents"][
+    userInstance[0]["instanceAttributes"]["counterEvents"]
+  ] = id;
+  userInstance[0]["instanceAttributes"]["counterEvents"] += 1;
+  await putUserInstance(userInstance, user.userId.email);
   console.log(d);
 };
+export const postFetchSuggestedEventsActivity = async (user) => {};
