@@ -6,11 +6,15 @@ const GET_USER_LOGIN__ENDPOINT =
   "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
 
 //INSTANCES URLS
-const POST_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
+const INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const GET_INSTANCE_BY_NAME_ENDPOINT =
   "http://localhost:8085/iob/instances/search/byName/";
 const GET_INSATNCES_BY_TYPE =
   "http://localhost:8085/iob/instances/search/byType/";
+
+//ACTIVITY URL
+const ACTIVITY_ENDPOINT = "http://localhost:8085/iob/activities";
+
 const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
 const INSTANCE_MANAGER_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
