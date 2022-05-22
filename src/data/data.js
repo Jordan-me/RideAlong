@@ -6,13 +6,12 @@ const GET_USER_LOGIN__ENDPOINT =
   "http://localhost:8085/iob/users/login/2022b.yarden.dahan/";
 
 //INSTANCES URLS
-const INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
+const POST_INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const GET_INSTANCE_BY_NAME_ENDPOINT =
   "http://localhost:8085/iob/instances/search/byName/";
-
-//Activity URL
-const ACTIVITY_ENDPOINT = "http://localhost:8085/iob/activities";
-
+const GET_INSATNCES_BY_TYPE =
+  "http://localhost:8085/iob/instances/search/byType/";
+const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
 const INSTANCE_MANAGER_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
 const INSTANCE_PERMISSION =
@@ -29,8 +28,34 @@ export const fetchInstance = async () => {
       Accept: "application/json",
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response.json());
+      return response.json();
+    })
     .catch((error) => console.log("Authorization failed: " + error.message));
+  return response;
+};
+export const fetchInstanceByType = async (email, type) => {
+  let url =
+    GET_INSATNCES_BY_TYPE +
+    type +
+    "?" +
+    INSTANCE_DOMAIN +
+    "&userEmail=" +
+    email;
+  const response = await fetch(url, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response)
+    // .then((d) => console.log(d))
+    .catch((error) => console.log("Authorization failed: " + error.message));
+  console.log(response);
   return response;
 };
 export const fetchInstanceByName = async (name) => {
@@ -106,13 +131,16 @@ export const putUserInstance = async (instance, email) => {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Accept:  "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         type: instance[0]["type"],
         name: instance[0]["name"],
         active: instance[0]["active"],
-        location: { lat: instance[0]["location"]["lat"], lng: instance[0]["location"]["lng"] },
+        location: {
+          lat: instance[0]["location"]["lat"],
+          lng: instance[0]["location"]["lng"],
+        },
         instanceAttributes: {
           firstName: instance[0]["instanceAttributes"]["firstName"],
           lastName: instance[0]["instanceAttributes"]["lastName"],
@@ -183,11 +211,15 @@ export const postEventInstance = async (userEvent, user, type) => {
         assignedUsers: userEvent.assignedUsers,
       },
     }),
-  }).then((response)=> {return response.json();});
+  }).then((response) => {
+    return response.json();
+  });
 
   let userInstance = await fetchInstanceByName(user.userId.email);
   let id = d.instanceId["id"];
-  userInstance[0]["instanceAttributes"]["attendedEvents"][userInstance[0]["instanceAttributes"]["counterEvents"]] = id;
+  userInstance[0]["instanceAttributes"]["attendedEvents"][
+    userInstance[0]["instanceAttributes"]["counterEvents"]
+  ] = id;
   userInstance[0]["instanceAttributes"]["counterEvents"] += 1;
   await putUserInstance(userInstance, user.userId.email);
 };
