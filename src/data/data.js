@@ -16,6 +16,8 @@ const GET_INSATNCES_BY_TYPE =
 const ACTIVITY_ENDPOINT = "http://localhost:8085/iob/activities";
 
 const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
+//INSTANCES URLS
+const INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const INSTANCE_MANAGER_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
 const INSTANCE_PERMISSION =
