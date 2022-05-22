@@ -17,11 +17,11 @@ const Events = (props) => {
             </p>
           </div>
           <Stack direction="vertical" gap={4} className="col-md-5 mx-auto rightStyle">
-            {/* <div className='col-md-8 col-lg-6 vstack rightStyle'> */}
+            
             {/* CARD START */}
             <DiscoverEvents />
 
-            {/* </div> */}
+           
           </Stack>
         </div>
       </Container>

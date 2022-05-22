@@ -8,6 +8,7 @@ import { MyCalendar } from "./MyCalendar";
 import { LoginContext } from "../App";
 import { fetchUser, postEventInstance, putUser } from "../data/data";
 import { TopEventTab } from "./TopEventTab";
+import { MyEventsTab } from "./MyEventsTab";
 
 const EventForm = ({ handleFunc }) => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
@@ -27,6 +28,10 @@ const EventForm = ({ handleFunc }) => {
   }, [loggedInState]);
   useEffect(() => {
     console.log(user, extra);
+    if (user !== null && extra !== null) {
+      setUser(user);
+      setExtra(extra);
+    }
   }, [user, extra]);
 
   const [genre, setGenre] = useState("");
@@ -47,7 +52,6 @@ const EventForm = ({ handleFunc }) => {
       attendedCounter: 0,
       assignedUsers: [],
     };
-    console.error(user);
     let userDB = await fetchUser(user.userId.email);
     console.log(user);
     putUser(user, "Manager").then(
@@ -186,14 +190,13 @@ function DiscoverEvents({ user }) {
               <TopEventTab />
             </Tab>
             <Tab eventKey="My Events" title="My Events">
-              <EventCarousel />
+              <MyEventsTab />
             </Tab>
             <Tab eventKey="My Calender" title="My Calender">
               <MyCalendar />
             </Tab>
             <Tab eventKey="Companion" title="Companion">
               <CompanionCarousel />
-              {/* <Sonnet /> */}
             </Tab>
           </Tabs>
         </div>
