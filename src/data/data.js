@@ -35,7 +35,6 @@ export const fetchInstance = async () => {
 };
 export const fetchInstanceByName = async (name) => {
   let url = GET_INSTANCE_BY_NAME_ENDPOINT + name + "?" + INSTANCE_PERMISSION;
-  console.log(url);
   const response = await fetch(url, {
     method: "GET",
     mode: "cors",
@@ -91,7 +90,6 @@ export const putUser = async (user, role) => {
   });
 };
 export const putUserInstance = async (instance, email) => {
-  console.log("92." + instance[0]["instanceId"]["id"]);
   let id = instance[0]["instanceId"]["id"];
   await fetch(
     INSTANCE_ENDPOINT +
@@ -157,7 +155,6 @@ export const postUserInstance = async (user, type) => {
       },
     }),
   });
-  console.log(d);
 };
 export const postEventInstance = async (userEvent, user, type) => {
   const d = await fetch(INSTANCE_ENDPOINT, {
@@ -173,7 +170,7 @@ export const postEventInstance = async (userEvent, user, type) => {
       active: true,
       createdTimestamp: null,
       createdBy: {
-        userId: { domain: "2022b.yarden.dahan", email: user.userId.email },
+        userId: { domain: DOMAIN, email: user.userId.email },
       },
       location: { lat: userEvent.origin.lat, lng: userEvent.origin.lng },
       instanceAttributes: {
@@ -193,8 +190,42 @@ export const postEventInstance = async (userEvent, user, type) => {
   userInstance[0]["instanceAttributes"]["attendedEvents"][userInstance[0]["instanceAttributes"]["counterEvents"]] = id;
   userInstance[0]["instanceAttributes"]["counterEvents"] += 1;
   await putUserInstance(userInstance, user.userId.email);
-  console.log(d);
 };
 export const postFetchSuggestedEventsActivity = async (user) => {
+  console.log(user);
+  let email =  user.user.userId["email"]
+  let userInstance = await fetchInstanceByName(email);
+  console.error("198."+userInstance);
 
+  const data = await fetch(ACTIVITY_ENDPOINT, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      type: "fetchSuggestedEvents",
+      instance: {instanceId:{domain:DOMAIN,id:userInstance[0]["instanceId"]["email"]}},
+      createdTimestamp: null,
+      invokedBy: {
+        userId: { domain: DOMAIN, email: email },
+      },
+      activityAttributes: {
+        instanceType: "eventUser",
+        distance: 20.0,
+        page: 0,
+        size: 15,
+      },
+    }),
+  }).then((response)=> {return response.json();});
+  console.log("195." + email);
+  userInstance[0]["instanceAttributes"]["suggestedEvents"] = data;
+  await putUser(user, "Manager");
+  await putUserInstance(userInstance, email);
+  await putUser(user, "Player");
+
+
+
+  return data;
 };

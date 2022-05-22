@@ -1,7 +1,4 @@
 import React, {
-  useEffect,
-  Component,
-  Fragment,
   useState,
   createContext,
 } from "react";
@@ -19,11 +16,8 @@ import EventsCalendar from "./containers/EventsCalendar";
 //test NOA
 export const LoginContext = createContext();
 const App = () => {
-  // const loginContext = createContext({ loginState: null });
   const [loggedInState, setLoggedInState] = useState(null);
-  // const handleLogin = (loginState) => {
-  //   setLoggedInState(loginState);
-  // };
+
   return (
     //set
     <BrowserRouter>

@@ -29,6 +29,10 @@ const MyProfile = (props) => {
   }, [loggedInState]);
   useEffect(() => {
     console.log(user, extra);
+    if (user !== null && extra !== null) {
+      setUser(user);
+      setExtra(extra);
+    }
   }, [user, extra]);
   return (
     <div className="mb-5" style={{ paddingTop: "138px" }}>
