@@ -1,24 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../App";
 import "../cssFiles/Events.css";
-import { postFetchSuggestedEventsActivity } from "../data/data";
+// import { postFetchSuggestedEventsActivity } from "../data/data";
 import { EventCarousel } from "./EventCarousel";
-import { fetchInstanceByType } from "../data/data";
+import { fetchUsersEvents } from "../data/data";
 
 function MyEventsTab() {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
-  const [listEvents, setListEvents] = useState([]);
-  useEffect(() => {
-    async function getData() {
-      const data = await fetchInstanceByType(
-        loggedInState.user.userId.email,
-        "userEvent"
-      );
-    }
-    getData();
-  }, []);
+  const [myEvents, setMyEvents] = useState([]);
+
+  const getEventsList = async (user) => {
+    // await putUser(user.user, "Player");
+    let myEventsData = await fetchUsersEvents(user);
+    console.log(myEventsData);
+    setMyEvents(myEventsData);
+    // return topEvents;
+  };
 
   useEffect(() => {
     if (loggedInState !== null) {
@@ -27,18 +26,27 @@ function MyEventsTab() {
     }
   }, [loggedInState]);
   useEffect(() => {
-    if (user !== null && extra !== null) {
-      setUser(user);
-      setExtra(extra);
-      // setListEvents(extra["INSTANCE_ATTRIBUTES"]["attendedEvents"]);
+    if (user !== null) {
+      getEventsList({ user });
     }
   }, [user, extra]);
+  useEffect(() => {
+    console.log(myEvents);
+  }, [myEvents]);
+  // useEffect(() => {
+  //   console.log(myEvents);
+  // }, [myEvents]);
 
   return (
     <>
-      {/* TODO: pass here list of events as parameter */}
-      {/* Get all events that near the user and not created by him*/}
-      <EventCarousel props={listEvents} />
+      {myEvents.length > 0 ? (
+        <>
+          {/* <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner> */}
+          <EventCarousel topEvents={myEvents} />
+        </>
+      ) : null}
     </>
   );
 }

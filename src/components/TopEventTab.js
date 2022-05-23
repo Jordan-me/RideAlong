@@ -12,8 +12,6 @@ function TopEventTab() {
   // const [spinnerStatus, setSpinnerStatus] = useState(false);
   const getEventsList = async (user) => {
     let topEventsData = await postFetchSuggestedEventsActivity(user);
-    console.log("topEvents: \n" + JSON.stringify(topEvents) + "\n");
-    console.log("first instance : \n" + JSON.stringify(topEvents[0]));
     setTopEvents(topEventsData);
   };
 
@@ -28,9 +26,7 @@ function TopEventTab() {
       getEventsList({ user });
     }
   }, [user, extra]);
-  useEffect(() => {
-    console.log(topEvents);
-  }, [topEvents]);
+  useEffect(() => {}, [topEvents]);
 
   return (
     <>

@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  createContext,
-} from "react";
+import React, { useState, createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./containers/Home";
 import { Login } from "./containers/Login";
@@ -13,7 +10,6 @@ import { Chat } from "./containers/Chat";
 import { NoMatch } from "./containers/NoMatch";
 import NavigationBar from "./components/NavigationBar";
 import EventsCalendar from "./containers/EventsCalendar";
-//test NOA
 export const LoginContext = createContext();
 const App = () => {
   const [loggedInState, setLoggedInState] = useState(null);

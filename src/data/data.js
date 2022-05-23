@@ -1,3 +1,5 @@
+import { Event } from "jquery";
+
 const DOMAIN = "2022b.yarden.dahan";
 // USER URLS
 const POST_USER_ENDPOINT = "http://localhost:8085/iob/users?";
@@ -12,7 +14,6 @@ const GET_INSTANCE_BY_NAME_ENDPOINT =
 const GET_INSATNCES_BY_TYPE =
   "http://localhost:8085/iob/instances/search/byType/";
 const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
-
 //ACTIVITY URL
 const ACTIVITY_ENDPOINT = "http://localhost:8085/iob/activities";
 
@@ -227,7 +228,6 @@ export const postEventInstance = async (userEvent, user, type) => {
   userInstance[0]["instanceAttributes"]["counterEvents"] += 1;
   await putUserInstance(userInstance, user.userId.email);
 };
-export const getInstanceById = async (id) => {};
 export const postFetchSuggestedEventsActivity = async (user) => {
   console.log(user);
   let email = user.user.userId["email"];
@@ -257,10 +257,44 @@ export const postFetchSuggestedEventsActivity = async (user) => {
         size: 15,
       },
     }),
-  }).then((response) => response.json()).then((jsonData) => {
-
-      return jsonData;}
-        );
-
+  })
+    .then((response) => response.json())
+    .then((jsonData) => jsonData);
   return data;
+};
+export const getInstanceById = async (id) => {};
+
+export const fetchUsersEvents = async (user) => {
+  let email = user.user.userId["email"];
+  let userInstance = await fetchInstanceByName(email);
+  let eventsIdList = userInstance[0].instanceAttributes.attendedEvents;
+  let myEvents = [];
+  if (eventsIdList) {
+    for (let i = 0; i < eventsIdList.length; i++) {
+      const eventId = eventsIdList[i];
+      let EVENT_ENDPOINT =
+        INSTANCE_ENDPOINT +
+        "/" +
+        DOMAIN +
+        "/" +
+        eventId +
+        "?" +
+        INSTANCE_DOMAIN +
+        "&userEmail=" +
+        email;
+      const firstData = await fetch(EVENT_ENDPOINT, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const jsonD = await firstData.json();
+      console.log(jsonD);
+      myEvents.push(jsonD);
+    }
+    return myEvents;
+  }
 };

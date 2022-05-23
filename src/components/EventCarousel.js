@@ -10,18 +10,6 @@ function EventCarousel(props) {
   // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
   const [spinnerState, setSpinnerState] = useState(false);
-  useEffect(() => {
-    console.log(props);
-    //   console.log(loggedInState);
-    //   async function getData() {
-    //     const data = await fetchInstanceByType(
-    //       loggedInState.user.userId.email,
-    //       "userEvent"
-    //     );
-    //     console.log(data);
-    //   }
-    //   getData();
-  }, []);
 
   const responsive = {
     desktop: {
@@ -63,7 +51,6 @@ function EventCarousel(props) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        
         <div style={{ display: "flex" }}>
           {props
             ? props.topEvents
