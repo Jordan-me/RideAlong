@@ -12,19 +12,11 @@ function SideCard() {
   const [extra, setExtra] = useState(null);
 
   useEffect(() => {
-    console.log(loggedInState);
-  }, []);
-
-  useEffect(() => {
-    console.log(loggedInState);
     if (loggedInState !== null) {
       setUser(loggedInState.user);
       setExtra(loggedInState.extra[0]);
     }
   }, [loggedInState]);
-  useEffect(() => {
-    console.log(user, extra);
-  }, [user, extra]);
   return (
     <div>
       <div

@@ -10,18 +10,7 @@ function EventCarousel(props) {
   // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
   const [spinnerState, setSpinnerState] = useState(false);
-  useEffect(() => {
-    console.log(props);
-    //   console.log(loggedInState);
-    //   async function getData() {
-    //     const data = await fetchInstanceByType(
-    //       loggedInState.user.userId.email,
-    //       "userEvent"
-    //     );
-    //     console.log(data);
-    //   }
-    //   getData();
-  }, []);
+
   // let cards = null;
   // props.length > 0 ? cards = ()) : null;
 
@@ -46,7 +35,7 @@ function EventCarousel(props) {
   return (
     <>
       <Carousel
-        // swipeable={false}
+        // swipeable={true}
         // draggable={true}
         showDots={false}
         interval={false}
@@ -65,6 +54,7 @@ function EventCarousel(props) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
+        {/* <Carousel.Item> */}
         <div style={{ display: "flex" }}>
           {props
             ? props.topEvents
@@ -76,7 +66,9 @@ function EventCarousel(props) {
                     >
                       {/* <CarouselItem> */}
                       {/* <div style={{ display: "flex" }}> */}
+                      {/* <Carousel.Item> */}
                       <EventCard eventInstance={instance} />
+                      {/* </Carousel.Item> */}
                       {/* </div> */}
 
                       {/* </CarouselItem> */}
@@ -86,6 +78,7 @@ function EventCarousel(props) {
               : null
             : null}
         </div>
+        {/* </Carousel.Item> */}
       </Carousel>
     </>
   );

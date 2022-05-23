@@ -16,18 +16,12 @@ const EventForm = ({ handleFunc }) => {
   const [extra, setExtra] = useState(null);
 
   useEffect(() => {
-    console.log(loggedInState);
-  }, []);
-
-  useEffect(() => {
-    console.log(loggedInState);
     if (loggedInState !== null) {
       setUser(loggedInState.user);
       setExtra(loggedInState.extra[0]);
     }
   }, [loggedInState]);
   useEffect(() => {
-    console.log(user, extra);
     if (user !== null && extra !== null) {
       setUser(user);
       setExtra(extra);
@@ -53,7 +47,6 @@ const EventForm = ({ handleFunc }) => {
       assignedUsers: [],
     };
     let userDB = await fetchUser(user.userId.email);
-    console.log(user);
     putUser(user, "Manager").then(
       async () =>
         await postEventInstance(userEvent, userDB, "eventUser").then(() =>
@@ -72,7 +65,6 @@ const EventForm = ({ handleFunc }) => {
           value={genre}
           onChange={(e) => {
             if (e.target.value !== "None") {
-              console.log(e.target.value);
               setGenre(e.target.value);
             }
           }}
@@ -107,8 +99,8 @@ const EventForm = ({ handleFunc }) => {
           Dest={dest}
           setDest={setDest}
         />
-        {origin ? console.log("origin: " + origin) : null}
-        {dest ? console.log(dest) : null}
+        {/* {origin ? console.log("origin: " + origin) : null} */}
+        {/* {dest ? console.log(dest) : null} */}
 
         <br />
       </Form.Group>
@@ -146,7 +138,6 @@ function DiscoverEvents({ user }) {
   const [key, setKey] = useState("top");
   const onEventFormSubmit = (e) => {
     const form = e.currentTarget;
-    console.error(e);
     e.preventDefault();
     handleClose();
   };

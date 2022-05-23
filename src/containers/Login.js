@@ -29,11 +29,7 @@ const Login = (props) => {
 
   // const [errState, setErrState] = useState(false);
   useEffect(() => {
-    console.log(user, extra);
-
     if (user && extra && extra.status !== 404) {
-      console.log(user);
-      console.log(extra);
       setLoggedInState({ user: user, extra: extra });
       localStorage.setItem("loginState", true);
       // props.handleLogin(true);
@@ -53,12 +49,10 @@ const Login = (props) => {
     } else {
       await fetchUser(email)
         .then((jsonData) => {
-          console.log(jsonData);
           setUser(jsonData);
           return jsonData;
         })
         .then((userJsonData) => {
-          console.log(userJsonData);
           fetchInstanceByName(email).then((jsonData) => {
             // console.log(jsonData);
             setExtra(jsonData);

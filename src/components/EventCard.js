@@ -123,7 +123,6 @@ const EventCard = (props) => {
         </div>
       </Card.Body>
     </Card>
-    // </Col>
   );
 };
 export default EventCard;
