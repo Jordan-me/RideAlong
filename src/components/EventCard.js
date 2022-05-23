@@ -104,7 +104,7 @@ const EventCard = (props) => {
               size="md"
               variant="outline-success"
               className="d-block"
-              for="Interested1"
+              htmlFor="Interested1"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
