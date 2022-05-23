@@ -7,7 +7,7 @@ import { LoginContext } from "../App";
 import { fetchInstanceByType } from "../data/data";
 import EventCard from './EventCard'
 function EventCarousel(props) {
-  const [loggedInState, setLoggedInState] = useContext(LoginContext);
+  // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
   useEffect(() => {
     console.log(props)

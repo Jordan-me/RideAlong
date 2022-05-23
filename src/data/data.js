@@ -227,6 +227,7 @@ export const postEventInstance = async (userEvent, user, type) => {
   userInstance[0]["instanceAttributes"]["counterEvents"] += 1;
   await putUserInstance(userInstance, user.userId.email);
 };
+export const getInstanceById = async (id) => {};
 export const postFetchSuggestedEventsActivity = async (user) => {
   console.log(user);
   let email = user.user.userId["email"];
