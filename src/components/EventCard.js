@@ -45,7 +45,7 @@ const EventCard = (props) => {
     }
   }, [event]);
   return (
-    <div  style={{ width: "300px" }} className="h-100 pr-20 card-event overflow">
+    <Card  style={{ width: "300px" }} className="h-100 pr-20 card-event overflow">
       <img
         className="img-fluid rounded-top position-relative card-img-top"
         src={img}
@@ -157,7 +157,7 @@ const EventCard = (props) => {
           </div>
         </div>
       </Card.Body>
-    </div>
+    </Card>
   );
 };
 export default EventCard;

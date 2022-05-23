@@ -11,12 +11,10 @@ function TopEventTab() {
   const [topEvents, setTopEvents] = useState([]);
   // const [spinnerStatus, setSpinnerStatus] = useState(false);
   const getEventsList = async (user) => {
-    // await putUser(user.user, "Player");
     let topEventsData = await postFetchSuggestedEventsActivity(user);
     console.log("topEvents: \n" + JSON.stringify(topEvents) + "\n");
     console.log("first instance : \n" + JSON.stringify(topEvents[0]));
     setTopEvents(topEventsData);
-    // return topEvents;
   };
 
   useEffect(() => {

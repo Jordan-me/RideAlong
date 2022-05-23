@@ -44,7 +44,7 @@ function EventCarousel(props) {
   return (
     <div>
       <Carousel
-        // swipeable={true}
+        // swipeable={false}
         // draggable={true}
         showDots={false}
         interval={false}
@@ -63,16 +63,8 @@ function EventCarousel(props) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {props
-            ? props.topEvents
-              ? props.topEvents.map((instance) => {
-          // you forgot to return the Carousel.Item here:
-          return (
-            <Card key={instance.instanceId.id}>
-              <EventCard eventInstance={instance} />
-            </Card>   );
-        }): null: null}
-        {/* <div style={{ display: "flex" }}>
+        
+        <div style={{ display: "flex" }}>
           {props
             ? props.topEvents
               ? props.topEvents.map((instance) => {
@@ -83,18 +75,19 @@ function EventCarousel(props) {
                     >
                       {/* <CarouselItem> */}
                       {/* <div style={{ display: "flex" }}> */}
-                      {/* <EventCard eventInstance={instance} /> */}
+                      <EventCard eventInstance={instance} />
                       {/* </div> */}
 
                       {/* </CarouselItem> */}
-        {/* //             </div> */}
-        {/* //           ); */}
-        {/* //         }) */}
-        {/* //       : null */}
-        {/* //     : null} */}
-        {/* // </div> */}
+                    </div>
+                  );
+                })
+              : null
+            : null}
+        </div>
       </Carousel>
-    </div> 
+    </div>
   );
 }
+
 export { EventCarousel };

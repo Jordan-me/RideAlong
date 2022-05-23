@@ -258,15 +258,9 @@ export const postFetchSuggestedEventsActivity = async (user) => {
       },
     }),
   }).then((response) => response.json()).then((jsonData) => {
-    // console.log(userInstance[0]["instanceAttributes"]["suggestedEvents"]);
-    // putUser(user.user, "Manager")
-    //   .then(() => {
-    //     putUserInstance(userInstance, email);
-    //     putUser(user.user, "Player");})
+
       return jsonData;}
         );
-    
 
-  // console.log("topEvents on data file : " + JSON.stringify(data));
   return data;
 };
