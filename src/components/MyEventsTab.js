@@ -35,7 +35,7 @@ function MyEventsTab() {
     <>
     {/* TODO: pass here list of events as parameter */}
     {/* Get all events that near the user and not created by him*/}
-      <EventCarousel />
+      <EventCarousel props={listEvents} />
     </>
   );
 }

@@ -80,3 +80,42 @@ Activities:
     type: = "fetchSuggestedEvents"
         parameters: = (String) instanceType- must, 
                       (double) distance, (int) size, (int) page - not required
+
+
+    {
+        "instanceId": {
+            "domain": "2022b.yarden.dahan",
+            "id": "00611ff3-5320-420d-91e7-6c37cfa42c99"
+        },
+        "type": "eventUser",
+        "name": "Tzvika pik",
+        "active": true,
+        "createdTimestamp": "2022-05-23T12:46:19.577+00:00",
+        "createdBy": {
+            "userId": {
+                "domain": "2022b.yarden.dahan",
+                "email": "m@m.com"
+            }
+        },
+        "location": {
+            "lat": 32.321458,
+            "lng": 34.853196
+        },
+        "instanceAttributes": {
+            "title": "Tzvika pik",
+            "genre": "Concert",
+            "origin": {
+                "lat": 32.321458,
+                "lng": 34.853196,
+                "address": "Netanya, ישראל"
+            },
+            "dest": {
+                "lat": 32.0768731,
+                "lng": 34.7926312,
+                "address": "Zappa, דרך מנחם בגין, Tel Aviv-Yafo, ישראל"
+            },
+            "futureDate": "2022-06-09",
+            "attendedCounter": 0,
+            "assignedUsers": []
+        }
+    },

@@ -230,9 +230,9 @@ export const postEventInstance = async (userEvent, user, type) => {
 export const postFetchSuggestedEventsActivity = async (user) => {
   console.log(user);
   let email = user.user.userId["email"];
-  await putUser(user.user, "Player");
   let userInstance = await fetchInstanceByName(email);
-  var dis = 500.0;
+  var dis = 1210.0;
+  console.log(email);
   const data = await fetch(ACTIVITY_ENDPOINT, {
     method: "POST",
     mode: "cors",
@@ -256,13 +256,16 @@ export const postFetchSuggestedEventsActivity = async (user) => {
         size: 15,
       },
     }),
-  }).then((response) => {
-    return response.json();
-  });
-  userInstance[0]["instanceAttributes"]["suggestedEvents"] = data;
-  await putUser(user.user, "Manager");
-  await putUserInstance(userInstance, email);
-  await putUser(user.user, "Player");
+  }).then((response) => response.json()).then((jsonData) => {
+    // console.log(userInstance[0]["instanceAttributes"]["suggestedEvents"]);
+    // putUser(user.user, "Manager")
+    //   .then(() => {
+    //     putUserInstance(userInstance, email);
+    //     putUser(user.user, "Player");})
+      return jsonData;}
+        );
+    
 
+  // console.log("topEvents on data file : " + JSON.stringify(data));
   return data;
 };
