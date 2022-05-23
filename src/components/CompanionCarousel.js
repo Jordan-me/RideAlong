@@ -46,7 +46,16 @@ function CompanionCarousel(props) {
         itemClass="carousel-item-padding-40-px"
       >
         <div>
-<CompanionCard />            
+      <CompanionCard />            
+    </div>
+    <div>
+      <CompanionCard />            
+    </div>
+    <div>
+      <CompanionCard />            
+    </div>
+    <div>
+      <CompanionCard />            
     </div>
       </Carousel>
     </>

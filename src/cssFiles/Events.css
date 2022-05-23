@@ -148,3 +148,22 @@ small,
   border-color: gray;
   display: inline-table;
 }
+.card-event{
+  width: 20rem;
+}
+.card-event:hover{
+  box-shadow: 5px 10px 20px 1px rgba(0,0,0,0.253) !important;
+}
+.overflow{
+  overflow: hidden;
+}
+.card-img-top{
+  transform: scale(1);
+}
+.card-img-top:hover{
+  transform: scale(1.2);
+  transition: transform 0.5s ease;
+}
+.tab{
+  background: radial-gradient(#e5e5e5,#ffff,#e5e5e5);
+}
