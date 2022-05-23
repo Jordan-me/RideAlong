@@ -11,13 +11,11 @@ const GET_INSTANCE_BY_NAME_ENDPOINT =
   "http://localhost:8085/iob/instances/search/byName/";
 const GET_INSATNCES_BY_TYPE =
   "http://localhost:8085/iob/instances/search/byType/";
+const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
 
 //ACTIVITY URL
 const ACTIVITY_ENDPOINT = "http://localhost:8085/iob/activities";
 
-const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
-//INSTANCES URLS
-// const INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const INSTANCE_MANAGER_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
 const INSTANCE_PERMISSION =
@@ -233,9 +231,9 @@ export const getInstanceById = async (id) => {};
 export const postFetchSuggestedEventsActivity = async (user) => {
   console.log(user);
   let email = user.user.userId["email"];
+  await putUser(user.user, "Player");
   let userInstance = await fetchInstanceByName(email);
-  console.error("198." + userInstance);
-
+  var dis = 500.0;
   const data = await fetch(ACTIVITY_ENDPOINT, {
     method: "POST",
     mode: "cors",
@@ -246,10 +244,7 @@ export const postFetchSuggestedEventsActivity = async (user) => {
     body: JSON.stringify({
       type: "fetchSuggestedEvents",
       instance: {
-        instanceId: {
-          domain: DOMAIN,
-          id: userInstance[0]["instanceId"]["email"],
-        },
+        instanceId: { domain: DOMAIN, id: userInstance[0]["instanceId"]["id"] },
       },
       createdTimestamp: null,
       invokedBy: {
@@ -257,7 +252,7 @@ export const postFetchSuggestedEventsActivity = async (user) => {
       },
       activityAttributes: {
         instanceType: "eventUser",
-        distance: 20.0,
+        distance: parseFloat(dis),
         page: 0,
         size: 15,
       },
@@ -265,11 +260,10 @@ export const postFetchSuggestedEventsActivity = async (user) => {
   }).then((response) => {
     return response.json();
   });
-  console.log("195." + email);
   userInstance[0]["instanceAttributes"]["suggestedEvents"] = data;
-  await putUser(user, "Manager");
+  await putUser(user.user, "Manager");
   await putUserInstance(userInstance, email);
-  await putUser(user, "Player");
+  await putUser(user.user, "Player");
 
   return data;
 };
