@@ -9,7 +9,7 @@ function MyEventsTab() {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
-  const [listEvents, setListEvents] = useState(null);
+  const [listEvents, setListEvents] = useState([]);
   useEffect(() => {
     console.log(loggedInState);
     async function getData() {
@@ -40,8 +40,8 @@ function MyEventsTab() {
 
   return (
     <>
-    {/* TODO: pass here list of events as parameter */}
-    {/* Get all events that near the user and not created by him*/}
+      {/* TODO: pass here list of events as parameter */}
+      {/* Get all events that near the user and not created by him*/}
       <EventCarousel props={listEvents} />
     </>
   );

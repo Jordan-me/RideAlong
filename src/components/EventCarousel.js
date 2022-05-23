@@ -1,25 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Badge, Button, Card, Col, Row } from "react-bootstrap";
+import { Badge, Button, Card, CarouselItem, Col, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../cssFiles/Events.css";
 import { LoginContext } from "../App";
 import { fetchInstanceByType } from "../data/data";
-import EventCard from './EventCard'
+import EventCard from "./EventCard";
 function EventCarousel(props) {
   // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
+  const [spinnerState, setSpinnerState] = useState(false);
   useEffect(() => {
-    console.log(props)
-  //   console.log(loggedInState);
-  //   async function getData() {
-  //     const data = await fetchInstanceByType(
-  //       loggedInState.user.userId.email,
-  //       "userEvent"
-  //     );
-  //     console.log(data);
-  //   }
-  //   getData();
+    console.log(props);
+    //   console.log(loggedInState);
+    //   async function getData() {
+    //     const data = await fetchInstanceByType(
+    //       loggedInState.user.userId.email,
+    //       "userEvent"
+    //     );
+    //     console.log(data);
+    //   }
+    //   getData();
   }, []);
   // let cards = null;
   // props.length > 0 ? cards = ()) : null;
@@ -64,14 +65,27 @@ function EventCarousel(props) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        <div>
-        {/* {props ? props.map(instance =>{
-        return <div>
-      <EventCard props={instance}/>
-    </div>}) : null} */}
+        <div style={{ display: "flex" }}>
+          {props
+            ? props.topEvents
+              ? props.topEvents.map((instance) => {
+                  return (
+                    <div
+                      // style={{ width: "6500px" }}
+                      key={instance.instanceId.id}
+                    >
+                      {/* <CarouselItem> */}
+                      {/* <div style={{ display: "flex" }}> */}
+                      <EventCard eventInstance={instance} />
+                      {/* </div> */}
+
+                      {/* </CarouselItem> */}
+                    </div>
+                  );
+                })
+              : null
+            : null}
         </div>
-        
-        
       </Carousel>
     </>
   );
