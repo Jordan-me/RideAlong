@@ -177,16 +177,16 @@ function DiscoverEvents({ user }) {
             onSelect={(k) => setKey(k)}
             className="mb-3"
           >
-            <Tab eventKey="top" title="top">
+            <Tab eventKey="top" title="top" className="tab">
               <TopEventTab />
             </Tab>
-            <Tab eventKey="My Events" title="My Events">
+            <Tab eventKey="My Events" title="My Events" className="tab">
               <MyEventsTab />
             </Tab>
-            <Tab eventKey="My Calender" title="My Calender">
+            <Tab eventKey="My Calender" title="My Calender" >
               <MyCalendar />
             </Tab>
-            <Tab eventKey="Companion" title="Companion">
+            <Tab eventKey="Companion" title="Companion" className="tab">
               <CompanionCarousel />
             </Tab>
           </Tabs>

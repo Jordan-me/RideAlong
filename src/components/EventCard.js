@@ -1,20 +1,55 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Badge, Button, Card, CarouselItem, Col, Row } from "react-bootstrap";
 import "../cssFiles/Events.css";
+import RoadTrip from "../assets/images/RoadTripGenre.jpg";
+import Sports from "../assets/images/SportsGenre.jpg";
+import Flight from "../assets/images/flightGenre.jpg";
+import Concert from "../assets/images/ConcertGenre.jpg";
+import Arts from "../assets/images/ArtsGenre.jpg";
+import DefaultGenre from "../assets/images/defaultGenre.jpg";
+
 const EventCard = (props) => {
   const [event, setEvent] = useState(null);
+  const [img, setImage] = useState(null);
   useEffect(() => {
     if (props) if (props.eventInstance) setEvent(props.eventInstance);
     // props ? (props.eventInstance ? setEvent(props.eventInstance) : null) : null;
   }, []);
-
+  useEffect(() => {
+    if (event){
+      if(event.instanceAttributes.genre){
+        let genre = event.instanceAttributes.genre;
+        switch(genre) {
+          case 'Flight':
+            setImage(Flight);
+            break;
+          case 'Concert':
+            setImage(Concert);
+            break;
+          case 'Road Trip':
+            setImage(RoadTrip);
+            break;
+          case 'Sports':
+            setImage(Sports);
+            break;
+          case 'Arts & Theater':
+            setImage(Arts);
+            break;
+          default:
+            setImage(DefaultGenre);
+            break;
+        }
+      }
+    } else{
+      setImage(DefaultGenre);
+    }
+  }, [event]);
   return (
-    // <>
-    // <Col>
-    <Card style={{ width: "300px" }} className="h-100 pr-20">
+    <div  style={{ width: "300px" }} className="h-100 pr-20 card-event overflow">
       <img
-        className="img-fluid rounded-top position-relative"
-        src="https://social.webestica.com/assets/images/events/01.jpg"
+        className="img-fluid rounded-top position-relative card-img-top"
+        src={img}
+        style = {{height: "100%"}}
         alt=""
       />
       <Badge className="bg-danger text-white mt-2 me-2 position-absolute top-0 end-0">
@@ -122,7 +157,7 @@ const EventCard = (props) => {
           </div>
         </div>
       </Card.Body>
-    </Card>
+    </div>
   );
 };
 export default EventCard;
