@@ -13,8 +13,6 @@ function TopEventTab() {
   const getEventsList = async (user) => {
     // await putUser(user.user, "Player");
     let topEventsData = await postFetchSuggestedEventsActivity(user);
-    console.log("topEvents: \n" + JSON.stringify(topEvents) + "\n");
-    console.log("first instance : \n" + JSON.stringify(topEvents[0]));
     setTopEvents(topEventsData);
     // return topEvents;
   };
@@ -30,9 +28,7 @@ function TopEventTab() {
       getEventsList({ user });
     }
   }, [user, extra]);
-  useEffect(() => {
-    console.log(topEvents);
-  }, [topEvents]);
+  useEffect(() => {}, [topEvents]);
 
   return (
     <>
