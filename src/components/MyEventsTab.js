@@ -11,26 +11,22 @@ function MyEventsTab() {
   const [extra, setExtra] = useState(null);
   const [listEvents, setListEvents] = useState([]);
   useEffect(() => {
-    console.log(loggedInState);
     async function getData() {
       const data = await fetchInstanceByType(
         loggedInState.user.userId.email,
         "userEvent"
       );
-      console.log(data);
     }
     getData();
   }, []);
 
   useEffect(() => {
-    console.log(loggedInState);
     if (loggedInState !== null) {
       setUser(loggedInState.user);
       setExtra(loggedInState.extra[0]);
     }
   }, [loggedInState]);
   useEffect(() => {
-    console.log(user, extra);
     if (user !== null && extra !== null) {
       setUser(user);
       setExtra(extra);

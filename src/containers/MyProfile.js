@@ -13,7 +13,6 @@ const MyProfile = (props) => {
   const [extra, setExtra] = useState(null);
 
   useEffect(() => {
-    console.log(loggedInState);
     if (loggedInState !== null && !typeof loggedInState === Boolean) {
       setUser(loggedInState.user);
       setExtra(loggedInState.extra[0]);
@@ -21,14 +20,12 @@ const MyProfile = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(loggedInState);
     if (loggedInState !== null && !typeof loggedInState === Boolean) {
       setUser(loggedInState.user);
       setExtra(loggedInState.extra[0]);
     }
   }, [loggedInState]);
   useEffect(() => {
-    console.log(user, extra);
     if (user !== null && extra !== null) {
       setUser(user);
       setExtra(extra);

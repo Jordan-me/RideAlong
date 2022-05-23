@@ -44,7 +44,7 @@ function EventCarousel(props) {
   return (
     <div>
       <Carousel
-        // swipeable={false}
+        // swipeable={true}
         // draggable={true}
         showDots={false}
         interval={false}

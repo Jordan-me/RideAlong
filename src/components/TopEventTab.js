@@ -20,31 +20,19 @@ function TopEventTab() {
   };
 
   useEffect(() => {
-    console.log(loggedInState);
-  }, []);
-
-  useEffect(() => {
-    console.log(loggedInState);
     if (loggedInState !== null) {
       setUser(loggedInState.user);
       setExtra(loggedInState.extra[0]);
     }
   }, [loggedInState]);
   useEffect(() => {
-    console.log(user, extra);
     if (user !== null) {
-      // console.log(user);
       getEventsList({ user });
     }
   }, [user, extra]);
   useEffect(() => {
     console.log(topEvents);
   }, [topEvents]);
-  // if(user!==null){
-  //   console.log(user);
-  //   let eventsList =
-
-  // }
 
   return (
     <>

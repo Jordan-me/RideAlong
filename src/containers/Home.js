@@ -6,9 +6,6 @@ import { Footer } from "../components/Footer";
 import { useLocation } from "react-router-dom";
 const Home = (props) => {
   const location = useLocation();
-  useEffect(() => {
-    console.log(location);
-  }, []);
 
   return (
     <div>
