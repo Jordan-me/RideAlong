@@ -6,19 +6,8 @@ import "../cssFiles/Events.css";
 import { LoginContext } from "../App";
 import { fetchInstanceByType } from "../data/data";
 function EventCarousel(props) {
-  const [loggedInState, setLoggedInState] = useContext(LoginContext);
+  // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
-  useEffect(() => {
-    console.log(loggedInState);
-    async function getData() {
-      const data = await fetchInstanceByType(
-        loggedInState.user.userId.email,
-        "userEvent"
-      );
-      console.log(data);
-    }
-    getData();
-  }, []);
 
   const responsive = {
     desktop: {

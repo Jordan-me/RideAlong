@@ -17,7 +17,7 @@ const ACTIVITY_ENDPOINT = "http://localhost:8085/iob/activities";
 
 const INSTANCE_DOMAIN = "userDomain=2022b.yarden.dahan";
 //INSTANCES URLS
-const INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
+// const INSTANCE_ENDPOINT = "http://localhost:8085/iob/instances";
 const INSTANCE_MANAGER_PERMISSION =
   "userDomain=2022b.yarden.dahan&userEmail=manager@google.com";
 const INSTANCE_PERMISSION =
@@ -229,11 +229,12 @@ export const postEventInstance = async (userEvent, user, type) => {
   userInstance[0]["instanceAttributes"]["counterEvents"] += 1;
   await putUserInstance(userInstance, user.userId.email);
 };
+export const getInstanceById = async (id) => {};
 export const postFetchSuggestedEventsActivity = async (user) => {
   console.log(user);
-  let email =  user.user.userId["email"]
+  let email = user.user.userId["email"];
   let userInstance = await fetchInstanceByName(email);
-  console.error("198."+userInstance);
+  console.error("198." + userInstance);
 
   const data = await fetch(ACTIVITY_ENDPOINT, {
     method: "POST",
@@ -244,7 +245,12 @@ export const postFetchSuggestedEventsActivity = async (user) => {
     },
     body: JSON.stringify({
       type: "fetchSuggestedEvents",
-      instance: {instanceId:{domain:DOMAIN,id:userInstance[0]["instanceId"]["email"]}},
+      instance: {
+        instanceId: {
+          domain: DOMAIN,
+          id: userInstance[0]["instanceId"]["email"],
+        },
+      },
       createdTimestamp: null,
       invokedBy: {
         userId: { domain: DOMAIN, email: email },
@@ -256,14 +262,14 @@ export const postFetchSuggestedEventsActivity = async (user) => {
         size: 15,
       },
     }),
-  }).then((response)=> {return response.json();});
+  }).then((response) => {
+    return response.json();
+  });
   console.log("195." + email);
   userInstance[0]["instanceAttributes"]["suggestedEvents"] = data;
   await putUser(user, "Manager");
   await putUserInstance(userInstance, email);
   await putUser(user, "Player");
-
-
 
   return data;
 };
