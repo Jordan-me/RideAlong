@@ -15,7 +15,6 @@ const Home = (props) => {
 
       <About />
 
-      <Footer />
     </div>
   );
 };

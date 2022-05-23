@@ -65,7 +65,7 @@ const MyProfile = (props) => {
     console.log(myEvents);
   }, [myEvents]);
   return (
-    <div className="mb-5" style={{ paddingTop: "138px" }}>
+    <div className="mb-5" style={{ paddingTop: "138px" ,height:"100vh" }}>
       <Container
         style={{
           marginLeft: "99.6px",

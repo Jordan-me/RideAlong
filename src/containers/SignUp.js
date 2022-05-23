@@ -325,9 +325,7 @@ const SignUp = () => {
           />
         </Container>
       </div>
-      <div style={{ bottom: "0", width: "100%", position: "relative" }}>
-        <Footer />
-      </div>
+
     </div>
   );
 };

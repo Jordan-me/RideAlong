@@ -162,7 +162,6 @@ const Login = (props) => {
           />
         </Container>
       </div>
-      <Footer />
     </div>
   );
 };
