@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
     font-family: var(--bs-body-font-family);
     font-size: var(--bs-body-font-size);
@@ -9,57 +9,160 @@ body {
     background-color: #DAAD86;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+} */
+body {
+  margin: 0;
+  font-family: var(--falcon-body-font-family);
+  font-size: var(--falcon-body-font-size);
+  font-weight: var(--falcon-body-font-weight);
+  line-height: var(--falcon-body-line-height);
+  color: var(--falcon-body-color);
+  text-align: var(--falcon-body-text-align);
+  background-color: var(--falcon-body-bg);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .avatar.avatar-xxl {
-    width: 10rem;
-    min-width: 10rem;
-    height: 10rem;
-    line-height: 10rem;
+  width: 10rem;
+  min-width: 10rem;
+  height: 10rem;
+  line-height: 10rem;
 }
 .hover-animate {
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .mb-30px {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-@media (min-width: 992px){
-    .col-lg-4 {
-        flex: 0 0 auto;
-        width: 33.33333333%;
-    }
+@media (min-width: 992px) {
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
 }
-@media (min-width: 576px){
-    .col-sm-6 {
-        flex: 0 0 auto;
-        width: 50%;
-    }
+@media (min-width: 576px) {
+  .col-sm-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
 }
 .h-100 {
-    height: 100%!important;
+  height: 100% !important;
 }
 .border-0 {
-    border: 0!important;
+  border: 0 !important;
 }
 .shadow {
-    box-shadow: 0 0 1rem rgba(0,0,0,.15)!important;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15) !important;
 }
-.event-card{
-    box-sizing: border-box;
-    display: block;
-    overflow: hidden;
-    width: initial;
-    height: initial;
-    background: none;
-    opacity: 1;
-    border: 0px;
-    margin: 0px;
-    padding: 0px;
-    position: relative;
+.event-card {
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
 }
-.card-img, .card-img-bottom, .card-img-top {
-    width: 100%;
+.card-img,
+.card-img-bottom,
+.card-img-top {
+  width: 100%;
 }
 .overflow-hidden {
-    overflow: hidden!important;
+  overflow: hidden !important;
 }
+
+
+.content {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 6.375rem;
+}
+
+@media (min-width: 576px) {
+  .content {
+    padding-bottom: 3.9875rem;
+  }
+}
+div {
+    display: block;
+}
+
+.card {
+    box-shadow: var(--falcon-box-shadow);
+}
+.mb-3 {
+    margin-bottom: 1rem!important;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: var(--falcon-card-bg);
+    background-clip: border-box;
+    border: 0 solid var(--falcon-card-border-color);
+    border-radius: 0.375rem;
+}
+.card-header:first-child {
+    border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.mb-7 {
+    margin-bottom: 5rem!important;
+}
+.min-vh-25 {
+    min-height: 25vh!important;
+}
+.position-relative {
+    position: relative!important;
+}
+.card-header {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+    background-color: var(--falcon-card-cap-bg);
+    border-bottom: 0 solid var(--falcon-card-border-color);
+}
+.bg-holder {
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50%;
+    overflow: hidden;
+    will-change: transform,opacity,filter;
+    backface-visibility: hidden;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+.rounded-bottom-0 {
+    border-bottom-right-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+}
+.rounded-3 {
+    border-radius: 0.375rem!important;
+}
+.header-img{
+    background-image: url("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp");
+    background-size: cover;
+    opacity: 0.899;
+}
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fbeec1;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #bc986a, #fbeec1);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #bc986a, #fbeec1);
+    }
