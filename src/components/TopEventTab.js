@@ -31,13 +31,10 @@ function TopEventTab() {
 
   return (
     <>
-      {/* TODO: pass here list of events as parameter */}
-      {/* Get all events that near the user and not created by him*/}
+
       {topEvents.length > 0 ? (
         <>
-          {/* <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner> */}
+
           {topEvents ? <EventCarousel topEvents={topEvents} /> : null}
         </>
       ) : (
