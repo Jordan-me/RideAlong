@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../App";
 import "../cssFiles/Events.css";
+import Spinner from "react-bootstrap/Spinner";
 // import { postFetchSuggestedEventsActivity } from "../data/data";
 import { EventCarousel } from "./EventCarousel";
 import { fetchUsersEvents } from "../data/data";
@@ -44,9 +45,17 @@ function MyEventsTab() {
           {/* <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner> */}
-          <EventCarousel topEvents={myEvents} />
+          {myEvents ? <EventCarousel topEvents={myEvents} /> : null}
         </>
-      ) : null}
+      ) : (
+        <Spinner
+          style={{ width: "100px", height: "100px" }}
+          animation="border"
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )}
     </>
   );
 }

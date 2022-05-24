@@ -3,6 +3,7 @@ import { LoginContext } from "../App";
 import "../cssFiles/Events.css";
 import { postFetchSuggestedEventsActivity, putUser } from "../data/data";
 import { EventCarousel } from "./EventCarousel";
+import Spinner from "react-bootstrap/Spinner";
 
 function TopEventTab() {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
@@ -37,9 +38,17 @@ function TopEventTab() {
           {/* <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner> */}
-          <EventCarousel topEvents={topEvents} />
+          {topEvents ? <EventCarousel topEvents={topEvents} /> : null}
         </>
-      ) : null}
+      ) : (
+        <Spinner
+          style={{ width: "100px", height: "100px" }}
+          animation="border"
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )}
     </>
   );
 }

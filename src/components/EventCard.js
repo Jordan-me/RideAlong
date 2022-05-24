@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Badge, Button, Card, CarouselItem, Col, Row } from "react-bootstrap";
+import { Badge, Button, Card, Carousel, Col, Row } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import RoadTrip from "../assets/images/RoadTripGenre.jpg";
 import Sports from "../assets/images/SportsGenre.jpg";
@@ -108,7 +108,7 @@ const EventCard = (props) => {
             className="avatar avatar-xs "
             style={{
               paddingRight: "0px",
-              paddingLeft: "0px",
+              paddingLeft: "8px",
               margin: "0",
               width: "20%",
             }}
@@ -123,7 +123,7 @@ const EventCard = (props) => {
             >
               <div
                 className="smaller text-white position-absolute"
-                style={{ paddingTop: "11px", paddingLeft: "6px" }}
+                style={{ paddingTop: "11px", paddingLeft: "12px" }}
               >
                 +{event ? event.instanceAttributes.attendedCounter : null}
               </div>

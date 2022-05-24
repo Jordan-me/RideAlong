@@ -13,7 +13,7 @@ function HeroSection() {
 
   return (
     <div>
-      <Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel>
         <Carousel.Item>
           <img
             className="d-block w-100 opacity-75"
@@ -48,6 +48,4 @@ function HeroSection() {
     </div>
   );
 }
-export {HeroSection};
-
-
+export { HeroSection };
