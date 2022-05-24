@@ -6,10 +6,14 @@ import "../cssFiles/Events.css";
 import { LoginContext } from "../App";
 import { fetchInstanceByType } from "../data/data";
 import EventCard from "./EventCard";
+import Spinner from "react-bootstrap/Spinner";
+
 function EventCarousel(props) {
   // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
   const [spinnerState, setSpinnerState] = useState(false);
+
+  useEffect(() => {}, []);
 
   const responsive = {
     desktop: {
@@ -32,46 +36,41 @@ function EventCarousel(props) {
   return (
     <div>
       <Carousel
-        // swipeable={false}
-        // draggable={true}
         showDots={false}
         interval={false}
         responsive={responsive}
         ssr={false} // means to render carousel on server-side.
         infinite={false}
         autoPlay={false}
-        // autoPlay={this.props.deviceType !== "mobile" ? true : false}
-        // autoPlaySpeed={1000}
         keyBoardControl={true}
         customTransition="all .5"
-        // transitionDuration={1500}
         containerClass="carousel-container"
         removeArrowOnDeviceType={["tablet", "mobile"]}
-        // deviceType={this.props.deviceType}
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        <div style={{ display: "flex" }}>
-          {props
-            ? props.topEvents
-              ? props.topEvents.map((instance) => {
-                  return (
-                    <div
-                      // style={{ width: "6500px" }}
-                      key={instance.instanceId.id}
-                    >
-                      {/* <CarouselItem> */}
-                      {/* <div style={{ display: "flex" }}> */}
-                      <EventCard eventInstance={instance} />
-                      {/* </div> */}
-
-                      {/* </CarouselItem> */}
-                    </div>
-                  );
-                })
-              : null
-            : null}
-        </div>
+        {props ? (
+          props.topEvents ? (
+            props.topEvents.map((instance) => {
+              return (
+                <div
+                  // style={{ width: "6500px" }}
+                  key={instance.instanceId.id}
+                >
+                  <EventCard eventInstance={instance} />
+                </div>
+              );
+            })
+          ) : (
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          )
+        ) : (
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        )}
       </Carousel>
     </div>
   );
