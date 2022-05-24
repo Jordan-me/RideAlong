@@ -36,6 +36,7 @@ const EventCard = (props) => {
     }
   }, [loggedInState]);
   useEffect(() => {
+    console.log(props);
     if (props) if (props.eventInstance) setEvent(props.eventInstance);
 
     // props ? (props.eventInstance ? setEvent(props.eventInstance) : null) : null;
@@ -156,6 +157,7 @@ const EventCard = (props) => {
     console.log(myNewInstance);
     setEvent(myNewInstance);
     setSpinnerStatus(false);
+    props.setTopSpinner(false);
     forceUpdate();
   };
   return (
@@ -275,6 +277,7 @@ const EventCard = (props) => {
                       htmlFor="Interested1"
                       disabled={interestedStatus}
                       onClick={() => {
+                        props.setTopSpinner(true);
                         setSpinnerStatus(true);
                         handleInterestedUser();
                       }}

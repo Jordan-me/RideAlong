@@ -34,44 +34,67 @@ function EventCarousel(props) {
   };
 
   return (
-    <div>
-      <Carousel
-        showDots={false}
-        interval={false}
-        responsive={responsive}
-        ssr={false} // means to render carousel on server-side.
-        infinite={false}
-        autoPlay={false}
-        keyBoardControl={true}
-        customTransition="all .5"
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-10-px"
-      >
-        {props ? (
-          props.topEvents ? (
-            props.topEvents.map((instance) => {
-              return (
-                <div
-  
-                  key={instance.instanceId.id}
-                >
-                  <EventCard eventInstance={instance} />
-                </div>
-              );
-            })
+    <div style={{ height: "100%", backgroundColor: "#ffffff" }}>
+      {!spinnerState ? (
+        <Carousel
+          showDots={false}
+          interval={false}
+          responsive={responsive}
+          ssr={false} // means to render carousel on server-side.
+          infinite={false}
+          autoPlay={false}
+          keyBoardControl={true}
+          customTransition="all .5"
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-10-px"
+        >
+          {props ? (
+            props.topEvents ? (
+              props.topEvents.map((instance) => {
+                return (
+                  <div key={instance.instanceId.id}>
+                    <EventCard
+                      setTopSpinner={setSpinnerState}
+                      eventInstance={instance}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            )
           ) : (
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
-          )
-        ) : (
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        )}
-      </Carousel>
+          )}
+        </Carousel>
+      ) : (
+        <div style={{ margin: "15%", marginLeft: "50%", height: "100%" }}>
+          <svg
+            className="checkmark"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+          >
+            <circle
+              className="checkmark__circle"
+              cx="26"
+              cy="26"
+              r="25"
+              fill="none"
+            />
+            <path
+              className="checkmark__check"
+              fill="none"
+              d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }

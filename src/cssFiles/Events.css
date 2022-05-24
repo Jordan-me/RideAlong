@@ -187,17 +187,15 @@ small,
 }
 
 .checkmark {
-  width: 12%;
-  height: 10%;
-  margin-top: 2%;
-  margin-left: 2%;
+  width: 11%;
+  height: 12%;
   border-radius: 80%;
   display: block;
   stroke-width: 2;
   stroke: #fff;
   stroke-miterlimit: 10;
   box-shadow: inset 0px 0px 0px #7ac142;
-  animation: fill 0.3s ease-in-out 0.3s forwards,
+  animation: fill 0.3s ease-in-out 0.1s forwards,
     scale 0.3s ease-in-out 0.3s both;
 }
 
@@ -205,7 +203,7 @@ small,
   transform-origin: 50% 50%;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
 }
 
 @keyframes stroke {
@@ -226,18 +224,4 @@ small,
   100% {
     box-shadow: inset 0px 0px 0px 30px #7ac142;
   }
-}
-.gradient-custom-2 {
-  /* fallback for old browsers */
-  background: #fbeec1;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, #bc986a, #fbeec1);
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, #bc986a, #fbeec1);
-}
-.card-title {
-  margin-bottom: 1.5rem;
-  margin-top: 2.5rem;
 }
