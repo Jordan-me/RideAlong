@@ -10,6 +10,7 @@ import { fetchUser, postEventInstance, putUser } from "../data/data";
 import { TopEventTab } from "./TopEventTab";
 import { MyEventsTab } from "./MyEventsTab";
 import Spinner from "react-bootstrap/Spinner";
+import { MyPartnersTab } from "./MyPartnersTab";
 
 const EventForm = (props) => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
@@ -142,6 +143,7 @@ function DiscoverEvents({ user }) {
   return (
     <div>
       <div className="card h-200" style={{ height: "100vh" }}>
+      <div className="card h-200" style={{height:"100%"}}>
         <div className="card-header d-sm-flex align-items-center text-center justify-content-sm-between border-10 pb-0">
           <h1 className="h4 card-title">Discover Events</h1>
           {/* Button modal */}
@@ -194,7 +196,7 @@ function DiscoverEvents({ user }) {
                 <MyCalendar />
               </Tab>
               <Tab eventKey="Companion" title="Companion" className="tab">
-                <CompanionCarousel />
+                <MyPartnersTab />
               </Tab>
             </Tabs>
           )}

@@ -7,8 +7,9 @@ import { LoginContext } from "../App";
 import { fetchInstanceByType } from "../data/data";
 import EventCard from "./EventCard";
 import Spinner from "react-bootstrap/Spinner";
+import PartnerCard from "./PartnerCard";
 
-function EventCarousel(props) {
+function PartnerCarousel(props) {
   // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
   const [spinnerState, setSpinnerState] = useState(false);
@@ -50,14 +51,19 @@ function EventCarousel(props) {
         itemClass="carousel-item-padding-10-px"
       >
         {props ? (
-          props.topEvents ? (
-            props.topEvents.map((instance) => {
+          props.event ? (
+            <div key={props.event.instanceId.id}>
+              <EventCard eventInstance={props.event} />
+            </div>
+          ) : null
+        ) : null}
+
+        {props ? (
+          props.partnersForEvent ? (
+            props.partnersForEvent.map((instance) => {
               return (
-                <div
-  
-                  key={instance.instanceId.id}
-                >
-                  <EventCard eventInstance={instance} />
+                <div key={instance.instanceId.id}>
+                  <PartnerCard partnerInstance={instance} />
                 </div>
               );
             })
@@ -76,4 +82,4 @@ function EventCarousel(props) {
   );
 }
 
-export { EventCarousel };
+export { PartnerCarousel };
