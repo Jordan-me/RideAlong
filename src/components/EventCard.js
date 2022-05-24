@@ -22,7 +22,6 @@ const EventCard = (props) => {
   }, [loggedInState]);
   useEffect(() => {
     if (props) if (props.eventInstance) setEvent(props.eventInstance);
-    // props ? (props.eventInstance ? setEvent(props.eventInstance) : null) : null;
   }, []);
   useEffect(() => {
     if (event) {
