@@ -163,7 +163,12 @@ const EventCard = (props) => {
   return (
     <Card
       className="h-100 overflow"
-      style={{ paddingRight: "2px", paddingLeft: "2px" }}
+      style={{
+        width: "92%",
+        // paddingRight: "10px",
+        // paddingLeft: "30px",
+        backgroundColor: "white",
+      }}
     >
       <img
         className="img-fluid rounded-top position-relative card-img-top"

@@ -152,12 +152,12 @@ function DiscoverEvents({ user }) {
             data-bs-toggle="modal"
             data-bs-target="#modalCreateEvents"
             onClick={handleShow}
-            style={{ marginBottom: "5px" }}
+            style={{ marginTop: "52px" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="35"
+              width="45"
+              height="45"
               fill="currentColor"
               className="bi bi-plus"
               viewBox="0 0 16 16"

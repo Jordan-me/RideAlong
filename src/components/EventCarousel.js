@@ -34,7 +34,18 @@ function EventCarousel(props) {
   };
 
   return (
-    <div style={{ height: "100%", backgroundColor: "#ffffff" }}>
+    <div
+      style={{
+        // marginTop: "22px",
+        height: "100%",
+        width: "100%",
+        backgroundColor: "beige",
+        paddingLeft: "40px",
+        paddingRight: "40px",
+        paddingTop: "10px",
+        paddingBottom: "3%",
+      }}
+    >
       {!spinnerState ? (
         <Carousel
           showDots={false}
