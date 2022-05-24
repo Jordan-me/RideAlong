@@ -4,17 +4,29 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../cssFiles/Events.css";
 import { LoginContext } from "../App";
-import { fetchInstanceByType } from "../data/data";
+import { getInstanceById } from "../data/data";
 import EventCard from "./EventCard";
 import Spinner from "react-bootstrap/Spinner";
 import PartnerCard from "./PartnerCard";
 
 function PartnerCarousel(props) {
-  // const [loggedInState, setLoggedInState] = useContext(LoginContext);
+  const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
   const [spinnerState, setSpinnerState] = useState(false);
+  const [eventUserList, setEventUserList] = useState([]);
+  useEffect(() => {
+    let newData = null;
+    newData = props
+      ? props.partnersForEvent.length > 0
+        ? getAssignedUsers(props.partnersForEvent)
+        : // props.partnersForEvent.map(pId =>{
 
-  useEffect(() => {}, []);
+          // })
+          null
+      : null;
+    setEventUserList(newData);
+    console.log("new Data: " + newData);
+  }, [props]);
 
   const responsive = {
     desktop: {
@@ -33,7 +45,22 @@ function PartnerCarousel(props) {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-
+  const getAssignedUsers = async (instanceIds) => {
+    const newArr = [];
+    const newInstancesArr =
+      (await instanceIds.length) > 0
+        ? instanceIds.map(async (insId) => {
+            const newInstance = await getInstanceById(
+              loggedInState.user.userId.email,
+              insId
+            );
+            newArr.push(newInstance);
+            return newInstance;
+          })
+        : null;
+    console.log("newInstancesArr:\n\n" + instanceIds + newArr);
+    return newInstancesArr;
+  };
   return (
     <div>
       <Carousel
@@ -50,30 +77,35 @@ function PartnerCarousel(props) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-10-px"
       >
-        {props ? (
+        {/* {props ? (
           props.event ? (
             <div key={props.event.instanceId.id}>
               <EventCard eventInstance={props.event} />
             </div>
           ) : null
-        ) : null}
-
-        {props ? (
-          props.partnersForEvent ? (
-            props.partnersForEvent.map((instance) => {
-              return (
-                <div key={instance.instanceId.id}>
-                  <PartnerCard partnerInstance={instance} />
-                </div>
-              );
+        ) : null} */}
+        {eventUserList ? (
+          eventUserList.length > 0 ? (
+            eventUserList.map((userInstance) => {
+              <div key={userInstance.instanceId.id}>
+                <EventCard eventInstance={userInstance} />
+              </div>;
             })
           ) : (
-            <Spinner animation="border" role="status">
+            <Spinner
+              style={{ width: "100px", height: "100px" }}
+              animation="border"
+              role="status"
+            >
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           )
         ) : (
-          <Spinner animation="border" role="status">
+          <Spinner
+            style={{ width: "100px", height: "100px" }}
+            animation="border"
+            role="status"
+          >
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         )}
