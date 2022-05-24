@@ -1,5 +1,4 @@
 .leftStyle {
-  background-color: #daad86;
   position: "relative";
   display: "flex";
   padding-top: 150px;
@@ -8,16 +7,16 @@
   margin-left: 50px;
   margin-right: 50px;
   text-align: "center";
-  height: "100vh";
+  height: 100vh;
   width: "100vh";
   padding-bottom: "10px";
 }
 .rightStyle {
-  background-color: #fff7dcdf;
+  background-color: #fff;
   margin-right: 20px;
   margin-left: 20px;
   margin-bottom: 10px;
-  height: "100vh";
+  height: 100vh;
   width: "100vh";
 }
 .rounded {
@@ -166,4 +165,18 @@ small,
 }
 .tab {
   background: radial-gradient(#e5e5e5, #ffff, #e5e5e5);
+}
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fbeec1;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #bc986a, #fbeec1);
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #bc986a, #fbeec1);
+  }
+.card-title {
+    margin-bottom: 1.5rem;
+    margin-top: 2.5rem;
 }

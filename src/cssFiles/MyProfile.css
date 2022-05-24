@@ -152,7 +152,8 @@ div {
     border-radius: 0.375rem!important;
 }
 .header-img{
-    background-image: url("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp");
+    background-color: rgba(0,0,0,1);
+    /* background-image: url("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"); */
     background-size: cover;
     opacity: 0.899;
 }
