@@ -197,7 +197,7 @@ small,
   stroke: #fff;
   stroke-miterlimit: 10;
   box-shadow: inset 0px 0px 0px #7ac142;
-  animation: fill 0.3s ease-in-out 0.1s forwards,
+  animation: fill 0.3s ease-in-out 0.3s forwards,
     scale 0.3s ease-in-out 0.3s both;
 }
 
@@ -205,7 +205,7 @@ small,
   transform-origin: 50% 50%;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
 }
 
 @keyframes stroke {

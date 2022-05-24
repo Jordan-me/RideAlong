@@ -32,9 +32,10 @@ const Login = (props) => {
     if (user && extra && extra.status !== 404) {
       setLoggedInState({ user: user, extra: extra });
       localStorage.setItem("loginState", true);
+      navigate("/myProfile");
+
       // props.handleLogin(true);
       //location.state ? location.state.handleLoggedInStyle(true) : null;
-      navigate("/myProfile");
     }
   }, [user, extra]);
 

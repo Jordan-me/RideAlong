@@ -262,7 +262,29 @@ export const postFetchSuggestedEventsActivity = async (user) => {
     .then((jsonData) => jsonData);
   return data;
 };
-export const getInstanceById = async (id) => {};
+export const getInstanceById = async (email, id) => {
+  let URL =
+    INSTANCE_ENDPOINT +
+    "/" +
+    DOMAIN +
+    "/" +
+    id +
+    "?" +
+    INSTANCE_DOMAIN +
+    "&userEmail=" +
+    email;
+  let instance = await fetch(URL, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  })
+    .then((rawData) => rawData.json())
+    .catch((err) => console.log(err));
+  return instance;
+};
 
 export const fetchUsersEvents = async (user) => {
   let email = user.user.userId["email"];
@@ -292,9 +314,146 @@ export const fetchUsersEvents = async (user) => {
         },
       });
       const jsonD = await firstData.json();
-      console.log(jsonD);
+      // console.log(jsonD);
       myEvents.push(jsonD);
     }
     return myEvents;
   }
+};
+export const putEventUserInstance = async (instance, email, user) => {
+  /*_id
+:
+"2022b.yarden.dahan_81da3d90-d2e9-46ec-8ece-979f49cdb769"
+TYPE
+:
+"eventUser" //this
+NAME
+:
+"miami baby" //this
+ACTIVE
+:
+true
+CREATED_TIME_STAMP
+:
+2022-05-23T19:58:51.475+00:00
+CREATED_BY
+:
+Object
+userId
+:
+Object
+domain
+:
+"2022b.yarden.dahan"
+email
+:
+"dd@dd.com"
+LOCATION
+:
+Object
+lat
+:
+31.046051
+lng
+:
+34.851612
+INSTANCE_ATTRIBUTES
+:
+Object
+title
+:
+"miami baby"
+genre
+:
+"Flight"
+origin
+:
+Object
+lat
+:
+31.046051
+lng
+:
+34.851612
+address
+:
+"Israel"
+dest
+:
+Object
+lat
+:
+25.790654
+lng
+:
+-80.1300455
+address
+:
+"Miami Beach, FL, USA"
+futureDate
+:
+"2022-05-05"
+attendedCounter
+:
+0
+assignedUsers
+:
+Array
+_class
+:
+"iob.data.InstanceEntity"*/
+  const putEventUser = async () => {
+    await fetch(
+      INSTANCE_ENDPOINT +
+        "/" +
+        DOMAIN +
+        "/" +
+        id +
+        "?userDomain=" +
+        DOMAIN +
+        "&userEmail=" +
+        email,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          type: instance["type"],
+          name: instance["name"],
+          active: instance["active"],
+          location: {
+            lat: instance["location"]["lat"],
+            lng: instance["location"]["lng"],
+          },
+          instanceAttributes: {
+            title: instance["instanceAttributes"]["title"],
+            genre: instance["instanceAttributes"]["genre"],
+            origin: {
+              lat: instance["instanceAttributes"]["origin"]["lat"],
+              lng: instance["instanceAttributes"]["origin"]["lng"],
+              address: instance["instanceAttributes"]["origin"]["address"],
+            },
+            dest: {
+              lat: instance["instanceAttributes"]["dest"]["lat"],
+              lng: instance["instanceAttributes"]["dest"]["lng"],
+              address: instance["instanceAttributes"]["dest"]["address"],
+            },
+            futureDate: instance["instanceAttributes"]["futureDate"],
+            attendedCounter: instance["instanceAttributes"]["attendedCounter"],
+            assignedUsers: instance["instanceAttributes"]["assignedUsers"],
+          },
+        }),
+      }
+    );
+  };
+  let id = instance["instanceId"]["id"];
+  let managerUser = { ...user, role: "Manager" };
+  putUser(user, "Manager").then(() =>
+    putEventUser()
+      // .then(() => setSpinnerState("SUCCESS"))
+      .then(async () => await putUser(user, "Player"))
+  );
 };

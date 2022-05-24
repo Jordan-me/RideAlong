@@ -141,7 +141,7 @@ function DiscoverEvents({ user }) {
 
   return (
     <div>
-      <div className="card h-200" style={{height:"100vh"}}>
+      <div className="card h-200" style={{ height: "100vh" }}>
         <div className="card-header d-sm-flex align-items-center text-center justify-content-sm-between border-10 pb-0">
           <h1 className="h4 card-title">Discover Events</h1>
           {/* Button modal */}
@@ -152,7 +152,7 @@ function DiscoverEvents({ user }) {
             data-bs-toggle="modal"
             data-bs-target="#modalCreateEvents"
             onClick={handleShow}
-            style={{ marginBottom: "5px",     marginTop: "3.5rem"}}
+            style={{ marginBottom: "5px", marginTop: "3.5rem" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
