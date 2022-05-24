@@ -53,6 +53,7 @@ const EventCard = (props) => {
       setImage(DefaultGenre);
     }
   }, [event]);
+  const addInterestedUser = () => {};
   return (
     <Card
       style={{ width: "300px" }}
@@ -108,7 +109,7 @@ const EventCard = (props) => {
             className="avatar avatar-xs "
             style={{
               paddingRight: "0px",
-              paddingLeft: "8px",
+              paddingLeft: "6px",
               margin: "0",
               width: "20%",
             }}
@@ -123,9 +124,9 @@ const EventCard = (props) => {
             >
               <div
                 className="smaller text-white position-absolute"
-                style={{ paddingTop: "11px", paddingLeft: "12px" }}
+                style={{ paddingTop: "15px", paddingLeft: "12px" }}
               >
-                +{event ? event.instanceAttributes.attendedCounter : null}
+                + {event ? event.instanceAttributes.attendedCounter : null}
               </div>
             </div>
           </Col>
@@ -155,6 +156,7 @@ const EventCard = (props) => {
                     variant="outline-success"
                     className="d-block"
                     htmlFor="Interested1"
+                    // htmlFor=""
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -169,6 +171,24 @@ const EventCard = (props) => {
                     </svg>
                     Interested
                   </Button>
+                  <svg
+                    className="checkmark"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 52 52"
+                  >
+                    <circle
+                      className="checkmark__circle"
+                      cx="26"
+                      cy="26"
+                      r="25"
+                      fill="none"
+                    />
+                    <path
+                      className="checkmark__check"
+                      fill="none"
+                      d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                    />
+                  </svg>
                 </div>
               ) : null
             ) : null
