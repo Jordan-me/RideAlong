@@ -34,9 +34,7 @@ function MyEventsTab() {
   useEffect(() => {
     console.log(myEvents);
   }, [myEvents]);
-  // useEffect(() => {
-  //   console.log(myEvents);
-  // }, [myEvents]);
+ 
 
   return (
     <>
