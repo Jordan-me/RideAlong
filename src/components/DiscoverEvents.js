@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../cssFiles/Events.css";
-import { CompanionCarousel } from "./CompanionCarousel";
 import { EventCarousel } from "./EventCarousel";
 import Places from "./GooglePlacesInput";
 import { MyCalendar } from "./MyCalendar";
@@ -144,7 +143,9 @@ function DiscoverEvents({ user }) {
     <div>
       <div className="card h-200">
         <div className="card-header d-sm-flex align-items-center text-center justify-content-sm-between border-10 pb-0">
-          <h1 className="h4 card-title" style={{paddingTop: "3.2rem"}}>Discover Events</h1>
+          <h1 className="h4 card-title" style={{ paddingTop: "3.2rem" }}>
+            Discover Events
+          </h1>
           {/* Button modal */}
           <Button
             variant="outline-primary"
@@ -153,12 +154,13 @@ function DiscoverEvents({ user }) {
             data-bs-toggle="modal"
             data-bs-target="#modalCreateEvents"
             onClick={handleShow}
-            style={{ marginBottom: "5px" ,marginTop: "3.2rem"}}
+            // style={{ marginTop: "52px" }}
+            style={{ marginBottom: "5px", marginTop: "3.2rem" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="35"
+              width="45"
+              height="45"
               fill="currentColor"
               className="bi bi-plus"
               viewBox="0 0 16 16"

@@ -58,6 +58,18 @@ const NavigationBar = (props) => {
                   Home
                 </Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  as={Link}
+                  to={{ pathname: "/events/asdddd" }}
+                  smooth="true"
+                  duration="500"
+                  offset="20"
+                  spy="true"
+                >
+                  asd
+                </Nav.Link>
+              </Nav.Item>
               {localStorage.getItem("loginState") === "true" ? (
                 <>
                   <Nav.Item>

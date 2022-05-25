@@ -34,7 +34,6 @@ function MyEventsTab() {
   useEffect(() => {
     console.log(myEvents);
   }, [myEvents]);
- 
 
   return (
     <>
@@ -43,7 +42,9 @@ function MyEventsTab() {
           {/* <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner> */}
-          {myEvents ? <EventCarousel topEvents={myEvents} /> : null}
+          {myEvents ? (
+            <EventCarousel myEvents={true} topEvents={myEvents} />
+          ) : null}
         </>
       ) : (
         <Spinner

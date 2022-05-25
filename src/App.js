@@ -11,6 +11,7 @@ import { NoMatch } from "./containers/NoMatch";
 import NavigationBar from "./components/NavigationBar";
 import EventsCalendar from "./containers/EventsCalendar";
 import { Footer } from "./components/Footer";
+import EventPartnerPage from "./components/EventPartnerPage";
 export const LoginContext = createContext();
 const App = () => {
   const [loggedInState, setLoggedInState] = useState(null);
@@ -30,9 +31,10 @@ const App = () => {
           <Route exact path="/chat" element={<Chat />} />
           <Route exact path="/events" element={<Events />} />
           <Route exact path="/calendar" element={<EventsCalendar />} />
+          <Route exact path="/events/:id" element={<EventPartnerPage />} />
           <Route element={<NoMatch />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </LoginContext.Provider>
     </BrowserRouter>
   );
