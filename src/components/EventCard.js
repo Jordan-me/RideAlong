@@ -77,7 +77,6 @@ const EventCard = (props) => {
         ? assignedUsers.length > 0
           ? assignedUsers.map((assignedUserId) => {
               if (assignedUserId == userId) {
-                console.log("GOTITIITITITIT:" + interestedStatus);
                 setInterestedStatus(true);
               }
             })

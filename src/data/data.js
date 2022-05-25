@@ -285,7 +285,17 @@ export const getInstanceById = async (email, id) => {
     .catch((err) => console.log(err));
   return instance;
 };
-
+export const fetchAssignedUsersEvents = async(email,usersList) =>{
+  let myUsers = [];
+  if (usersList) {
+    for (let i = 0; i < usersList.length; i++) {
+      const userId = usersList[i];
+      const data = await getInstanceById(email,userId);
+      myUsers.push(data);
+    }
+    return myUsers;
+  }
+}
 export const fetchUsersEvents = async (user) => {
   let email = user.user.userId["email"];
   let userInstance = await fetchInstanceByName(email);

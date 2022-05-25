@@ -61,6 +61,7 @@
   border-radius: 0.375rem;
 }
 .d-flex {
+  margin-bottom: 1rem;
   display: flex !important;
 }
 .calendar .calendar-month {
