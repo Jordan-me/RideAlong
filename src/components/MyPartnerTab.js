@@ -36,26 +36,25 @@ function MyPartnersTab() {
   useEffect(() => {
     console.log(myEvents);
   }, [myEvents]);
- 
 
   return (
     <>
       {myEvents.length > 0 ? (
         <>
-          {/* <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner> */}
-          {myEvents ? myEvents.map((instance) => {
-            return (
-                <Row
-                  // style={{ width: "6500px" }}
-                  key={instance.instanceId.id}
-                >
-                  <PartnerCarousel partnersForEvent={instance.instanceAttributes.assignedUsers} event={instance} />
-                </Row>
-              );
-            })
-           : null}
+          {myEvents
+            ? myEvents.map((instance) => {
+                return (
+                  <Row key={instance.instanceId.id}>
+                    <PartnerCarousel
+                      partnersForEvent={
+                        instance.instanceAttributes.assignedUsers
+                      }
+                      event={instance}
+                    />
+                  </Row>
+                );
+              })
+            : null}
         </>
       ) : (
         <Spinner
