@@ -53,15 +53,17 @@ function EventCarousel(props) {
     >
       {!spinnerState ? (
         <>
-          <strong
-            style={{
-              padding: "4px",
-              margin: "4px",
-              color: "GrayText",
-            }}
-          >
-            {props.topEvents.length} Events incoming!
-          </strong>
+          <h5 style={{ marginLeft: "40%" }}>
+            <strong
+              style={{
+                padding: "4px",
+                margin: "4px",
+                color: "GrayText",
+              }}
+            >
+              {props.topEvents.length} Events incoming!
+            </strong>
+          </h5>
           <Carousel
             showDots={false}
             interval={false}

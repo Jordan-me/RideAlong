@@ -119,6 +119,54 @@ export const putUser = async (user, role) => {
     }),
   });
 };
+export const putUserInstanceInPartner = async (user, instance, email) => {
+  const putUserMySelf = async () => {
+    let id = instance["instanceId"]["id"];
+    await fetch(
+      INSTANCE_ENDPOINT +
+        "/" +
+        DOMAIN +
+        "/" +
+        id +
+        "?userDomain=" +
+        DOMAIN +
+        "&userEmail=" +
+        email,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          type: instance["type"],
+          name: instance["name"],
+          active: instance["active"],
+          location: {
+            lat: instance["location"]["lat"],
+            lng: instance["location"]["lng"],
+          },
+          instanceAttributes: {
+            firstName: instance["instanceAttributes"]["firstName"],
+            lastName: instance["instanceAttributes"]["lastName"],
+            dob: instance["instanceAttributes"]["dob"],
+            gender: instance["instanceAttributes"]["gender"],
+            counterEvents: instance["instanceAttributes"]["counterEvents"],
+            suggestedEvents: instance["instanceAttributes"]["suggestedEvents"],
+            attendedEvents: instance["instanceAttributes"]["attendedEvents"],
+          },
+        }),
+      }
+    );
+  };
+
+  putUser(user, "Manager").then(() =>
+    putUserMySelf()
+      // .then(() => setSpinnerState("SUCCESS"))
+      .then(async () => putUser(await fetchUser(user.email), "Player"))
+  );
+};
 export const putUserInstance = async (instance, email) => {
   let id = instance[0]["instanceId"]["id"];
   await fetch(

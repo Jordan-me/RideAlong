@@ -325,7 +325,7 @@ const EventCard = (props) => {
                     // }}
                     // htmlFor=""
                   >
-                    <label>Go to event</label>
+                    Go to event
                   </Button>
                 </Link>
               </>

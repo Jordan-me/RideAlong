@@ -2,7 +2,12 @@ import react, { useEffect, useState, useContext } from "react";
 import { Button, Row, Spinner } from "react-bootstrap";
 import { LoginContext } from "../App";
 import "../cssFiles/EventPartner.css";
-import { getInstanceById } from "../data/data";
+import {
+  putUserInstance,
+  getInstanceById,
+  putEventUserInstance,
+  putUserInstanceInPartner,
+} from "../data/data";
 const EventPartnerPage = (props) => {
   const [chosenEventID, setChosenEventID] = useState(null);
   const [chosenEvent, setChosenEvent] = useState(null);
@@ -10,7 +15,7 @@ const EventPartnerPage = (props) => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [user, setUser] = useState(null);
   const [myPartnersList, setMyPartnersList] = useState([]);
-
+  const [pick, setPick] = useState(false);
   const fetchAssignedUsersEvents = async (email, usersList) => {
     let myUsers = [];
     if (usersList) {
@@ -64,6 +69,41 @@ const EventPartnerPage = (props) => {
       setDateMonth(date.toLocaleString("en-us", { month: "short" }));
     }
   }, [chosenEvent]);
+  const handlePickPartner = async (instance) => {
+    console.log(
+      "ins:\n" +
+        JSON.stringify(instance) +
+        "\nid:\n" +
+        instance.instanceId.id +
+        "\nemail\n" +
+        instance.createdBy.userId.email
+    );
+
+    chosenEvent.instanceAttributes.assignedUsers.map((assignedUser) => {
+      if (assignedUser.id === instance.instanceId.id) {
+        assignedUser.isAccepted = true;
+        // return assignedUser.isAccepted
+      }
+    });
+
+    console.log(chosenEvent);
+    const res1 = await putEventUserInstance(
+      chosenEvent,
+      user.userId.email,
+      user
+    ).then(() => setPick(true));
+
+    instance.instanceAttributes.attendedEvents.push(chosenEventID);
+    instance.instanceAttributes.counterEvents += 1;
+
+    // const res2 = await putUserInstanceInPartner(
+    //   user,
+    //   instance,
+    //   user.userId.email
+    // );
+    // let newInstance = {...chosenEvent, chosenEvent.instanceAttributes.attendedEvents.assignedUsers: [...chosenEvent.instanceAttributes.attendedEvents.assignedUsers, ]}
+    // setPick(true)
+  };
   return (
     <div
       className="h-100 gradient-custom-2"
@@ -120,6 +160,7 @@ const EventPartnerPage = (props) => {
                         backgroundColor: "#dbdada86",
                         borderRadius: "2%",
                         padding: "2%",
+                        display: "flex",
                       }}
                       className="h-100 col-md-6"
                     >
@@ -136,9 +177,13 @@ const EventPartnerPage = (props) => {
                         <div className="flex-1 position-relative ps-3">
                           <h6 className="fs-0 mb-0">
                             <span className="me-1">
-                              {instance.instanceAttributes.firstName +
-                                " " +
-                                instance.instanceAttributes.lastName}
+                              {instance
+                                ? instance.instanceAttributes
+                                  ? instance.instanceAttributes.firstName +
+                                    " " +
+                                    instance.instanceAttributes.lastName
+                                  : null
+                                : null}
                             </span>
                           </h6>
                           <div className="border-dashed-bottom my-3">
@@ -148,26 +193,49 @@ const EventPartnerPage = (props) => {
                           </div>
                         </div>
                       </div>
-                      <Button
-                        size="md"
-                        variant="outline-success"
-                        className="d-block"
-                        style={{ marginTop: "2px", marginRight: "10px" }}
-                        htmlFor="Interested1"
-                      >
+                      {pick ? (
                         <svg
+                          className="checkmark"
                           xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="bi bi-arrow-up-circle-fill"
-                          viewBox="0 0 16 16"
-                          style={{ paddingRight: "5px" }}
+                          viewBox="0 0 52 52"
+                          style={{ width: "5%", height: "5%" }}
                         >
-                          <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                          <circle
+                            className="checkmark__circle"
+                            cx="26"
+                            cy="26"
+                            r="25"
+                            fill="none"
+                          />
+                          <path
+                            className="checkmark__check"
+                            fill="none"
+                            d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                          />
                         </svg>
-                        Pick me
-                      </Button>
+                      ) : (
+                        <Button
+                          size="md"
+                          variant="outline-success"
+                          className="d-block"
+                          style={{ marginTop: "2px", marginRight: "10px" }}
+                          htmlFor="Interested1"
+                          onClick={(e) => handlePickPartner(instance)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-arrow-up-circle-fill"
+                            viewBox="0 0 16 16"
+                            style={{ paddingRight: "5px" }}
+                          >
+                            <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                          </svg>
+                          Pick me
+                        </Button>
+                      )}
                     </div>
                   </>
                 );
