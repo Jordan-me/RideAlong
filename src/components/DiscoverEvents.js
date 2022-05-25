@@ -193,12 +193,12 @@ function DiscoverEvents({ user }) {
               <Tab eventKey="My Events" title="My Events" className="tab">
                 <MyEventsTab />
               </Tab>
-              <Tab eventKey="My Calender" title="My Calender">
+              {/* <Tab eventKey="My Calender" title="My Calender">
                 <MyCalendar />
-              </Tab>
-              <Tab eventKey="Companion" title="Companion" className="tab">
+              </Tab> */}
+              {/* <Tab eventKey="Companion" title="Companion" className="tab">
                 <MyPartnersTab />
-              </Tab>
+              </Tab> */}
             </Tabs>
           )}
         </div>

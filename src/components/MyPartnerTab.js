@@ -109,7 +109,10 @@ function MyPartnersTab() {
           {/* <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner> */}
-          {partnerEvents ? <EventCarousel topEvents={partnerEvents} /> : null}
+          {partnerEvents ? 
+          <EventCarousel topEvents={partnerEvents} />
+          
+          : null}
         </>
       ) : (
         <Spinner
