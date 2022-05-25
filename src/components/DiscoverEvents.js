@@ -9,7 +9,6 @@ import { fetchUser, postEventInstance, putUser } from "../data/data";
 import { TopEventTab } from "./TopEventTab";
 import { MyEventsTab } from "./MyEventsTab";
 import Spinner from "react-bootstrap/Spinner";
-import { MyPartnersTab } from "./MyPartnerTab";
 
 const EventForm = (props) => {
   const [loggedInState, setLoggedInState] = useContext(LoginContext);

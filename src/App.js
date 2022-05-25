@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./containers/Home";
 import { Login } from "./containers/Login";
@@ -12,6 +12,7 @@ import NavigationBar from "./components/NavigationBar";
 import EventsCalendar from "./containers/EventsCalendar";
 import { Footer } from "./components/Footer";
 import EventPartnerPage from "./components/EventPartnerPage";
+import { getLocationDisplay } from "./components/GooglePlacesInput";
 export const LoginContext = createContext();
 const App = () => {
   const [loggedInState, setLoggedInState] = useState(null);

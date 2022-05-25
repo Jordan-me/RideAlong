@@ -15,36 +15,34 @@ import {
 import "@reach/combobox/styles.css";
 import "../cssFiles/Map.css";
 
-function getLocationDisplay(latitude,longitude){
+export function getLocationDisplay(latitude, longitude) {
   var geocoder;
   const google = window.google;
   geocoder = new google.maps.Geocoder();
   var latlng = new google.maps.LatLng(latitude, longitude);
 
-  geocoder.geocode(
-      {'latLng': latlng}, 
-      function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-              if (results[0]) {
-                  var add= results[0].formatted_address ;
-                  var  value=add.split(",");
+  geocoder.geocode({ latLng: latlng }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[0]) {
+        var add = results[0].formatted_address;
+        var value = add.split(",");
 
-                  // count=value.length;
-                  // country=value[count-1];
-                  // state=value[count-2];
-                  // city=value[count-3];
-                  return value;
-                  // x.innerHTML = "city name is: " + city;
-              }
-              // else  {
-                  // x.innerHTML = "address not found";
-              // }
-          }
-          // else {
-              // x.innerHTML = "Geocoder failed due to: " + status;
-          // }
+        // count=value.length;
+        // country=value[count-1];
+        // state=value[count-2];
+        // city=value[count-3];
+
+        return value;
+        // x.innerHTML = "city name is: " + city;
       }
-  );
+      // else  {
+      // x.innerHTML = "address not found";
+      // }
+    }
+    // else {
+    // x.innerHTML = "Geocoder failed due to: " + status;
+    // }
+  });
 }
 function Places({ origin, setOrigin, Dest, setDest }) {
   const { isLoaded } = useLoadScript({

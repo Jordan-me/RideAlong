@@ -9,11 +9,6 @@ const NavigationBar = (props) => {
   const navigate = useNavigate();
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [loginTokenState, setLoginTokenState] = useState(false);
-  // useEffect(() => {
-  //   localStorage.getItem("loginState") === true
-  //     ? setLoginTokenState(true)
-  //     : setLoginTokenState(false);
-  // }, [localStorage.getItem("loginState")]);
   return (
     <>
       <Navbar collapseOnSelect fixed="top" bg="dark" expand="lg" variant="dark">
@@ -63,11 +58,6 @@ const NavigationBar = (props) => {
                   <Nav.Item>
                     <Nav.Link as={Link} to="/events">
                       Events
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link as={Link} to="/chat">
-                      Chat
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
