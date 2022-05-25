@@ -22,7 +22,7 @@ function useForceUpdate() {
 const EventCard = (props) => {
   const forceUpdate = useForceUpdate();
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
-  const [event, setEvent] = useState([]);
+  const [event, setEvent] = useState({});
   const [img, setImage] = useState(null);
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
@@ -41,7 +41,8 @@ const EventCard = (props) => {
     }
   }, [loggedInState]);
   useEffect(() => {
-    console.log(props);
+    console.log(event);
+    // console.log(props);
     if (props) if (props.eventInstance) setEvent(props.eventInstance);
 
     // props ? (props.eventInstance ? setEvent(props.eventInstance) : null) : null;
@@ -71,13 +72,11 @@ const EventCard = (props) => {
           : null
         : null
       : null;
-    console.log("does try?");
     let answer =
       attendedCounter > 0
         ? assignedUsers.length > 0
           ? assignedUsers.map((assignedUserId) => {
               if (assignedUserId == userId) {
-                console.log("GOTITIITITITIT:" + interestedStatus);
                 setInterestedStatus(true);
               }
             })
@@ -299,8 +298,8 @@ const EventCard = (props) => {
         </Row>
         <div className="mt-3 justify-content-between">
           {/* <!-- Interested button --> */}
-          {props ? (
-            props.eventId ? (
+          {event ? (
+            event.eventId ? (
               <>
                 <Link
                   style={{
@@ -308,11 +307,10 @@ const EventCard = (props) => {
                     color: "#FFFFFF",
                     textDecoration: "none",
                   }}
-                  to={{
-                    pathname: props.eventId,
-                    state: event,
-                  }}
+                  to={props.eventId}
+                  state={{ event: event }}
                 >
+                  {/* {console.log(event)} */}
                   <Button
                     size="md"
                     variant="success"
@@ -326,7 +324,7 @@ const EventCard = (props) => {
                     // }}
                     // htmlFor=""
                   >
-                    <label>Go to event</label>
+                    Go to event
                   </Button>
                 </Link>
               </>
