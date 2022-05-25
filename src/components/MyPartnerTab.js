@@ -43,6 +43,7 @@ function MyPartnersTab() {
 
   const getEventsList = async (user) => {
     // await putUser(user.user, "Player");
+    console.log(user);
     let myEventsData = await fetchUsersEvents(user);
     console.log(myEventsData);
     setPartnerEvents(myEventsData);

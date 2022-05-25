@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import { Badge, Button, Card, Carousel, Col, Row } from "react-bootstrap";
 import "../cssFiles/Events.css";
 import RoadTrip from "../assets/images/RoadTripGenre.jpg";
@@ -9,7 +9,11 @@ import Arts from "../assets/images/ArtsGenre.jpg";
 import DefaultGenre from "../assets/images/defaultGenre.jpg";
 import { LoginContext } from "../App";
 import { getInstanceById, putEventUserInstance } from "../data/data";
+import { Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+
+export const CurrentEventContext = createContext();
+
 //create your forceUpdate hook
 function useForceUpdate() {
   const [value, setValue] = useState(0); // integer state
@@ -18,12 +22,13 @@ function useForceUpdate() {
 const EventCard = (props) => {
   const forceUpdate = useForceUpdate();
   const [loggedInState, setLoggedInState] = useContext(LoginContext);
-  const [event, setEvent] = useState(null);
+  const [event, setEvent] = useState([]);
   const [img, setImage] = useState(null);
   const [user, setUser] = useState(null);
   const [extra, setExtra] = useState(null);
   const [interestedStatus, setInterestedStatus] = useState(false);
   const [spinnerStatus, setSpinnerStatus] = useState(false);
+
   let bool = false;
   // useEffect(() => {
   //   console.log(extra[0].instanceId.id);
@@ -84,31 +89,33 @@ const EventCard = (props) => {
 
   useEffect(() => {
     if (event) {
-      if (event.instanceAttributes.genre) {
-        let genre = event.instanceAttributes.genre;
-        switch (genre) {
-          case "Flight":
-            setImage(Flight);
-            break;
-          case "Concert":
-            setImage(Concert);
-            break;
-          case "Road Trip":
-            setImage(RoadTrip);
-            break;
-          case "Sports":
-            setImage(Sports);
-            break;
-          case "Arts & Theater":
-            setImage(Arts);
-            break;
-          default:
-            setImage(DefaultGenre);
-            break;
+      if (event.instanceAttributes) {
+        if (event.instanceAttributes.genre) {
+          let genre = event.instanceAttributes.genre;
+          switch (genre) {
+            case "Flight":
+              setImage(Flight);
+              break;
+            case "Concert":
+              setImage(Concert);
+              break;
+            case "Road Trip":
+              setImage(RoadTrip);
+              break;
+            case "Sports":
+              setImage(Sports);
+              break;
+            case "Arts & Theater":
+              setImage(Arts);
+              break;
+            default:
+              setImage(DefaultGenre);
+              break;
+          }
         }
+      } else {
+        setImage(DefaultGenre);
       }
-    } else {
-      setImage(DefaultGenre);
     }
   }, [event]);
 
@@ -177,12 +184,20 @@ const EventCard = (props) => {
         alt=""
       />
       <Badge className="bg-danger text-white mt-2 me-2 position-absolute top-0 end-0">
-        {event ? event.instanceAttributes.genre : null}
+        {event
+          ? event.instanceAttributes
+            ? event.instanceAttributes.genre
+            : null
+          : null}
       </Badge>
       <Card.Body>
         <h5 className="mt-3">
           {" "}
-          {event ? event.instanceAttributes.title : null}{" "}
+          {event
+            ? event.instanceAttributes
+              ? event.instanceAttributes.title
+              : null
+            : null}{" "}
         </h5>
         <p className="mb-0 small">
           <svg
@@ -195,7 +210,12 @@ const EventCard = (props) => {
           >
             <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708z"></path>{" "}
           </svg>
-          Will be held on {event ? event.instanceAttributes.futureDate : null}
+          Will be held on{" "}
+          {event
+            ? event.instanceAttributes
+              ? event.instanceAttributes.futureDate
+              : null
+            : null}
         </p>
         <p style={{ padding: "4px" }} className="small">
           <svg
@@ -210,9 +230,25 @@ const EventCard = (props) => {
             <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
           </svg>
           {/* <div style={{ padding: "4%" }}> */}
-          <>From {event ? event.instanceAttributes.origin.address : null}</>
+          <>
+            From{" "}
+            {event
+              ? event.instanceAttributes
+                ? event.instanceAttributes.origin.address
+                : null
+              : null}
+          </>
           <br />
-          <>To {event ? event.instanceAttributes.dest.address : null}</>
+          <>
+            To{" "}
+            {event
+              ? event.instanceAttributes
+                ? event.instanceAttributes.dest
+                  ? event.instanceAttributes.dest.address
+                  : null
+                : null
+              : null}
+          </>
           {/* </div> */}
         </p>
 
@@ -240,7 +276,12 @@ const EventCard = (props) => {
                 className="smaller text-white position-absolute"
                 style={{ paddingTop: "15px", paddingLeft: "12px" }}
               >
-                + {event ? event.instanceAttributes.attendedCounter : null}
+                +{" "}
+                {event
+                  ? event.instanceAttributes
+                    ? event.instanceAttributes.attendedCounter
+                    : null
+                  : null}
               </div>
             </div>
           </Col>
@@ -256,15 +297,46 @@ const EventCard = (props) => {
             <small>In attendance</small>
           </Col>
         </Row>
-        <div
-          className="mt-3 justify-content-between"
-          style={{ marginLeft: "20%" }}
-        >
+        <div className="mt-3 justify-content-between">
           {/* <!-- Interested button --> */}
+          {props ? (
+            props.eventId ? (
+              <>
+                <Link
+                  style={{
+                    paddingLeft: "30px",
+                    color: "#FFFFFF",
+                    textDecoration: "none",
+                  }}
+                  to={{
+                    pathname: props.eventId,
+                    state: event,
+                  }}
+                >
+                  <Button
+                    size="md"
+                    variant="success"
+                    className="d-block"
+                    htmlFor="Interested1"
+                    // disabled={interestedStatus}
+                    // onClick={() => {
+                    //   props.setTopSpinner(true);
+                    //   setSpinnerStatus(true);
+                    //   handleInterestedUser();
+                    // }}
+                    // htmlFor=""
+                  >
+                    <label>Go to event</label>
+                  </Button>
+                </Link>
+              </>
+            ) : null
+          ) : null}
+
           {user ? (
             user.userId ? (
               user.userId.email !== event.createdBy.userId.email ? (
-                <div className="w-100">
+                <div style={{ display: "flex" }} className="w-100">
                   {/* {spinnerStatus ? ( */}
                   {/* <Spinner
                       style={{ width: "100px", height: "100px" }}

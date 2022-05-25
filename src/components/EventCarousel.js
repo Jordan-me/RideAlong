@@ -7,13 +7,18 @@ import { LoginContext } from "../App";
 import { fetchInstanceByType } from "../data/data";
 import EventCard from "./EventCard";
 import Spinner from "react-bootstrap/Spinner";
+import { Link } from "react-router-dom";
 
 function EventCarousel(props) {
   // const [loggedInState, setLoggedInState] = useContext(LoginContext);
   const [userInstances, setUserInstances] = useState([]);
   const [spinnerState, setSpinnerState] = useState(false);
-
-  useEffect(() => {}, []);
+  const [myEventsState, setMyEventsState] = useState(false);
+  useEffect(() => {
+    if (props) {
+      props.myEvents ? setMyEventsState(true) : setMyEventsState(false);
+    }
+  }, []);
 
   const responsive = {
     desktop: {
@@ -47,43 +52,68 @@ function EventCarousel(props) {
       }}
     >
       {!spinnerState ? (
-        <Carousel
-          showDots={false}
-          interval={false}
-          responsive={responsive}
-          ssr={false} // means to render carousel on server-side.
-          infinite={false}
-          autoPlay={false}
-          keyBoardControl={true}
-          customTransition="all .5"
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-10-px"
-        >
-          {props ? (
-            props.topEvents ? (
-              props.topEvents.map((instance) => {
-                return (
-                  <div key={instance.instanceId.id}>
-                    <EventCard
-                      setTopSpinner={setSpinnerState}
-                      eventInstance={instance}
-                    />
-                  </div>
-                );
-              })
+        <>
+          <strong
+            style={{
+              padding: "4px",
+              margin: "4px",
+              color: "GrayText",
+            }}
+          >
+            {props.topEvents.length} Events incoming!
+          </strong>
+          <Carousel
+            showDots={false}
+            interval={false}
+            responsive={responsive}
+            ssr={false} // means to render carousel on server-side.
+            infinite={false}
+            autoPlay={false}
+            keyBoardControl={true}
+            customTransition="all .5"
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-10-px"
+          >
+            {props ? (
+              props.topEvents ? (
+                props.topEvents.map((instance) => {
+                  return (
+                    <div key={instance.instanceId.id}>
+                      {myEventsState ? (
+                        // <div>
+                        //   my Event!
+                        //   <Link to={`/events/${instance.instanceId.id}`}>
+                        //     <h1>Event Details</h1>
+                        //   </Link>
+                        // </div>
+                        <EventCard
+                          eventId={`/events/${instance.instanceId.id}`}
+                          setTopSpinner={setSpinnerState}
+                          eventInstance={instance}
+                        />
+                      ) : (
+                        <EventCard
+                          setTopSpinner={setSpinnerState}
+                          eventInstance={instance}
+                        />
+                      )}
+                    </div>
+                  );
+                })
+              ) : (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              )
             ) : (
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
-            )
-          ) : (
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          )}
-        </Carousel>
+            )}
+          </Carousel>
+        </>
       ) : (
         <div style={{ margin: "15%", marginLeft: "50%", height: "100%" }}>
           <svg
