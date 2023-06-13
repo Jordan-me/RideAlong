@@ -29,9 +29,11 @@ This Project will help you manage your events and join other people events!
     <img src="https://drive.google.com/uc?export=§view&id=1hMnmS-42OfukOmnf3wybEuFRon93jmLf" width="250px" /> 
     <p>Events page.</p> 
 </div>
+
 ## Run Commands
-In the project directory, you can run:
-### `yarn start`
+
+In the project directory, you can run:  
+`yarn start`  
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
