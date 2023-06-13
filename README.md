@@ -1,11 +1,36 @@
-# Getting Started with Create React App
+# RIDE ALONG Web App
+This Project will help you manage your events and join other people events!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Recording and Screenshots
+<div align="center">
+    <img src="https://drive.google.com/uc?export=§view&id=1Bihm1fbByVS5181sULrDLumTGsjjc9FE" width="250px" /> 
+    <img src="https://drive.google.com/uc?export=§view&id=1hJmnMKDUNygksUpxP3YuP5mRQ-wX5IeD" width="250px" /> 
+    <p>This home page page contain react-responsive-carousel.</p> 
+</div>
 
-## Available Scripts
+<div align="center">
+    <img src="https://drive.google.com/uc?export=§view&id=1xzRFaho1c_4BR0QsWXSN412DmPYuGodu" width="250px" /> 
+    <img src="https://drive.google.com/uc?export=§view&id=1LptXjbBUzMYhCb5SOl_KQrQEG-ygHtzU" width="250px" /> 
+    <p>Registeration & Login pages.</p> 
+</div>
 
+<div align="center">
+    <img src="https://drive.google.com/uc?export=§view&id=1NBPdgD7OaH-e1YyTtZu_wHY6eBKng7CG" width="250px" /> 
+    <p>Profile page.</p> 
+</div>
+
+<div align="center">
+    <img src="https://drive.google.com/uc?export=§view&id=1e3SODY64WRrE0IftADW_JY8Dn6e28Rf0" width="250px" /> 
+    <img src="https://drive.google.com/uc?export=§view&id=1XQ4Z-mjijM0YJdfVe70rp27Wu9tcveWK" width="250px" /> 
+    <p>Create Event using Google Auto-Complete.</p> 
+</div>
+
+<div align="center">
+    <img src="https://drive.google.com/uc?export=§view&id=1hMnmS-42OfukOmnf3wybEuFRon93jmLf" width="250px" /> 
+    <p>Events page.</p> 
+</div>
+## Run Commands
 In the project directory, you can run:
-
 ### `yarn start`
 
 Runs the app in the development mode.\
@@ -14,57 +39,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Note: For Server Code reffer to : https://github.com/Jordan-me/RideAlong_Server
